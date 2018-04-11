@@ -1,0 +1,64 @@
+<?php
+    $salesrep = Mage::getStoreConfig('salesrep/setup/enabled') && Mage::getStoreConfig('salesrep/step_setup/step_enabled');
+    $showAttachment = false;
+?>
+
+<?php if (Mage::helper('core')->isModuleOutputEnabled('RedPandaPlus_OrderAttachments')) : ?>
+    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+    <?php $customerCanUploadAttachment = Mage::helper('redpandaplus_orderattachments')->customerCanUploadAttachment($customer); ?>
+    <?php $canAddAttachments = Mage::helper('redpandaplus_orderattachments')->getCanAddAttachments(); ?>
+    <?php if ($customerCanUploadAttachment && $canAddAttachments): ?>
+        <?php $showAttachment = true; ?>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php $html = $this->getChildHtml() ?>
+<?php if ($html || $salesrep || $showAttachment) : ?>
+    <div id="checkout-additional" class="firecheckout-section">
+        <div class="block-title"><span><?php echo $this->__('Additional Information') ?></span></div>
+        <div class="block-content">
+            <?php echo $html ?>
+
+            <?php if ($showAttachment) : ?>
+                <a href="javascript:void(0)" class="upload-attachment-link"><?php echo $this->__('Upload Attachments') ?></a>
+                <script type="text/javascript">
+                document.observe('dom:loaded', function() {
+                    var uploadWindow = new FC.Window({
+                        triggers: {
+                            uploadWindow: {
+                                el    : $$('.upload-attachment-link'),
+                                event : 'click',
+                                window: $('firecheckout-attachments-window'),
+                                size: {
+                                    width: 700
+                                }
+                            }
+                        }
+                    });
+                });
+                </script>
+            <?php endif; ?>
+
+            <?php if (Mage::getStoreConfig('salesrep/setup/enabled') && Mage::getStoreConfig('salesrep/step_setup/step_enabled')) : ?>
+            <?php $admins = Mage::helper('salesrep')->getUsersList(); ?>
+            <ul class="form-list">
+                <li>
+                    <label for="getvoice" class="required"><em>*</em><?php echo Mage::getStoreConfig('salesrep/step_setup/step_label')?></label>
+                    <div class="input-box">
+                        <select id="getvoice" name="getvoice" class="validate-select">
+                            <option value=""></option>
+                            <option value="<?php echo $this->__('No Sales Representative') ?>"><?php echo $this->__('No Sales Representative') ?></option>
+                            <?php foreach($admins as $admin): ?>
+                            <option value="<?php echo $admin['label'] ?>"><?php echo $admin['label'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div style="display: none;" id="advice-validate-select-getvoice" class="validation-advice">
+                        <?php echo Mage::getStoreConfig('salesrep/step_setup/step_error_msg')?>
+                    </div>
+                </li>
+            </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

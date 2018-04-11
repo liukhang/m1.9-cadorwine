@@ -1,0 +1,30 @@
+<?php
+    $attachments = $this->getAttachments();
+    if (!$attachments->getSize()) :
+        return;
+    endif;
+?>
+
+<div class="order-attachments order-info-box">
+    <h2 class="table-caption"><?php echo $this->__('Order Attachments') ?></h2>
+    <table class="data-table" id="attachments-table" summary="<?php echo $this->__('Order Attachments') ?>">
+        <thead>
+            <tr>
+                <th><?php echo $this->__('File') ?></th>
+                <th><?php echo $this->__('Comment') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($attachments as $attachment) : ?>
+            <?php
+                $filename = $this->escapeHtml($attachment->getFilename());
+            ?>
+            <tr>
+                <td class="col-file"><a href="<?php echo $attachment->getDownloadUrl() ?>" title="<?php echo $this->__('Download %s', $filename) ?>"><?php echo $filename ?></a></td>
+                <td class="col-comment"><?php echo $this->escapeHtml($attachment->getComment()) ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('attachments-table', {'tbody tr' : ['first', 'last']})</script>
+</div>

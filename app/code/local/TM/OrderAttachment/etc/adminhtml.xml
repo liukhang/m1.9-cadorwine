@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <templates_master>
+            <title>Templates Master</title>
+            <sort_order>71</sort_order>
+            <children>
+                <orderattachment translate="title" module="orderattachment">
+                    <title>Order Attachments</title>
+                    <sort_order>1566</sort_order>
+                    <action>adminhtml/orderattachment_attachment/index</action>
+                </orderattachment>
+            </children>
+        </templates_master>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <orderattachment>
+                                        <title>Order Attachments</title>
+                                    </orderattachment>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <templates_master>
+                        <title>Templates Master</title>
+                        <sort_order>71</sort_order>
+                        <children>
+                            <orderattachment translate="title" module="orderattachment">
+                                <title>Order Attachments</title>
+                                <sort_order>1566</sort_order>
+                                <children>
+                                    <save>
+                                        <title>Save</title>
+                                        <sort_order>10</sort_order>
+                                    </save>
+                                    <clear>
+                                        <title>Clear lost and old guest attachments</title>
+                                        <sort_order>20</sort_order>
+                                    </clear>
+                                    <delete>
+                                        <title>Delete</title>
+                                        <sort_order>30</sort_order>
+                                    </delete>
+                                </children>
+                            </orderattachment>
+                        </children>
+                    </templates_master>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

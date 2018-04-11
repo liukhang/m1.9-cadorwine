@@ -1,0 +1,140 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+$category_id  = 0;
+if(Mage::registry('current_category')){
+	$category_id  = Mage::registry('current_category')->getId();
+}else{
+	$category_ids = Mage::registry('current_product')->getCategoryIds();
+	
+	$category_id  = $category_ids[count($category_ids)-1];
+	
+}
+$category = Mage::getModel('catalog/category')->load($category_id);
+$productCollection = Mage::getResourceModel('catalog/product_collection')
+                                 ->addCategoryFilter($category)
+                                 ->addAttributeToFilter('status',1)
+                                 ->addAttributeToFilter('visibility',4)
+								 ->setPageSize(9)
+								->setCurPage(1);;
+?>
+
+<?php if(count($productCollection)>1): ?>
+	<div class="related-product">
+		<div class="title-line"> <strong><?php echo $this->__('Correlati') ?></strong></div>
+		<div class="category-products">
+			<ul id="related_product_owl" class="owl-carousel owl-theme products-grid" id="block-related">
+			<?php foreach($productCollection as $_item): ?>
+				<?php if($_item->getId() !=Mage::registry('current_product')->getId()){ ?>
+				<?php $_product = Mage::getModel('catalog/product')->load($_item->getId()); ?>
+				<li class="item">
+					
+					<div class="product">
+						<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image">
+						<img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(414,620) ?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" />
+						<?php /* <img class="hover-images" src="<?php echo $this->helper('catalog/image')->init($_product, 'kk_hover')->resize(414,620) ?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /> */ ?>
+						</a>
+							
+						
+						<div class="product-info">
+							<p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></p>
+							
+							<?php if($_product->getShortDescription()){ ?>
+								<?php $shortDescription = Mage::helper('core/string')->truncate($_product->getShortDescription(), $length = 20, $etc = '...', $remainder = '', $breakWords = true); ?>
+								<div class="short_description"><?php echo $shortDescription; ?></div>
+							<?php } ?>
+							
+							<?php echo $this->getPriceHtml($_product, true, '-related') ?>
+							<?php echo $this->getReviewsSummaryHtml($_product) ?>
+						</div>
+					</div>
+					
+				</li>
+				<?php } ?>
+			<?php endforeach ?>
+			</ul>
+		</div>
+	</div>
+        <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
+    <script type="text/javascript">
+    //<![CDATA[
+    $$('.related-checkbox').each(function(elem){
+        Event.observe(elem, 'click', addRelatedToProduct)
+    });
+
+    var relatedProductsCheckFlag = false;
+    function selectAllRelated(txt){
+        if (relatedProductsCheckFlag == false) {
+            $$('.related-checkbox').each(function(elem){
+                elem.checked = true;
+            });
+            relatedProductsCheckFlag = true;
+            txt.innerHTML="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('unselect all')) ?>";
+        } else {
+            $$('.related-checkbox').each(function(elem){
+                elem.checked = false;
+            });
+            relatedProductsCheckFlag = false;
+            txt.innerHTML="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('select all')) ?>";
+        }
+        addRelatedToProduct();
+    }
+
+    function addRelatedToProduct(){
+        var checkboxes = $$('.related-checkbox');
+        var values = [];
+        for(var i=0;i<checkboxes.length;i++){
+            if(checkboxes[i].checked) values.push(checkboxes[i].value);
+        }
+        if($('related-products-field')){
+            $('related-products-field').value = values.join(',');
+        }
+    }
+    //]]>
+    </script>
+<script>
+    var owl_carousel_related = jQuery('#related_product_owl');
+	owl_carousel_related.owlCarousel({
+		items: 3,
+		dots: true,
+		nav: true,
+		loop: false,
+		navText: [
+				"<i class='fa fa-left'></i>",
+				"<i class='fa fa-right'></i>"
+			],
+		margin: 35,
+		responsive: {
+			0: {items: 1, margin: 20},
+			481: {items: 2, margin: 20},
+			768: {items: 2},
+			991: {items: 3},
+			1024: {items: 3}
+		}
+	})    
+</script>
+<?php endif ?>

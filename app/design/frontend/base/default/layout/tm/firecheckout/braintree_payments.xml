@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="before_body_end">
+            <block type="braintree_payments/datajs" name="braintree_payments_data_js" template="braintree/data_js.phtml" >
+                <action method="setData">
+                    <key>form_id</key>
+                    <value>firecheckout-form</value>
+                </action>
+            </block>
+            <!-- <block type="braintree_payments/paypal_js" name="braintree_paypal_js" template="tm/firecheckout/braintree/paypal.phtml">
+                <action method="setData">
+                    <key>form_id</key>
+                    <value>firecheckout-form</value>
+                </action>
+            </block> -->
+            <block type="braintree_payments/paypal_js" name="braintree_opcheckout" template="tm/firecheckout/braintree/js.phtml">
+                <action method="setData">
+                    <key>form_id</key>
+                    <value>firecheckout-form</value>
+                </action>
+            </block>
+        </reference>
+    </firecheckout_index_index>
+</layout>

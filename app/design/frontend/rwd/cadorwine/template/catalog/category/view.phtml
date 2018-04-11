@@ -1,0 +1,80 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<?php /* <div class="page-title category-title">
+    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+</div> */ ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php if($_imgUrl): ?>
+<?php echo $_imgHtml ?>
+<?php endif; ?>
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+ 
+<div class="category-description std"> <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?> </div>
+<?php endif; ?>
+<?php if($this->isContentMode()): ?>
+<?php echo $this->getCmsBlockHtml() ?>
+<?php elseif($this->isMixedMode()): ?>
+<?php echo $this->getCmsBlockHtml() ?> <?php echo $this->getProductListHtml() ?>
+<?php else: ?>
+<?php echo $this->getProductListHtml() ?>
+<?php endif; ?>
+<?php $CategoryId = $this->getCurrentCategory()->getId(); 
+	if($CategoryId == 35 || $CategoryId == 27 || $CategoryId == 28 || $CategoryId == 29 || $CategoryId == 30 || $CategoryId == 31 || $CategoryId == 32 || $CategoryId == 33 || $CategoryId == 34 ){
+?>
+<div class="home_eight_sub_categories"> 
+  <!--<h2 class="title"><?php echo $this->__('Typology') ?></h2>-->
+  <ul>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/body"> <span class="<?php if($CategoryId == 27){ ?>images1-hover<?php } else { ?>images1<?php } ?>"></span> <span class="name">Body</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/canotte"> <span class="<?php if($CategoryId == 28){ ?>images2-hover<?php } else { ?>images2<?php } ?>"></span> <span class="name">CANOTTE</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/guaine"> <span class="<?php if($CategoryId == 29){ ?>images3-hover<?php } else { ?>images3<?php } ?>"></span> <span class="name">GUAINE</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/leggings"> <span class="<?php if($CategoryId == 30){ ?>images4-hover<?php } else { ?>images4<?php } ?>"></span> <span class="name">LEGGINGS</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/reggiseni"> <span class="<?php if($CategoryId == 31){ ?>images5-hover<?php } else { ?>images5<?php } ?>"></span> <span class="name">REGGISENI</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/slip"> <span class="<?php if($CategoryId == 32){ ?>images6-hover<?php } else { ?>images6<?php } ?>"></span> <span class="name">SLIP</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/sottovesti"> <span class="<?php if($CategoryId == 33){ ?>images7-hover<?php } else { ?>images7<?php } ?>"></span> <span class="name">SOTTOVESTI</span> </a> </li>
+    <li> <a href="http://demo.up3up.net/www.controlbody.it/tipologia/accessori"> <span class="<?php if($CategoryId == 34){ ?>images8-hover<?php } else { ?>images8<?php } ?>"></span> <span class="name">ACCESSORI</span> </a> </li>
+  </ul>
+</div>
+<?php } ?>

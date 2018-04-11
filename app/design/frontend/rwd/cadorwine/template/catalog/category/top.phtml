@@ -1,0 +1,29 @@
+<?php /*
+<div class="page-title category-title">
+<?php
+	$_category = Mage::registry('current_category');
+	if($_category->getLevel()==2){
+		$sub_categorys = Mage::getModel('catalog/category')->load($_category->getId())->getChildrenCategories();
+		echo "<h1>".$_category->getName()."</h1>";
+	}elseif($_category->getLevel()==3){
+		$sub_categorys = Mage::getModel('catalog/category')->load(Mage::registry('current_category')->getParentCategory()->getId())->getChildrenCategories();
+		echo "<h1>".Mage::registry('current_category')->getParentCategory()->getName()."</h1>";
+	}
+?>
+</div>
+<ul class="sub_category">
+	<?php foreach($sub_categorys as $sub_category){ ?>
+	<li class="item <?php if ($sub_category->getId() == Mage::registry('current_category')->getId()) { echo "active"; } ?>"><a class="category-ajax-custom" href="<?php echo $sub_category->getUrl() ?>"><?php echo $sub_category->getName() ?></a></li>  
+	<?php } ?>
+</ul>
+<div class="sub_category_mobile">
+	<select name="" class="category-ajax-custom-mobile">
+		<?php foreach($sub_categorys as $sub_category): ?>
+			<option data-href="<?php echo $sub_category->getUrl() ?>" value="<?php echo $sub_category->getName();?>"><?php echo $sub_category->getName() ?></option>
+		<?php endforeach;?>
+	</select>
+	<span></span>
+</div>
+*/ ?>
+
+<?php echo $this->getChildHtml('category.products') ?>

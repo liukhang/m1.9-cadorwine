@@ -1,0 +1,549 @@
+<?php
+
+/**
+
+ * Magento
+
+ *
+
+ * NOTICE OF LICENSE
+
+ *
+
+ * This source file is subject to the Academic Free License (AFL 3.0)
+
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+
+ * It is also available through the world-wide-web at this URL:
+
+ * http://opensource.org/licenses/afl-3.0.php
+
+ * If you did not receive a copy of the license and are unable to
+
+ * obtain it through the world-wide-web, please send an email
+
+ * to license@magento.com so we can send you a copy immediately.
+
+ *
+
+ * DISCLAIMER
+
+ *
+
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+
+ * versions in the future. If you wish to customize Magento for your
+
+ * needs please refer to http://www.magento.com for more information.
+
+ *
+
+ * @category    design
+
+ * @package     rwd_default
+
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+
+ */
+
+/**
+
+ * @var Mage_Page_Block_Html_Header $this
+
+ */
+
+?>
+
+
+
+<?php /*
+<div class="header-language-background">
+
+	<div class="header_spedizioni">
+
+		<p><span class="icon"><i class="fa fa-truck" aria-hidden="true"></i></span><?php echo $this->__('Spedizioni '); ?><span class="color"><?php echo $this->__('Gratuite '); ?></span><?php echo $this->__('per ordini superiori a 39,90€'); ?></p>
+
+	</div>
+
+</div>
+*/ ?>
+
+
+
+<header id="header" class="page-header">
+
+    <div class="page-header-container">
+
+        <a class="logo" href="<?php echo $this->getUrl('') ?>">
+
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+
+            <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+
+        </a>
+
+
+
+        <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+
+              // See app.js for details ?>
+
+        <div class="store-language-container"><?php echo $this->getChildHtml('store_language') ?></div>
+
+
+
+        <!-- Skip Links -->
+
+
+
+        <div class="skip-links">
+
+            <a href="#header-nav" class="skip-link skip-nav">
+
+                <span class="icon_nav"><i class="fa fa-bars" aria-hidden="true"></i></span>
+
+            </a>
+
+
+
+            <a href="#header-search" class="skip-link skip-search">
+
+                <span class="icon_search"><i class="fas fa-search"></i></span>
+
+            </a>
+
+
+
+            <div class="account-cart-wrapper">
+
+				<div class="account-login">
+
+					<a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+
+						<span class="icon_account"><i class="far fa-user-circle"></i>
+
+</span>
+
+					</a>
+
+				</div>
+
+                <!-- Cart -->
+
+
+
+                <div class="header-minicart">
+
+                    <?php echo $this->getChildHtml('minicart_head'); ?>
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+        <!-- Navigation -->
+
+
+
+        <div id="header-nav" class="skip-content">
+
+            <?php echo $this->getChildHtml('topMenu') ?>
+
+			
+
+			<div class="account-login-mobile">
+
+				<?php if (Mage::helper('customer')->isLoggedIn() ): ?>		
+
+					<a href="<?php echo Mage::getUrl('customer/account'); ?>" class="skip-myaccount"><span class="label"><?php echo $this->__('My account'); ?></span></a>
+
+					<span class="line">/</span>
+
+					<a href="<?php echo Mage::getUrl('customer/account/logout'); ?>" class="skip-myaccount"><span class="label"><?php echo $this->__('Log Out'); ?></span></a>
+
+					
+
+				<?php else: ?>
+
+					<a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+
+						<span class="label"><?php echo $this->__('LOGIN / REGISTRATI'); ?></span>
+
+					</a>
+
+				<?php endif; ?>
+
+				
+
+			</div>
+
+			
+
+			
+
+        </div>
+
+
+
+        <!-- Search -->
+
+
+
+        <div id="header-search" class="skip-content">
+
+            <?php echo $this->getChildHtml('topSearch') ?>
+
+        </div>
+
+
+
+        <!-- Account -->
+
+
+
+		<div id="header-account" class="header-account  popup_login customer-account skip-content">
+
+			<a class="click_remove" href="javascript:void(0);"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+			<?php /* echo $this->getChildHtml('topLinks') */ ?>
+
+			<?php /* echo $this->getChildHtml('customer_form_mini_login'); */ ?>
+
+			
+
+			
+
+			<!-- Test con mini login incluso fisicamente qui -->
+
+			<div class="block block-login block_mini_login">
+
+			
+
+				<?php if ($this->helper('customer')->isLoggedIn() ) { ?>
+
+				<div class="bock_logout mini_logout">
+
+					<a href="<?php echo $this->getUrl('customer/account')?>"><?php echo $this->__('My Account') ?></a>
+
+					<a href="<?php echo $this->getUrl('customer/account/logout')?>"><?php echo $this->__('Log Out') ?></a>
+
+				</div>
+
+				<?php } else { ?>
+
+				
+
+				<form action="<?php echo Mage::getUrl("customer/account/loginPost") ?>" method="post">
+
+					 <?php echo $this->getBlockHtml('formkey'); ?>
+
+					<div class="block-content">
+
+						<div class="form_left_login">
+
+							<div class="block-title">
+
+								<p><?php echo $this->__('Hai già un account?') ?></p>
+
+								<h6><?php echo $this->__('Accedi') ?></h6>
+
+							</div>
+
+							<div class="input-box">
+
+								<?php /* <label for="mini-login"><?php echo $this->__('Email:') ?></label> */ ?>
+
+								<input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="login[username]" id="mini-login" class="input-text" placeholder="<?php echo $this->__('E-mail');?>" />
+
+							</div>
+
+							<div class="input-box">
+
+								<?php /* <label for="mini-password"><?php echo $this->__('Password:') ?></label> */ ?>
+
+								<input type="password" name="login[password]" id="mini-password" class="input-text" placeholder="<?php echo $this->__('Password');?>" />
+
+							</div>
+
+							<div class="actions input-box">
+
+								<button type="submit" class="button"><span><span><?php echo $this->__('Login') ?></span></span></button>
+
+								<a class="forget" href="<?php echo$this->getUrl('customer/account/forgotpassword')?>"><?php echo $this->__('Hai dimenticato la password?');?></a>
+
+							</div>
+
+						</div>
+
+						<div class="non-registrato">
+
+							<p><?php echo $this->__('Non sei registrato?');?></p>
+
+							<h6><?php echo $this->__('Registrati');?> </h6>
+
+							<a href="javascript:void(0)"><?php echo $this->__('Crea Account');?></a>
+
+						</div>
+
+					</div>
+
+				</form>
+
+				<script type="text/javascript">
+
+				//<![CDATA[
+
+					var dataForm = new VarienForm('login-form', true);
+
+				//]]>
+
+				</script>
+
+				<?php } ?>
+
+			</div>
+
+			<!-- Test con mini login incluso fisicamente qui -->
+
+			
+
+			
+
+			
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+
+		<div id="header-account-create" class=" popup_register header-account-create customer-account skip-content">
+
+			<a class="click_remove" href="javascript:void(0);"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+			<?php echo $this->getChildHtml('customer_form_mini_register'); ?>
+
+		</div>
+
+    </div>
+
+    
+
+	<?php
+
+	
+
+		if(!isset($_COOKIE['mezzo']))
+
+		{
+
+			$google = $_GET['gclid'];
+
+			$utmmedium = $_GET['utm_medium'];
+
+			if(empty($utmmedium) && empty($google))
+
+				$utm_medium = "diretto";
+
+			elseif($utmmedium && empty($google))
+
+				$utm_medium = $utmmedium;
+
+			elseif(empty($utmmedium) && $google)
+
+				$utm_medium = "Google Adwords";
+
+			
+
+			$utm_source = $_GET['utm_source'];
+
+			$utm_campaign = $_GET['utm_campaign'];
+
+			
+
+						
+
+			setcookie("mezzo", $utm_medium);
+
+			setcookie("sorgente", $utm_source);
+
+			setcookie("campagna", $utm_campaign);
+
+			setcookie("google_adwords", $google);
+
+			
+
+		}
+
+		
+
+		$currentUrl = $currentUrl = Mage::helper('core/url')->getCurrentUrl();
+
+		$siteUrl = Mage::getBaseUrl();
+
+		$url_ok = str_replace($siteUrl, "" ,$currentUrl);	
+
+			
+
+		if($url_ok == "customer/account" || $url_ok == "customer/account/index" || $url_ok == "checkout/onepage/success")
+
+		{	
+
+			$data = date("Y-m-y H:i:s");
+
+			$mezzo = $_COOKIE['mezzo'];
+
+			$sorgente = $_COOKIE['sorgente'];
+
+			$campagna = $_COOKIE['campagna'];
+
+			$google_adwords = $_COOKIE['google_adwords'];
+
+		
+
+			$ordine = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+
+				
+
+			if(!empty($ordine))
+
+				$idordine = $ordine;
+
+			else
+
+				$idordine = "";
+
+		
+
+			$customer = Mage::getSingleton('customer/session')->getCustomer();
+
+			$mail = trim($customer->getEmail());
+
+				
+
+			if(!empty($mail))
+
+				$email = $mail;
+
+			else
+
+				$email = "";
+
+		}
+
+		
+
+		if($url_ok == "customer/account" || $url_ok == "customer/account/index")
+
+		{
+
+			$resource = Mage::getSingleton('core/resource');
+
+			$readConnection = $resource->getConnection('core_read');
+
+			$query = "SELECT utm_sorgenti_mail FROM utm_sorgenti WHERE utm_sorgenti_mail = '$mail'";
+
+			$results = $readConnection->fetchAll($query);
+
+				if(!$results)
+
+				{
+
+					$resource = Mage::getSingleton('core/resource');
+
+					$writeConnection = $resource->getConnection('core_write');
+
+					$query = "INSERT INTO utm_sorgenti (utm_sorgenti_data, utm_sorgenti_mail, utm_sorgenti_ordine, utm_sorgenti_mezzo, utm_sorgenti_sorgente, utm_sorgenti_campagna, utm_sorgenti_google_adwords) VALUES ('$data', '$mail', '$ordine', '$mezzo', '$sorgente','$campagna', '$google_adwords')";
+
+					$writeConnection->query($query);
+
+				}
+
+			
+
+		}
+
+		
+
+		if($url_ok == "checkout/onepage/success")
+
+		{
+
+			$resource = Mage::getSingleton('core/resource');
+
+			$writeConnection = $resource->getConnection('core_write');
+
+			$query = "INSERT INTO utm_sorgenti (utm_sorgenti_data, utm_sorgenti_mail, utm_sorgenti_ordine, utm_sorgenti_mezzo, utm_sorgenti_sorgente, utm_sorgenti_campagna, utm_sorgenti_google_adwords) VALUES ('$data', '$mail', '$ordine', '$mezzo', '$sorgente','$campagna', '$google_adwords')";
+
+			$writeConnection->query($query);
+
+		}
+
+	?>
+
+	
+
+      
+
+</header>
+
+
+
+
+
+
+
+
+
+<?php echo $this->getChildHtml('topContainer'); ?>
+
+<script>
+
+	jQuery('.non-registrato a').click(function(){
+
+		jQuery('#header-account').removeClass('skip-active');
+
+		jQuery('#header-account-create').addClass('skip-active');
+
+	});
+
+</script>
+
+<script>
+
+		jQuery('.non-registrato a.click').click(function(){
+
+			jQuery('#header-account').addClass('skip-active');
+
+			jQuery('#header-account-create').removeClass('skip-active');
+
+		});
+
+	</script>
+
+<script>
+
+	jQuery('.click_remove').click(function(){
+
+		jQuery('.popup_login').removeClass('skip-active');
+
+		jQuery('.popup_register').removeClass('skip-active');
+
+	});
+
+</script>
+
+

@@ -1,0 +1,56 @@
+<?php
+    if ($this->isCustomerLoggedIn()) : return; endif;
+    $_address = $this->getAddress();
+    $_prefix  = 'billing';
+?>
+
+<div id="email-section" class="firecheckout-section">
+    <div class="block-title"><span><?php echo $this->helper('firecheckout')->__('Your Email and Name'); ?></span></div>
+    <div class="block-content">
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field field-email">
+                    <label for="billing:email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                    <div class="input-box">
+                        <input type="email" name="billing[email]" id="billing:email" value="<?php echo $this->escapeHtml($this->getAddress()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields field-name">
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($_address)->setFieldIdFormat($_prefix . ':%s')->setFieldNameFormat($_prefix . '[%s]')->toHtml() ?>
+            </li>
+        <?php
+            $registrationMode = Mage::getStoreConfig('firecheckout/general/registration_mode');
+            $register = $this->getRegisterAccount();
+            $isAllowedGuest = Mage::helper('firecheckout')->isAllowedGuestCheckout();
+        if ($isAllowedGuest || $register) : ?>
+            <li class="control" id="register-customer-checkbox">
+                <input type="checkbox" name="billing[register_account]" value="1" title="<?php echo $this->__('Create account for later use') ?>" id="billing:register_account" onclick="if(window.billing) billing.setCreateAccount(this.checked);"<?php if ($register || 'optional-checked' == $registrationMode) : ?> checked="checked"<?php endif;?> class="checkbox" /><label for="billing:register_account"><?php echo $this->__('Create account for later use') ?></label>
+            </li>
+        <?php else: ?>
+            <li class="no-display">
+                <input type="hidden" name="billing[register_account]" value="1"/>
+            </li>
+        <?php endif ?>
+        <?php if (true || 'hidden' !== $registrationMode || $register) : ?>
+            <li class="fields<?php echo ('hidden' == $registrationMode) ? ' hidden-registration' : '' ?>" id="register-customer-password" <?php if (('optional' == $registrationMode && !$register) || 'hidden' == $registrationMode) : ?>style="display: none;" <?php endif; ?>>
+                <div>
+                    <div class="field field-password">
+                        <label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="billing[customer_password]" id="billing:customer_password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+                            <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="link-forgot-password" title="<?php echo $this->__('Forgot your password?') ?>"><?php echo $this->__('Forgot?') ?></a>
+                        </div>
+                    </div>
+                    <div class="field field-confirm-password">
+                        <label for="billing:confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+        </ul>
+    </div>
+</div>

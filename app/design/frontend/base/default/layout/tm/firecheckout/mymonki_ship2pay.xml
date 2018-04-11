@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/mymonki_ship2pay.js</name></action>
+        </reference>
+    </firecheckout_index_index>
+</layout>

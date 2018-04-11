@@ -1,0 +1,60 @@
+<?php $helper = Mage::helper('braintree_payments'); ?>
+<?php $_paypalCode = Braintree_Payments_Model_Paypal::PAYMENT_METHOD_CODE; ?>
+<script type="text/javascript">
+    var nativeExtensionButton = $$('.btn-checkout').first();
+    var paypalDivId = 'paypal-container';
+    var braintreePaypalUtils = new BraintreeUtils();
+    var formId = '<?php echo $this->getFormId()?>';
+    var nonceInputId = '<?php echo $helper->getNonceInputId() ?>';
+    braintreePaypalUtils.createHiddenInput({name: "payment[nonce]", id: nonceInputId}, formId);
+
+    // Function to be called on success
+    var onBraintreePayPalSuccess = function(){
+        $(nonceInputId).disabled = false;
+        nativeExtensionButton.click();
+        updateBraintreeButtons();
+    };
+
+    // Set up PayPal button
+    var setupBraintreePayPal = function() {
+        if ($(paypalDivId)) {
+            $(paypalDivId).remove();
+        }
+        nativeExtensionButton.insert({before: '<div id="'+ paypalDivId + '"></div>'});
+        braintreePaypalUtils.setupPayPal(
+            '<?php echo $helper->getToken() ?>',
+            paypalDivId,
+            '<?php echo $helper->getOrderAmount() ?>',
+            '<?php echo $this->getCurrencyCode() ?>',
+            '<?php echo $helper->getPayPalTitle() ?>',
+            nonceInputId,
+            false,
+            false,
+            '<?php echo $this->getLocale()?>',
+            onBraintreePayPalSuccess,
+            false,
+            '<?php echo $helper->__('Please try again') ?>'
+        );
+        $(paypalDivId).show();
+    };
+
+    // Set up Braintree PayPal button and hide native extension button when braintree_paypal method is switched on
+    payment.switchMethod = payment.switchMethod.wrap(function(o, method) {
+        o(method);
+        updateBraintreeButtons();
+    });
+
+    function updateBraintreeButtons() {
+        console.log(payment.currentMethod);
+        if (payment.currentMethod == '<?php echo $_paypalCode?>') {
+            nativeExtensionButton.hide();
+            setupBraintreePayPal();
+        } else {
+            if ($(paypalDivId)) {
+                $(paypalDivId).remove();
+            }
+            nativeExtensionButton.show();
+        }
+    }
+    updateBraintreeButtons();
+</script>

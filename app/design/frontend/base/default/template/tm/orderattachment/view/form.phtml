@@ -1,0 +1,89 @@
+<?php
+    $helper = Mage::helper('orderattachment');
+?>
+
+<div class="order-attachments orderattachment order-info-box">
+    <h2 class="table-caption"><?php echo $this->__('Order Attachments') ?></h2>
+    <form action="<?php echo $this->getUrl('orderattachment/order/save', array('_current' => true, '_secure'  => $this->getRequest()->isSecure())) ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+        <table class="data-table" id="attachments-table">
+            <thead>
+                <tr>
+                    <th><?php echo $this->__('File') ?></th>
+                    <th><?php echo $this->__('Comment') ?></th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <?php if ($ext = $helper->getAllowedExtensions()) : ?>
+                            <small><?php echo $this->__('Allowed extensions: %s', implode(', ', $ext)) ?></small>
+                        <?php endif; ?>
+                        <div class="form-buttons">
+                            <button type="button" id="btn-attachment" class="button btn-attachment">
+                                <span><span><?php echo $this->__('Add File') ?></span></span>
+                            </button>
+                            <button type="submit" class="button btn-save" title="Save Comments">
+                                <span><span><?php echo $this->__('Save Comments') ?></span></span>
+                            </button>
+                            <div id="advice:attachment" class="validation-advice"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody id="list-attachments">
+            </tbody>
+        </table>
+    </form>
+    <script type="text/javascript">decorateTable('attachments-table', {'tbody tr' : ['first', 'last']})</script>
+</div>
+
+
+<script type="text/javascript">
+<?php
+    $urlParams = array(
+        'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+        '_current' => true,
+        '_secure'  => $this->getRequest()->isSecure()
+    );
+?>
+var attachmentManager = new OrderAttachment.Manager({
+    insertPosition: 'bottom',
+    removeUrl: "<?php echo $this->getUrl('orderattachment/order/delete', $urlParams) ?>",
+    template: [
+            '<tr id="#{hash}">',
+                '<td class="col-file"><span class="filename"><a href="' + "<?php echo $this->getUrl('orderattachment/index/download', array('order_id' => $this->getOrderId(), 'hash' => '#{hash}')) ?>" + '">#{filename}</a></span></td> ',
+                '<td class="col-comment"><textarea cols="60" rows="3" name="attachment[#{id}][comment]" class="comment input-text" placeholder="' + "<?php echo $this->__('Write comment here') ?>" + '">',
+                    '#{comment}',
+                '</textarea></td> ',
+                '<td class="col-delete"><a class="btn-remove" href="#" title="' + "<?php echo $this->__('Delete') ?>" + '"></a></td>',
+            '</tr>'
+        ].join('')
+});
+
+var attachmentUploader = new OrderAttachment.Uploader({
+    manager: attachmentManager,
+    url: "<?php echo $this->getUrl('orderattachment/order/upload', $urlParams) ?>",
+    allowedExtensions: <?php echo json_encode($ext) ?>,
+    maxSize: <?php echo $helper->getAllowedFilesize() ?>,
+    maxCount: <?php echo $helper->getAllowedFilecount() ?>,
+    errorEl: $('advice:attachment'),
+    messages: {
+        onSizeError: "<?php echo $this->__('Files may not exceed %sKB', $helper->getAllowedFilesize()) ?>",
+        onExtError: "<?php echo $this->__('Invalid file type') ?>",
+        onUploadError: "<?php echo $this->__('Unable to upload file') ?>",
+        onLimitError: "<?php echo $this->__('Up to %d files are allowed', $helper->getAllowedFilecount()) ?>"
+    }
+});
+
+<?php foreach ($this->getAttachments() as $attachment) : ?>
+    attachmentManager.add({
+        id: <?php echo $attachment->getId() ?>,
+        hash: "<?php echo $attachment->getHash() ?>",
+        comment: <?php echo json_encode($this->escapeHtml($attachment->getComment())) ?>,
+        filename: "<?php echo $this->escapeHtml($attachment->getFilename()) ?>",
+    });
+<?php endforeach; ?>
+</script>
+

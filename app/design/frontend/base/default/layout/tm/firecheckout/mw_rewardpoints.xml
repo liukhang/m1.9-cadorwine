@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs"><script>mw_rewardpoints/lib/mw.reward.slider.js</script></action>
+            <action method="addCss"><stylesheet>mw_rewardpoints/css/mw_reward_slider.css</stylesheet></action>
+        </reference>
+        <reference name="checkout.coupon.before">
+            <block type="rewardpoints/checkout_cart_rewardpoints" name="rewardpoints" template="tm/firecheckout/mw_rewardpoints/rewardpoints.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.coupon.before">
+            <block type="rewardpoints/checkout_cart_rewardpoints" name="rewardpoints" template="tm/firecheckout/mw_rewardpoints/rewardpoints.phtml"/>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

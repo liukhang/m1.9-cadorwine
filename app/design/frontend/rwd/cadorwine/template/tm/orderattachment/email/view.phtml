@@ -1,0 +1,24 @@
+<?php
+    $attachments = $this->getAttachments();
+    if (!$attachments->getSize()) :
+        return;
+    endif;
+?>
+
+<table class="items" cellpadding="0" cellspacing="0" border="0">
+    <thead>
+        <tr>
+            <th class="cell-name"><?php echo $this->__('Order Attachments') ?></th>
+            <th class="cell-name"><?php echo $this->__('Comment') ?></th>
+        </tr>
+    </thead>
+    <?php foreach ($attachments as $attachment) : ?>
+        <?php
+            $filename = $this->escapeHtml($attachment->getFilename());
+        ?>
+        <tr>
+            <td class="cell-content"><a href="<?php echo $attachment->getDownloadUrl() ?>" title="<?php echo $this->__('Download %s', $filename) ?>"><?php echo $filename ?></a></td>
+            <td class="cell-content"><?php echo $this->escapeHtml($attachment->getComment()) ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>

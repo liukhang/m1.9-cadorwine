@@ -1,0 +1,32 @@
+<div id="checkout-review" class="firecheckout-section">
+    <div class="block-title"><span><?php echo $this->__('Checkout Review') ?></span></div>
+    <?php echo $this->getChildHtml('checkout.additional.information'); // used for onecolumn mode ?>
+    <?php $agreements = $this->getChildHtml('agreements') ?>
+    <div id="agreements-wrapper" class="checkout-agreements-load">
+        <?php echo $agreements; ?>
+    </div>
+    <div id="checkout-review-load">
+        <?php echo $this->getChildHtml('info') ?>
+    </div>
+    <?php
+    $html = $this->getChildHtml('review_after');
+    if ($html || $blockId = Mage::getStoreConfig('firecheckout/additional_content/reviewtable_after')) : ?>
+        <div class="firecheckout-items-after">
+            <?php echo $blockId ? $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml() : ''; ?>
+            <?php echo $html ?>
+        </div>
+    <?php endif; ?>
+    <script type="text/javascript">
+        //<![CDATA[
+            review = new Review(); // dummy class for various payment methods
+        //]]>
+    </script>
+    <div id="checkout-review-submit">
+        <div class="buttons-set" id="review-buttons-container">
+            <button type="button" title="<?php echo $this->__('Place Order') ?>" class="button btn-checkout" onclick="checkout.save(); return false;"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+            <span class="please-wait" id="review-please-wait" style="display:none;">
+                <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+            </span>
+        </div>
+    </div>
+</div>

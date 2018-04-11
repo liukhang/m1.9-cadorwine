@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TM_OrderAttachment>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales />
+                <Mage_Checkout />
+            </depends>
+        </TM_OrderAttachment>
+    </modules>
+</config>

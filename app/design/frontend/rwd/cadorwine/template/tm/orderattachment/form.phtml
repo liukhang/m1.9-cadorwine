@@ -1,0 +1,61 @@
+<?php
+    $helper = Mage::helper('orderattachment');
+    $required = false;
+?>
+
+<div class="orderattachment">
+    <label for="attachment" class="label<?php echo $required ? ' required' : '' ?>"><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml('Order attachments') ?></label><br/>
+    <button type="button" id="btn-attachment" class="button btn-attachment"><span><span><?php echo $this->__('Choose File') ?></span></span></button>
+
+    <?php if ($ext = $helper->getAllowedExtensions()) : ?>
+        <small><?php echo $this->__('Allowed extensions: %s', implode(', ', $ext)) ?></small>
+    <?php endif; ?>
+
+    <div id="advice:attachment" class="validation-advice"></div>
+
+    <ul id="list-attachments" class="list-attachments"></ul>
+</div>
+
+<script type="text/javascript">
+<?php
+    $urlParams = array(
+        'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+        '_secure'  => $this->getRequest()->isSecure()
+    );
+?>
+var attachmentManager = new OrderAttachment.Manager({
+    removeUrl: "<?php echo $this->getUrl('orderattachment/checkout/delete', $urlParams) ?>",
+    template: [
+            '<li id="#{hash}">',
+                '<span class="filename">#{filename}</span> ',
+                '<textarea name="attachment[#{id}][comment]" class="comment" placeholder="' + "<?php echo $this->__('Write comment here') ?>" + '">',
+                    '#{comment}',
+                '</textarea> ',
+                '<span class="btn-remove" title="' + "<?php echo $this->__('Remove File') ?>" + '"></span>',
+            '</li>'
+        ].join('')
+});
+var attachmentUploader = new OrderAttachment.Uploader({
+    manager: attachmentManager,
+    url: "<?php echo $this->getUrl('orderattachment/checkout/upload', $urlParams) ?>",
+    allowedExtensions: <?php echo json_encode($ext) ?>,
+    maxSize: <?php echo $helper->getAllowedFilesize() ?>,
+    maxCount: <?php echo $helper->getAllowedFilecount() ?>,
+    errorEl: $('advice:attachment'),
+    messages: {
+        onSizeError: "<?php echo $this->__('Files may not exceed %sKB', $helper->getAllowedFilesize()) ?>",
+        onExtError: "<?php echo $this->__('Invalid file type') ?>",
+        onUploadError: "<?php echo $this->__('Unable to upload file') ?>",
+        onLimitError: "<?php echo $this->__('Up to %d files are allowed', $helper->getAllowedFilecount()) ?>"
+    }
+});
+
+<?php foreach ($this->getAttachments() as $attachment) : ?>
+    attachmentManager.add({
+        id: <?php echo $attachment->getId() ?>,
+        hash: "<?php echo $attachment->getHash() ?>",
+        comment: <?php echo json_encode($this->escapeHtml($attachment->getComment())) ?>,
+        filename: "<?php echo $this->escapeHtml($attachment->getFilename()) ?>",
+    });
+<?php endforeach; ?>
+</script>

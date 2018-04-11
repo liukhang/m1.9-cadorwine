@@ -1,0 +1,8 @@
+<ul class="form-list form-comment">
+    <li class="wide">
+        <label for="order-comment"><?php echo $this->helper('sales')->__('Comment') ?></label>
+        <div class="input-box">
+            <textarea name="order-comment" id="order-comment" rows="5" cols="25"><?php echo trim(Mage::getSingleton('customer/session')->getOrderCustomerComment()) ?></textarea>
+        </div>
+    </li>
+</ul>

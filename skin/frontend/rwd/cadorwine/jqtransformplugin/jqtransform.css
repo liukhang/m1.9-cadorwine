@@ -1,0 +1,469 @@
+form.jqtransformdone label{
+	margin-top:4px;
+	margin-right: 8px;
+	display: block;
+	float:left;
+}
+form.jqtransformdone div.rowElem{
+	clear:both;
+	padding:4px 0px;
+}
+/* -------------
+ * Buttons
+ * ------------- */
+button.jqTransformButton {
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	overflow: visible;
+	font-family: Arial;
+}
+
+*:first-child+html button.jqTransformButton[type]{width: 1;} /* IE7 */
+
+button.jqTransformButton span {
+	background: transparent url(img/btn_right.gif) no-repeat right top;
+	display: block;
+	float: left;
+	padding: 0px 4px 0px 0px; /* sliding doors padding */
+	margin: 0px;
+	height: 33px;
+}
+
+button.jqTransformButton span span {
+	background: transparent url(img/btn_left.gif) no-repeat top left;
+	color: #333;
+	padding: 8px 4px 0px 8px;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 13px;
+	display: block;
+	text-decoration: none;
+	height: 33px;
+}
+
+/*hover*/
+button.jqTransformButton_hover span span { background-position: left -33px ; }
+button.jqTransformButton_hover span { background-position: right -33px ; }
+
+/*clicked*/
+button.jqTransformButton_click span span { background-position: left -66px ; }
+button.jqTransformButton_click span { background-position: right -66px ; }
+
+/* IE 6 */
+* html button.jqTransformButton { height:33px; }
+* button.jqTransformButton span span { height: 25px; }
+/* IE 7 */
+*+ html button.jqTransformButton { height:33px; }
+*+ button.jqTransformButton span span { height: 25px; }
+
+
+/* -------------
+ * Inputs
+ * ------------- */
+.jqTransformInputWrapper {
+	background: transparent url(img/input/input_text_left.gif) no-repeat left top;
+	height: 31px;
+	padding: 0px;
+	float:left;
+}
+
+.jqTransformInputInner {
+	background: transparent url(img/input/input_text_right.gif) no-repeat top right;
+	padding: 0px;
+	margin: 0px;
+}
+
+.jqTransformInputInner div {
+	height: 31px;
+	margin:0px 0px 0px 8px;
+}
+
+.jqTransformInputInner div input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height: 18px;
+	vertical-align: middle;
+	height: 31px;
+	color:#404040;	
+	border: none;
+	padding: 0px 0px 0px 0px;
+	margin: 0px;
+	background:transparent;
+}
+
+/*  IE6 */
+* html .jqTransformInputInner div input {
+	padding: 6px 0 0 0;
+	margin: 0 0 0 -8px;
+	height:24px;
+}
+/* Ie7 */
+*+ html .jqTransformInputInner div input {
+	padding: 6px 0 0 0;
+	margin-left:-10px;
+	height:24px;
+}
+
+/*hover*/
+.jqTransformInputWrapper_hover{ background-position: left -31px ;}
+.jqTransformInputWrapper_hover div.jqTransformInputInner{ background-position: right -31px ;}
+
+/*focus*/
+.jqTransformInputWrapper_focus{ background-position: left -62px ;}
+.jqTransformInputWrapper_focus div.jqTransformInputInner{ background-position: right -62px ;}
+
+
+
+.jqTransformSafari .jqTransformInputInner div {
+	position: relative;
+	overflow: hidden;
+	margin:0px 8px;
+}
+.jqTransformSafari .jqTransformInputInner div input {
+	background-color: none;
+	position: absolute;
+	top: -10px;
+	left: -2px;
+	height: 31px; 
+	padding-left: 4px;
+}
+
+
+
+/* -------------
+ * Textarea
+ * ------------- */
+table.jqTransformTextarea td#jqTransformTextarea-mm textarea{
+	font-size: 12px;
+	line-height: 16px;
+}
+
+table.jqTransformTextarea td{
+font-size: 1px;
+line-height: 1px;
+width: 5px;
+height: 5px;
+margin: 0;
+padding: 0;
+}
+table.jqTransformTextarea{}
+table.jqTransformTextarea tr{
+/*border: 1px solid red;*/
+
+}
+table.jqTransformTextarea textarea{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+table.jqTransformTextarea td#jqTransformTextarea-tl{background: url(img/textarea/textarea_tl.gif) no-repeat top left;}
+table.jqTransformTextarea td#jqTransformTextarea-tm{background: url(img/textarea/textarea_tm.gif) repeat-x top left;}
+table.jqTransformTextarea td#jqTransformTextarea-tr{background: url(img/textarea/textarea_tr.gif) no-repeat top left;}
+
+table.jqTransformTextarea td#jqTransformTextarea-ml{background: url(img/textarea/textarea_ml.gif) repeat-y top left;}
+table.jqTransformTextarea td#jqTransformTextarea-mm{background: url(img/textarea/textarea-mm.gif) repeat;}
+table.jqTransformTextarea td#jqTransformTextarea-mr{background: url(img/textarea/textarea_mr.gif) repeat-y top left;}
+
+table.jqTransformTextarea td#jqTransformTextarea-bl{background: url(img/textarea/textarea_bl.gif) no-repeat top left;}
+table.jqTransformTextarea td#jqTransformTextarea-bm{background: url(img/textarea/textarea_bm.gif) repeat-x top left;}
+table.jqTransformTextarea td#jqTransformTextarea-br{background: url(img/textarea/textarea_br.gif) no-repeat top left;}
+
+/*hover*/
+table.jqTransformTextarea-hover td#jqTransformTextarea-tl{background-position:0px -5px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-tm{background-position:0px -5px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-tr{background-position:0px -5px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-ml{background-position:-5px 0px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-mm{background-image: url(img/textarea/textarea-mm-hover.gif);}
+table.jqTransformTextarea-hover td#jqTransformTextarea-mr{background-position:-5px 0px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-bl{background-position:0px -5px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-bm{background-position:0px -5px;}
+table.jqTransformTextarea-hover td#jqTransformTextarea-br{background-position:0px -5px;}
+
+/*focus*/
+table.jqTransformTextarea-focus td#jqTransformTextarea-tl{background-position:0px -10px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-tm{background-position:0px -10px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-tr{background-position:0px -10px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-ml{background-position:-10px 0px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-mm{background-image: url(img/textarea/textarea-mm-focus.gif);}
+table.jqTransformTextarea-focus td#jqTransformTextarea-mr{background-position: -10px 0px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-bl{background-position:0px -10px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-bm{background-position:0px -10px;}
+table.jqTransformTextarea-focus td#jqTransformTextarea-br{background-position:0px -10px;}
+
+
+table.jqTransformTextarea .jqTransformSafariTextarea div {
+	position: relative;
+	overflow: hidden;
+	border: 0px solid red;
+}
+table.jqTransformTextarea .jqTransformSafariTextarea textarea{
+	background: none;
+	position: absolute;
+	top:-10px;
+	left:-10px;
+	padding: 10px 10px 10px 10px;
+	resize: none;
+}
+
+
+/* -------------
+ * Radios
+ * ------------- */
+.jqTransformRadioWrapper {float: left;display:block;margin:0px 4px;	margin-top:5px;}
+.jqTransformRadio {
+	// background: transparent url(img/radio.gif) no-repeat center top;
+	vertical-align: middle;
+	height: 19px;
+	width: 18px;
+	display:block;/*display: -moz-inline-block;*/
+}
+ol#checkoutSteps .jqTransformRadio{
+	background: #fff;
+	width: 18px;
+	height: 18px;
+}
+ol#checkoutSteps a.jqTransformChecked:after{
+    top: 0px;
+    font-size: 14px;
+    left: 3px;
+}
+ol#checkoutSteps .jqTransformRadioWrapper{
+	margin-top: 0;
+}
+ol#checkoutSteps li.control.custom.jqtransformdone {
+    margin: 15px 0;
+}
+
+/* -------------
+ * Checkboxes
+ * ------------- */
+span.jqTransformCheckboxWrapper{
+	display:block;float:left;
+	margin-top:5px;
+}
+a.jqTransformCheckbox {
+    background: #fff;
+    vertical-align: middle;
+    height: 13px;
+    width: 13px;
+    display: block;
+    margin-top: -1px;
+}
+
+.footer-container a.jqTransformCheckbox{
+	border:none;
+}
+.newsletter a.jqTransformChecked:after {
+	top: -3px;
+    left: -0.5px;
+}
+
+/* -------------
+ * Checked - Used for both Radio and Checkbox
+ * ------------- */
+a.jqTransformChecked { background:#ddd;position: relative;}
+a.jqTransformChecked:after{
+	content: '\f00c';
+    font-family: FontAwesome;
+    position: absolute;
+    top: -5px;
+    right: 0;
+    color: #222;
+    font-weight: 200;
+    font-size: 12px;
+
+}
+
+/* -------------
+ * Selects
+ * ------------- */
+.jqTransformSelectWrapper {
+	width: 100%;
+	position:relative;
+	height: 31px;
+	/*background: url(img/select_left.gif) no-repeat top left;*/
+	float:left;
+    /*text-align: right;*/
+}
+
+.jqTransformSelectWrapper div span {
+	font-size: 13px;
+    text-transform: uppercase;
+    float: none;
+    white-space: nowrap;
+    height: 31px;
+    font-weight: 200;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.jqTransformSelectWrapper  a.jqTransformSelectOpen {
+	display: inline;
+	position: relative;
+	right: 0px;
+	// background: url(img/select_right.gif) no-repeat center center;
+}
+a.jqTransformSelectOpen:after {
+	content: '\f078';
+    position: absolute;
+    font-family: 'FontAwesome';
+    right: -18px;
+    top: 5px;
+    color: #fff;
+    font-weight: 200;
+    font-size: 8px;
+}
+.jqTransformSelectWrapper ul {
+	position: absolute;
+	width: 70px;
+	top: 21px;
+    right: 30px;
+	list-style: none;
+	background-color: #FFF;
+	border: solid 1px #CCC;
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	overflow-y: auto;
+	z-index:10;
+}
+
+.jqTransformSelectWrapper ul a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    background-color: #FFF;
+    font-size: 13px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 200;
+    padding: 5px 0;
+}
+}
+
+.jqTransformSelectWrapper ul a.selected {
+	background: #EDEDED;
+	color: #333;
+	text-align: center;
+}
+
+.jqTransformSelectWrapper ul a:hover, .jqTransformSelectWrapper ul a.selected:hover {
+	background: #232f38;
+	color: #fff;
+}
+
+/* -------------
+ * Hidden - used to hide the original form elements
+ * ------------- */
+.jqTransformHidden {display: none;}
+.store-language-container.custom .jqTransformSelectWrapper ul a:hover, .jqTransformSelectWrapper ul a.selected:hover{
+	background: #232f38;
+}
+.policy .validation-advice {
+    color: #df280a;
+    font-size: 10px;
+    position: unset;
+    right: -18px;
+    display: inline-block;
+    top: -11px;
+}
+span.spanx {
+    position: absolute;
+    left: 25px;
+    top: 5px;
+    line-height: 10px;
+    font-size: 9px;
+}
+p.required, .validation-advice{
+	font-size: 10px;
+	margin: 1px 0 0;
+}
+#contactForm .policy .validation-advice {
+    width: auto;
+    
+    color: #df280a;
+    font-size: 9px;
+    position: unset;
+    left: -114px;
+    top: 0;
+    display: inline-table;
+}
+@media only screen and (max-width: 1349px) {
+	.policy .validation-advice {
+		color: #df280a;
+	    display: inline-block;
+	    float: left;
+	    font-size: 10px;
+	    position: unset;
+	}
+}
+@media only screen and (max-width: 1200px) {
+	.pr-contatti #contactForm .policy .validation-advice {
+	    color: #df280a;
+	    display: inline-block;
+	    float: left;
+	    font-size: 12px;
+	    margin: -8px 0 0 30px;
+	    position: unset;
+	}
+}
+@media only screen and (max-width: 991px) {
+	#contactForm .policy .validation-advice {
+		    color: #df280a;
+		    display: inline-block;
+		    float: left;
+		    font-size: 10px;
+		    /*margin: -8px 0 0 30px;*/
+		    position: unset;
+	}
+}
+.button:focus, .cart-table .product-cart-actions .button:focus, #co-shipping-method-form .buttons-set .button:focus, .footer .button:focus {
+    background-color: transparent;
+    outline: none;
+    color: #FFFFFF;
+}
+i.fa.fa-paper-plane {
+    color: #f18d22;
+}
+p.policy {
+    position: relative;
+    font-size: 9px;
+    letter-spacing: 1px;
+    float: left;
+    width: 100%;
+}
+p.policy-newsletter-cadowine {
+    position: relative;
+    font-size: 9px;
+    letter-spacing: 1px;
+    display: inline-block;
+    width: 220px;
+    color: #fff;
+}
+p.policy-newsletter-cadowine a{
+    color: #fff;
+}
+p.policy-newsletter-cadowine a.jqTransformChecked:after {
+    content: '\f00c';
+    font-family: FontAwesome;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    color: #222;
+    font-weight: 200;
+    font-size: 12px;
+    left: 0;
+    margin: 0 auto;
+}
+.poly.contatti a.jqTransformCheckbox{
+	background: #ebebeb;
+}
+.poly.contatti p.policy{
+	margin-bottom: 15px;
+}

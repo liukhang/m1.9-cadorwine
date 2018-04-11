@@ -1,0 +1,48 @@
+<div class="footer_spedizione">
+	<div class="container">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_spedizione')->toHtml() ?>
+	</div>
+</div>
+<div class="newsletter">
+	<div class="container">
+		<div class="newsletter-cadorwine">
+			<div class="newsletter-text">
+				<h2><?php echo __('Iscriviti alla nostra NEWSLETTER') ?></h2>
+			</div>
+		    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+		        <div class="block-content">
+		            <div class="form-subscribe-header">
+		                <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>
+		            </div>
+		            <div class="input-box">
+		               <input placeholder="<?php echo __('Inserisci la tua e-mail') ?>" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
+			            <div class="actions">
+			                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><?php echo __('iscriviti') ?></span></button>
+			            </div>
+		            </div>
+
+					<div class="poly">
+				        <p class="policy">
+				        	<span class="spanx">Ho letto e accetto la <a href="<?php echo Mage::getBaseUrl() ?>privacy"><ins>privacy policy</ins></a></span>
+				        	<input class="required-entry" name="policy" type="checkbox">
+				        	
+			        	</p>
+					</div>
+		        </div>
+		    </form>
+		    <script type="text/javascript">
+		    //<![CDATA[
+		        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+		    //]]>
+		    </script>
+		</div>
+	</div>
+</div>
+
+
+<div class="footer_links">
+	<div class="container">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+	</div>
+</div>
+

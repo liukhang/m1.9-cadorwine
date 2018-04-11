@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_orderattachment_attachment_index>
+        <reference name="content">
+            <block type="orderattachment/adminhtml_attachment" name="orderattachment_attachment"/>
+        </reference>
+    </adminhtml_orderattachment_attachment_index>
+
+    <adminhtml_orderattachment_attachment_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="orderattachment/adminhtml_attachment_grid" name="orderattachment_attachment_grid" />
+        </block>
+    </adminhtml_orderattachment_attachment_grid>
+
+    <adminhtml_orderattachment_attachment_edit>
+        <reference name="content">
+            <block type="orderattachment/adminhtml_attachment_edit" name="orderattachment_attachment_edit"></block>
+        </reference>
+    </adminhtml_orderattachment_attachment_edit>
+
+    <adminhtml_sales_order_view>
+        <reference name="head">
+            <action method="addJs"><name>tm/orderattachment/SimpleAjaxUploader.min.js</name></action>
+            <action method="addJs"><name>tm/orderattachment/orderattachment.js</name></action>
+        </reference>
+        <reference name="sales_order_tabs">
+            <action method="addTab"><name>order_attachment</name><block>orderattachment/adminhtml_sales_order_view_tab_attachment</block></action>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

@@ -1,0 +1,94 @@
+<?php $helper = Mage::helper('orderattachment'); ?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-attachments"><?php echo $this->__('Order Attachments') ?></h4>
+    </div>
+    <div class="fieldset orderattachment">
+        <div class="grid">
+            <div class="hor-scroll">
+                <table cellspacing="0" class="data border">
+                    <thead>
+                        <tr class="headings">
+                            <th><?php echo Mage::helper('orderattachment')->__('File') ?></th>
+                            <th><?php echo Mage::helper('sales')->__('Comment') ?></th>
+                            <?php if ($this->isAllowedAction('delete')) : ?>
+                                <th><?php echo Mage::helper('adminhtml')->__('Delete') ?></th>
+                            <?php endif ?>
+                        </tr>
+                    </thead>
+                    <?php if ($this->isAllowedAction('save')) : ?>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <?php if ($ext = $helper->getAllowedExtensions()) : ?>
+                                    <small><?php echo $this->__('Allowed extensions: %s', implode(', ', $ext)) ?></small>
+                                <?php endif; ?>
+                                <div class="form-buttons">
+                                    <button type="button" id="btn-attachment" class="button add btn-attachment">
+                                        <span><span><?php echo $this->__('Add File') ?></span></span>
+                                    </button>
+                                    <button onclick="submitAndReloadArea($('list-attachments'), '<?php echo $this->getUrl('adminhtml/orderattachment_order/save', array('_current' => true)) ?>')" class="scalable save" type="button" title="Save Comments">
+                                        <span><span><span><?php echo $this->__('Save Comments') ?></span></span></span>
+                                    </button>
+                                    <div id="advice:attachment" class="validation-advice" style="padding: 0; background: none; min-height: 0;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <?php endif; ?>
+                    <tbody id="list-attachments">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var attachmentManager = new OrderAttachment.Manager({
+    insertPosition: 'bottom',
+    removeUrl: "<?php echo $this->getUrl('adminhtml/orderattachment_order/delete', array('_current' => true, 'form_key' => $this->getFormKey())) ?>",
+    template: [
+            '<tr id="#{hash}">',
+                '<td><span class="filename"><a href="' + "<?php echo $this->getUrl('orderattachment/index/download', array('order_id' => $this->getOrder()->getId(), 'hash' => '#{hash}')) ?>" + '">#{filename}</a></span></td> ',
+                <?php if ($this->isAllowedAction('save')) : ?>
+                    '<td><textarea cols="60" rows="3" name="attachment[#{id}][comment]" class="comment input-text" placeholder="' + "<?php echo $this->__('Write comment here') ?>" + '">',
+                        '#{comment}',
+                    '</textarea></td> ',
+                <?php else: ?>
+                    '<td>#{comment}</td> ',
+                <?php endif; ?>
+                <?php if ($this->isAllowedAction('delete')) : ?>
+                '<td><button class="scalable delete icon-btn delete-link-item btn-remove" type="button"><span><span><span>' + "<?php echo $this->__('Delete') ?>" + '</span></span></span></button></td>',
+                <?php endif ?>
+            '</tr>'
+        ].join('')
+});
+
+<?php if ($this->isAllowedAction('save')) : ?>
+var attachmentUploader = new OrderAttachment.Uploader({
+    manager: attachmentManager,
+    url: "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/orderattachment_order/upload', array('_current' => true, 'form_key' => $this->getFormKey())) ?>",
+    allowedExtensions: <?php echo json_encode($ext) ?>,
+    maxSize: <?php echo $helper->getAllowedFilesize() ?>,
+    maxCount: <?php echo $helper->getAllowedFilecount() ?>,
+    errorEl: $('advice:attachment'),
+    messages: {
+        onSizeError: "<?php echo $this->__('Files may not exceed %sKB', $helper->getAllowedFilesize()) ?>",
+        onExtError: "<?php echo $this->__('Invalid file type') ?>",
+        onUploadError: "<?php echo $this->__('Unable to upload file') ?>",
+        onLimitError: "<?php echo $this->__('Up to %d files are allowed', $helper->getAllowedFilecount()) ?>"
+    }
+});
+<?php endif; ?>
+
+<?php foreach ($this->getAttachments() as $attachment) : ?>
+    attachmentManager.add({
+        id: <?php echo $attachment->getId() ?>,
+        hash: "<?php echo $attachment->getHash() ?>",
+        comment: <?php echo json_encode($this->escapeHtml($attachment->getComment())) ?>,
+        filename: "<?php echo $this->escapeHtml($attachment->getFilename()) ?>",
+    });
+<?php endforeach; ?>
+</script>
