@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="checkout.onepage.shipping_method">
+            <block type="shipperhq_pickup/checkout_onepage_shipping_method_available"
+                    name="checkout.onepage.shipping_method.available"
+                    as="available"
+                    template="shipperhq/checkout/onepage/shipping_method/available.phtml">
+            </block>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.available">
+            <action method="setTemplate">
+                <template helper='shipperhq_shipper/getAvailableTemplate'/>
+            </action>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <block type="shipperhq_pickup/checkout_onepage_shipping_method_available"
+                name="checkout.shipping.method"
+                template="shipperhq/checkout/onepage/shipping_method/available.phtml">
+        </block>
+        <reference name="checkout.shipping.method">
+            <action method="setTemplate">
+                <template helper='shipperhq_shipper/getAvailableTemplate'/>
+            </action>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

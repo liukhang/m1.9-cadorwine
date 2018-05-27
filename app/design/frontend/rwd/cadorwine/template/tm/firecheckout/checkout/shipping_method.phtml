@@ -1,6 +1,6 @@
 <?php if ($this->getQuote()->isVirtual()) : return; endif; ?>
 <div id="shipping-method" class="firecheckout-section">
-    <div class="block-title"><span><?php echo $this->__('Shipping Method') ?></span><span id="shipping-method-reset"><?php echo $this->__('Reset') ?></span></div>
+    <div class="block-title"><span><?php echo $this->__('MODALITÀ DI SPEDIZIONE') ?></span><span id="shipping-method-reset"><?php echo $this->__('Reset') ?></span></div>
     <div class="block-content">
         <div id="checkout-shipping-method-load">
             <?php echo $this->getChildHtml('available') ?>
@@ -16,5 +16,7 @@
         </div>
 
         <?php echo $this->getChildHtml('wsa-accessorials') ?>
+
+        <?php echo $this->getChildHtml('firecheckout.shipping.after') ?>
     </div>
 </div>

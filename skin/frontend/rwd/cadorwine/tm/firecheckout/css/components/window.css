@@ -1,0 +1,190 @@
+.firecheckout-window * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -o-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.firecheckout-window {
+    border: none;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    min-width: 350px;
+    max-width: 800px;
+    box-sizing: border-box;
+    color: #2f2f2f;
+
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        visibility 0ms linear 200ms,
+        transform 200ms ease-in-out,
+        opacity 200ms ease-in-out;
+}
+.firecheckout-window.shown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+}
+.firecheckout-window .fc-window-content {
+    box-sizing: border-box;
+    padding: 0 20px 15px;
+    min-width: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.firecheckout-window .fc-window-title {
+    box-sizing: border-box;
+    height: 54px;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 48px 15px 20px;
+    margin: 0 0 15px;
+    text-align: left;
+    font-size: 20px;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.firecheckout-window .fc-window-content .fc-window-title {
+    margin: 0 -20px 15px;
+}
+.firecheckout-window .fc-window-title span {
+    color: #0A263C;
+    font-size: 20px;
+    margin: 0;
+}
+.firecheckout-window .content {
+    padding: 0;
+    margin: 0 auto;
+}
+.firecheckout-window label {
+    width: auto;
+    text-align: left;
+    color: #666;
+}
+.firecheckout-window p {
+    margin-bottom: 5px;
+}
+.firecheckout-window a {
+    color: #1152ad;
+    text-decoration: underline;
+    font-size: 14px;
+}
+.firecheckout-window a:hover {
+    color: #1152ad;
+    text-decoration: none;
+}
+.firecheckout-window .close {
+    opacity: 1;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 25px;
+    color: #999;
+    background-color: #fff;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 49px;
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+}
+.firecheckout-window.has-scrollbar .close {
+    right: 17px;
+}
+.firecheckout-window .close:hover {
+    color: #666;
+    text-decoration: none;
+}
+.firecheckout-window .buttons-set,
+.firecheckout-window .actionbar {
+    border-top: 1px solid #e4e4e4;
+    padding: 15px 20px;
+    text-align: right;
+}
+.firecheckout-window .fc-window-content .buttons-set { margin: 15px -20px 0; padding: 10px 20px 0; }
+.firecheckout-window .actionbar { font-weight: bold; }
+.firecheckout-window .buttons-set .back-link { margin: 0; line-height: normal; display: inline-block; }
+.firecheckout-window .buttons-set a { margin: 0; padding: 5px 0; display: inline-block; }
+
+#emailexists-window .fc-window-content a { text-decoration: underline; }
+#emailexists-window .fc-window-content a:hover { text-decoration: none; }
+
+.firecheckout-window .validation-advice { color: #eb340a; }
+.firecheckout-window .form-list .input-box { clear: both; }
+
+#firecheckout-forgot-window,
+#firecheckout-login-window {
+    max-width: 400px;
+}
+#firecheckout-forgot-window .form-list,
+#firecheckout-login-window .form-list {
+    max-width: 90%;
+    margin: 20px auto 45px;
+}
+#firecheckout-forgot-window .form-list input.input-text,
+#firecheckout-login-window .form-list input.input-text {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#firecheckout-login-window .form-list {
+    margin-bottom: 10px;
+}
+#firecheckout-login-window .buttons-set {
+    border: none;
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 30px;
+}
+#firecheckout-login-window .buttons-set .button {
+    margin: 0;
+    float: none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+@media (max-width: 480px) {
+    .firecheckout-window,
+    .firecheckout-window .fc-window-content {
+        min-width: 90%;
+    }
+}
+
+/* IE7 fix */
+*:first-child+html .firecheckout-window { width: 800px; }
+
+.firecheckout-window .centinel { overflow: auto; }
+.firecheckout-window .centinel .authentication { width: 450px; }
+.firecheckout-window .centinel .authentication iframe { width: 100%; min-height: 400px; }
+
+#firecheckout-mask {
+    visibility: hidden;
+    background: #000;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9901;
+    transition: all 300ms;
+}
+#firecheckout-mask.mask-visible {
+    visibility: visible;
+    opacity: 0.4;
+}

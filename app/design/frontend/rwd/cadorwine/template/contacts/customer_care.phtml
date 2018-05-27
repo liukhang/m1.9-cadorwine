@@ -1,135 +1,135 @@
-<?php
-
-/**
-
- * Magento
-
- *
-
- * NOTICE OF LICENSE
-
- *
-
- * This source file is subject to the Academic Free License (AFL 3.0)
-
- * that is bundled with this package in the file LICENSE_AFL.txt.
-
- * It is also available through the world-wide-web at this URL:
-
- * http://opensource.org/licenses/afl-3.0.php
-
- * If you did not receive a copy of the license and are unable to
-
- * obtain it through the world-wide-web, please send an email
-
- * to license@magento.com so we can send you a copy immediately.
-
- *
-
- * DISCLAIMER
-
- *
-
- * Do not edit or add to this file if you wish to upgrade Magento to newer
-
- * versions in the future. If you wish to customize Magento for your
-
- * needs please refer to http://www.magento.com for more information.
-
- *
-
- * @category    design
-
- * @package     rwd_default
-
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
-
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-
- */
-
-?>
-
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
-
-<div class="contacts_main">
-    <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
-            <div class="contacts-custom">
-                <h3><?php echo __('Compila il form') ?></h3>
-                    <div class="top">
-                        <div class="top_left">
-                            <div class="field">
-                                <div class="input-box">
-                                    <input placeholder="Nome*" name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="input-box">
-                                    <input placeholder="E-mail*" name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="top_right">
-                            <div class="field">
-                                <div class="input-box"><input placeholder="Cognome*" name="cognome" id="cognome" title="<?php echo Mage::helper('contacts')->__('Cognome') ?>" value="" class="required-entry input-text" type="text"/>
-                                </div>
-                            </div>                                
-                            <div class="field">
-                                <div class="input-box">
-                                    <input placeholder="Telefono*" name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="input-text required-entry validate-number" type="tel" />
-                                </div>
-                            </div> 
-                        </div>      
-                    </div>
-                    <div class="bottom">
-                        <div class="field">
-                            <div class="input-box">
-                                <select name="" id="" class="validate-select" title="">
-                                    <option value="">Tipo di richiesta</option>
-                                    <option value="">Informazioni su uno o più prodotti</option>
-                                    <option value="">Informazioni o problemi sugli acquisti online</option>
-                                    <option value="">Informazioni su spedizioni, resi, rimborsi</option>
-                                </select>                        
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="input-box">
-                                <textarea placeholder="Messaggio*" name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="input-text required-entry" cols="5" rows="3"></textarea>
-                            </div>
-                        </div> 
-                        <div class="poly contatti">
-                            <p class="policy">
-                                <span class="spanx"><?php echo __('Ho letto e accetto l’') ?><a href="<?php echo Mage::getBaseUrl() ?>privacy"><ins><?php echo __('informativa sulla privacy policy') ?></ins></a></span>
-                                <input class="required-entry" name="policy" type="checkbox">
-
-                            </p>
-                            <p class="policy">
-                                <span class="spanx"><?php echo __('Acconsento l’utilizzo dei dati per l’invio di proposte commerciali relative a servizi/prodotti forniti da terze parti.') ?></span>
-                                <input class="" name="policy 123" type="checkbox">
-                            </p>
-
-                        </div>      
-                        <div class="buttons-set">
-                            <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
-                            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('INVIA MESSAGGIO') ?></span></span></button>
-                        </div>                  
-                    </div>
-                
-            </div>
-
-    </form>
-
-</div>
-
-<script type="text/javascript">
-
-//<![CDATA[
-
-    var contactForm = new VarienForm('contactForm', true);
-
-//]]>
-
-</script>
-
-
-
+<?php
+
+/**
+
+ * Magento
+
+ *
+
+ * NOTICE OF LICENSE
+
+ *
+
+ * This source file is subject to the Academic Free License (AFL 3.0)
+
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+
+ * It is also available through the world-wide-web at this URL:
+
+ * http://opensource.org/licenses/afl-3.0.php
+
+ * If you did not receive a copy of the license and are unable to
+
+ * obtain it through the world-wide-web, please send an email
+
+ * to license@magento.com so we can send you a copy immediately.
+
+ *
+
+ * DISCLAIMER
+
+ *
+
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+
+ * versions in the future. If you wish to customize Magento for your
+
+ * needs please refer to http://www.magento.com for more information.
+
+ *
+
+ * @category    design
+
+ * @package     rwd_default
+
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+
+ */
+
+?>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<div class="contacts_main">
+    <form action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) ?>contacts/index/postcustomercare" id="contactForm" method="post" class="scaffold-form">
+            <div class="contacts-custom">
+                <h3><?php echo __('Compila il form') ?></h3>
+                    <div class="top">
+                        <div class="top_left">
+                            <div class="field">
+                                <div class="input-box">
+                                    <input placeholder="Nome*" name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="input-box">
+                                    <input placeholder="E-mail*" name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="top_right">
+                            <div class="field">
+                                <div class="input-box"><input placeholder="Cognome*" name="cognome" id="cognome" title="<?php echo Mage::helper('contacts')->__('Cognome') ?>" value="" class="required-entry input-text" type="text"/>
+                                </div>
+                            </div>                                
+                            <div class="field">
+                                <div class="input-box">
+                                    <input placeholder="Telefono*" name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="input-text required-entry validate-number" type="tel" />
+                                </div>
+                            </div> 
+                        </div>      
+                    </div>
+                    <div class="bottom">
+                        <div class="field">
+                            <div class="input-box">
+                                <select name="richiesta" id="" class="validate-select" title="">
+                                    <option value="0">Tipo di richiesta</option>
+                                    <option value="Informazioni su uno o più prodotti">Informazioni su uno o più prodotti</option>
+                                    <option value="Informazioni o problemi sugli acquisti online">Informazioni o problemi sugli acquisti online</option>
+                                    <option value="Informazioni su spedizioni, resi, rimborsi">Informazioni su spedizioni, resi, rimborsi</option>
+                                </select>                        
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="input-box">
+                                <textarea placeholder="Messaggio*" name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="input-text required-entry" cols="5" rows="3"></textarea>
+                            </div>
+                        </div> 
+                        <div class="poly contatti">
+                            <p class="policy">
+                                <span class="spanx"><?php echo __('Ho letto e accetto l’') ?><a target="_blank" href="https://www.iubenda.com/privacy-policy/92710503" target="_blank"><ins><?php echo __('informativa sulla privacy policy') ?></ins></a></span>
+                                <input class="required-entry" name="policy" type="checkbox">
+
+                            </p>
+                            <p class="policy">
+                                <span class="spanx"><?php echo __('I agree to the use of the data for the submission of commercial proposals relating to ') ?><a target="_blank" href="https://www.iubenda.com/privacy-policy/92710503" target="_blank"><ins><?php echo __('services/products provided by third parties.') ?></ins></a></span>
+                                <input class="" name="policy 123" type="checkbox">
+                            </p>
+
+                        </div>      
+                        <div class="buttons-set">
+                            <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+                            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('INVIA MESSAGGIO') ?></span></span></button>
+                        </div>                  
+                    </div>
+                
+            </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+
+//<![CDATA[
+
+    var contactForm = new VarienForm('contactForm', true);
+
+//]]>
+
+</script>
+
+
+

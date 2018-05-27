@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="content">
+            <block type="tco/iframe" name="tco.iframe" as="tco_iframe">
+                <action method="setBlockId"><block_id>tcoiframe</block_id></action>
+            </block>
+        </reference>
+    </firecheckout_index_index>
+    <firecheckout_index_updatecheckout>
+        <reference name="content">
+            <block type="tco/iframe" name="tco.iframe" as="tco_iframe">
+                <action method="setBlockId"><block_id>tcoiframe</block_id></action>
+            </block>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

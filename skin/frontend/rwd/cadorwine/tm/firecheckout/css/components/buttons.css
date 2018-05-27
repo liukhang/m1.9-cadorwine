@@ -1,0 +1,126 @@
+.firecheckout-set button.button,
+.firecheckout-set button.button span,
+.firecheckout-set button.button span span,
+.firecheckout-window button.button,
+.firecheckout-window button.button span,
+.firecheckout-window button.button span span {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    float: none;
+    height: auto;
+    width: auto;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    font: bold 12px/30px Arial,Helvetica,sans-serif;
+    color: #fff;
+}
+.firecheckout-set button.button span,
+.firecheckout-set button.button span span,
+.firecheckout-window button.button span,
+.firecheckout-window button.button span span {
+    transition: none !important;
+    background: none !important;
+}
+.firecheckout-set button.button,
+.firecheckout-window button.button {
+    background-color: #888;
+    border-radius: 3px;
+    border: 0px solid rgba(0,0,0,0.15);
+    border-bottom-width: 2px;
+    padding: 0 15px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s;
+}
+.firecheckout-set button.button:hover,
+.firecheckout-set button.button:focus,
+.firecheckout-window button.button:hover,
+.firecheckout-window button.button:focus { background-color:#777; }
+.firecheckout-set button.loading,
+.firecheckout-set button.loading:hover,
+.firecheckout-set button.loading:focus,
+.firecheckout-window button.loading,
+.firecheckout-window button.loading:hover,
+.firecheckout-window button.loading:focus {
+    background-color: #888;
+    opacity: 0.8;
+    cursor: wait;
+    animation: none;
+}
+.firecheckout-set button.edit { background-color: #aaa; }
+.firecheckout-set button.edit:hover,
+.firecheckout-set button.edit:focus { background-color: #888; }
+.firecheckout-set button.disabled,
+.firecheckout-set button.disabled:hover,
+.firecheckout-set button.disabled:focus,
+.firecheckout-window button.disabled,
+.firecheckout-window button.disabled:hover,
+.firecheckout-window button.disabled:focus {
+    background-color: #ccc;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Primary button */
+.firecheckout-set button.btn-checkout,
+.firecheckout-set button.btn-primary,
+.firecheckout-window button.button {
+    background-color: #40c781;
+    padding: 0 30px;
+    margin: 0 0 5px;
+}
+.firecheckout-set button.btn-checkout:hover,
+.firecheckout-set button.btn-checkout:focus,
+.firecheckout-set button.btn-primary:hover,
+.firecheckout-set button.btn-primary:focus,
+.firecheckout-window button.button:hover,
+.firecheckout-window button.button:focus { background-color:#34a46c; }
+.firecheckout-set button.btn-checkout.loading,
+.firecheckout-set button.btn-checkout.loading:hover,
+.firecheckout-set button.btn-checkout.loading:focus,
+.firecheckout-set button.btn-primary.loading,
+.firecheckout-set button.btn-primary.loading:hover,
+.firecheckout-set button.btn-primary.loading:focus,
+.firecheckout-window button.button.loading,
+.firecheckout-window button.button.loading:hover,
+.firecheckout-window button.button.loading:focus { background-color: #40c781; }
+
+.firecheckout-window button.button {
+    padding: 0 20px;
+    margin: 0;
+}
+.firecheckout-window button.button span span {
+    font-size: 13px;
+}
+
+.firecheckout-set button.btn-checkout span span,
+.firecheckout-set button.btn-hero span span {
+    font-size: 15px;
+    line-height: 41px;
+    text-transform: uppercase;
+}
+
+/* Buttons loading state */
+.firecheckout-set button.loading,
+.firecheckout-window button.loading {
+    animation: 1s button-blink infinite;
+    cursor: wait;
+}
+.firecheckout-window button.button.loading,
+.firecheckout-set button.btn-checkout.loading,
+.firecheckout-set button.btn-hero.loading {
+    padding-right: 57px !important;
+}
+
+.firecheckout-set button .fc-spinner { display: none; }
+button.btn-checkout .fc-spinner,
+.firecheckout-window button .fc-spinner { display: block; }
+
+@keyframes button-blink {
+    50% { opacity: 0.5; }
+}

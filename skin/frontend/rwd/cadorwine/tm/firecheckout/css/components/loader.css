@@ -1,0 +1,72 @@
+.firecheckout-set .input-box {
+    position: relative;
+}
+.firecheckout-set .input-box .fc-spinner > div {
+    background-color: #ccc;
+}
+
+.fc-spinner {
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+}
+.fc-spinner > div {
+    vertical-align: top;
+    width: 10px;
+    height: 10px;
+    margin: 0 2px;
+    background-color: currentColor;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: fc-spinner-bouncedelay 1.2s infinite ease-in-out both;
+    animation: fc-spinner-bouncedelay 1.2s infinite ease-in-out both;
+}
+.fc-spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.fc-spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.firecheckout-loader {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        visibility 0ms linear 200ms,
+        transform 200ms ease-in-out,
+        opacity 200ms ease-in-out;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 10000;
+    background: #fff;
+    border-radius: 0;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    height: 90px;
+    margin: -60px 0 0 -100px;
+    font-weight: bold;
+    box-sizing: content-box;
+    color: #ccc;
+}
+.firecheckout-loader.shown {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0ms;
+}
+.firecheckout-loader .fc-spinner {
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.firecheckout-loader .fc-spinner > div {
+    width: 16px;
+    height: 16px;
+}

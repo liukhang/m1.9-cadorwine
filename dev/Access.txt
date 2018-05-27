@@ -1,0 +1,2 @@
+user: mage-designer
+pw: 2Q6J4i5tTC

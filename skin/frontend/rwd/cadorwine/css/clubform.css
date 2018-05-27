@@ -1,0 +1,251 @@
+.content_clubcador {
+    margin: 0 auto;
+    max-width: 860px;
+}
+.main .std .content_clubcador p {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.clubcador_form .head_form label {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+.clubcador_form .head_form a {
+    font-weight: 500;
+    line-height: 37px;
+    margin: 0 0 0 25px;
+    padding-left: 45px;
+    position: relative;
+}
+.clubcador_form .head_form a::before {
+    background: #e6e6e6 none repeat scroll 0 0;
+    content: "";
+    height: 37px;
+    left: 0;
+    position: absolute;
+    width: 35px;
+	top: -8px
+}
+.clubcador_form .head_form a.active::after {
+    content: "\f00c";
+    font-family: FontAwesome;
+    font-size: 18px;
+    left: 8px;
+    position: absolute;
+	top: -8px
+}
+.clubcador_form .head_form {
+	margin-bottom: 10px;
+    padding-top: 10px;
+}
+.clubcador_form .form-list {
+    margin-bottom: 0;
+}
+.fieldset .form-list .field.left {
+    float: left;
+    width: 49%;
+}
+.fieldset .form-list .field.right {
+    float: right;
+    width: 49%;
+}
+
+input#email_address, input.input-text, .fieldset .form-list .field input , .form_register .wide .input-box input, .custom_box_check .wide .input-box input {
+    background: #ebebeb none repeat scroll 0 0;
+    border: 1px solid #ebebeb;
+    border-radius: 0;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+    height: 37px;
+    letter-spacing: 1px;
+}
+.fieldset .form-list .field.custom_year label {
+    float: left;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-right: 4.5%;
+    margin-top: 7px;
+}
+.fieldset .form-list .field.custom_year .same_dob {
+    display: inline-block;
+    margin-left: 4%;
+    margin-right: 0;
+    width: 17%;
+}
+.fieldset .form-list .field.custom_year .same_dob input {
+    text-align: center;
+}
+.fieldset.col3-set .form-list .field:last-child {
+    padding: 0;
+}
+.fieldset.col3-set .form-list .field {
+    float: left;
+    padding: 0 1.7% 0 0;
+    width: 33.3%;
+}
+.fieldset .form-list .field select {
+    background: #ebebeb none repeat scroll 0 0;
+    border: 0 none;
+    height: 37px;
+    margin: 0;
+}
+.main .std .content_clubcador .custom_box_check p {
+    clear: both;
+    margin: 0 0 5px;
+    padding: 12px 0;
+}
+.content_clubcador .custom_box_check p.small {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-top: 20px !important;
+    padding: 0 !important;
+    text-align: left;
+}
+.custom_box_check ul .control .input-box {
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    margin-right: 10px;
+}
+.custom_box_check ul .control label {
+    display: inline-block;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    vertical-align: middle;
+    float: left;
+    width: 80%;
+}
+.custom_box_check ul .control {
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 100%;
+}
+.content_clubcador .buttons-set {
+    border: 0 none;
+}
+.content_clubcador .buttons-set .button {
+    width: 280px;
+}
+.content_clubcador .clubcador_form .form_register.show {
+    display: block;
+}
+.content_clubcador .clubcador_form .form_register {
+    display: none;
+}
+.content_clubcador .clubcador_form .form_login {
+    display: none;
+}
+.content_clubcador .clubcador_form .form_login.show {
+    display: block;
+}
+.clubcador_form .account-create .wide {
+    clear: both;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width:991px){
+.firecheckout-login-wrapper .firecheckout-login {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+}
+.content_clubcador {
+    max-width: 700px;
+}
+.fieldset .form-list .field.custom_year label {
+    margin-right: 0;
+}
+.fieldset .form-list .field.custom_year .same_dob {
+    margin-left: 3%;
+}
+.main .std .content_clubcador .custom_box_check p {
+    letter-spacing: 1px;
+}
+
+}
+
+
+
+@media only screen and (max-width:767px){
+
+.fieldset .form-list .field.right {
+    text-align: right;
+}
+.fieldset .form-list .field.custom_year label {
+    letter-spacing: 0;
+}
+.fieldset .form-list .field.custom_year .same_dob input {
+    padding: 0 5px;
+}
+.fieldset .form-list .field.custom_year .same_dob {
+    width: 17%;
+}
+
+}
+
+
+
+@media only screen and (max-width:640px){
+
+.fieldset .form-list .field.left {
+    float: none;
+    width: 100%;
+}
+.fieldset .form-list .field.right {
+    float: none;
+    width: 100%;
+}
+.fieldset.col3-set .form-list .field {
+    float: none;
+    padding: 0;
+    width: 100%;
+}
+.fieldset .form-list .field select {
+    width: 100%;
+}
+.clubcador_form .account-create .wide {
+    margin-bottom: 10px;
+}
+.clubcador_form .account-create .form-list {
+    margin-bottom: 0;
+}
+.content_clubcador .buttons-set .button {
+    width: 100%;
+}
+.clubcador_form .head_form label {
+    letter-spacing: 0;
+}
+.field.right.custom_year.customer-dob {
+    overflow: hidden;
+}
+}
+
+
+@media only screen and (max-width:360px){
+
+.fieldset .form-list .field.custom_year .same_dob {
+    width: 16%;
+}
+.clubcador_form .head_form label {
+    font-size: 15px;
+    letter-spacing: 0;
+}
+.clubcador_form .head_form a {
+    margin: 0 0 0 10px;
+    padding-left: 40px;
+}
+
+}
+
+
+
+
+

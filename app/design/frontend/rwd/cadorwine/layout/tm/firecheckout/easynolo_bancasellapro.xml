@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<layout>
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <block type="easynolo_bancasellapro/utility_text" name="gestpay.iframe.external"/>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>skin_css</type><name>css/easynolo_bancasella/gestpay.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
+            <action method="addJs" ifconfig="payment/gestpaypro_red/enable"><script>bancasellapro/red_blackbox.js</script></action>
+            <action method="addJs"><script>bancasellapro/gestpayform.js</script></action>
+            <block type="core/text" name="paymentfont">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/paymentfont/1.1.2/css/paymentfont.min.css">]]>
+                    </text>
+                </action>
+            </block>
+
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/easynolo_bancasellapro.js</name></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/text" name="gestpaypro.red.script.block">
+                <action method="setText" ifconfig="payment/gestpaypro_red/enable"><text><![CDATA[<script src="https://mpsnare.iesnare.com/snare.js"></script>]]></text></action>
+            </block>
+            <block type="core/template" name="gestpaypro.iframe.script.block" template="easynolo/bancasellapro/gestpay/iframe.phtml" ifconfig="payment/gestpaypro/iframe"/>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

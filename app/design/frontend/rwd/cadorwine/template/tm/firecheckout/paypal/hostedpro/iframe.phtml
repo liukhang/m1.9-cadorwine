@@ -10,17 +10,17 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to license@magento.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -37,19 +37,17 @@ else:
 endif;
 ?>
 
-<iframe id="<?php echo $iframeId ?>" style="display:none;" scrolling="no" frameborder="0" border="0" src="<?php echo $this->getFrameActionUrl() ?>" height="610" width="570"></iframe>
+<iframe id="<?php echo $iframeId ?>" style="display:none;" scrolling="no" frameborder="0" border="0"
+        src="<?php echo $this->getFrameActionUrl() ?>" height="610" width="100%"></iframe>
 <script type="text/javascript">
 //<![CDATA[
+$('firecheckout-form').hide();
 $('<?php echo $iframeId ?>').observe('load', function(){
     if (this.firecheckoutCancelLoad) {
         return;
     }
     $('<?php echo $iframeId ?>').show();
     $('iframe-warning').show();
-    firecheckoutWindow.updateSize().center().show();
-    $('firecheckout-form').setStyle({
-        visibility: 'hidden'
-    });
 });
 //]]>
 </script>

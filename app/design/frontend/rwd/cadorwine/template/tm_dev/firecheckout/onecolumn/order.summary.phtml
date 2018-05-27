@@ -1,0 +1,13 @@
+<div class="step step-summary">
+    <div class="firecheckout-section">
+        <div class="block-title"><?php echo $this->__('Order Summary') ?></div>
+        <div class="block-content">
+            <table class="data-table" id="order-total-clone"></table>
+        </div>
+    </div>
+</div>
+<script>
+document.observe('dom:loaded', function() {
+    OrderSummary.init();
+});
+</script>

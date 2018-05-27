@@ -547,3 +547,45 @@
 </script>
 
 
+<script type="text/javascript">
+
+        // Output the preloader HTML
+        document.write('<div id="ish-site-preloader-holder" class="ish-site-preloader-holder">' +
+        '<div class="ish-site-preloader-content">' +
+        '<div class="ish-site-preloader"><div class="ish-loader"><div class="ish-flipper"><div class="ish-front"><img src="<?php echo $this->getSkinUrl('images/loading.png'); ?>" /></div><div class="ish-back"><img src="<?php echo $this->getSkinUrl('images/loading.png'); ?>" /></div></div></div></div>' +
+        '<div class="ish-site-preloader-text">Loading...</div>' +
+        '</div>' +
+        '</div>');
+
+</script>
+<script>
+(function($) {
+    "use strict";
+    var ish = {}
+    jQuery(window).load(function () {
+        ish.not_preloader();
+
+    });
+    jQuery(window).bind('beforeunload', function () {
+        ish.is_preloader();
+    });
+    ish.is_preloader = function (){
+
+        var site_preloader = jQuery('.ish-site-preloader-holder');
+
+        if ( site_preloader.length > 0 ) {
+            site_preloader.fadeIn(250);
+        }
+
+    }
+    ish.not_preloader = function (){
+
+        var site_preloader = jQuery('.ish-site-preloader-holder');
+
+        if ( site_preloader.length > 0 ) {
+            site_preloader.fadeOut(250);
+        }
+    }
+})(jQuery);
+
+</script>

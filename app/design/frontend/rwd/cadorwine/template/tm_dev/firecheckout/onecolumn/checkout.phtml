@@ -1,0 +1,222 @@
+<div class="page-title checkout-title">
+    <h1>
+        <?php echo Mage::getStoreConfig('firecheckout/general/title') ?>
+        <a class="continue-shopping"
+            href="<?php echo $this->getUrl(); ?>"
+            title="<?php echo $this->__('Back to Store') ?>"
+        ><?php echo $this->__('Back to Store') ?></a>
+    </h1>
+</div>
+
+<?php
+    echo $this->getMessagesBlock()->getGroupedHtml();
+    $this->getMessagesBlock()->getMessageCollection()->clear();
+?>
+
+<?php
+    $topContainer = $this->getChildHtml('firecheckout.top.container');
+    $topContainer = trim($topContainer);
+    if (strlen($topContainer)) :
+?>
+    <div class="firecheckout-top-container">
+        <?php echo $topContainer ?>
+    </div>
+<?php endif ?>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('tm/firecheckout/js/firecheckout.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('tm/firecheckout/js/firecheckout-compatibility.js') ?>"></script>
+<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+<script type="text/javascript">FC.Ajax.rules = <?php echo Mage::helper('core')->jsonEncode(Mage::helper('firecheckout/ajax')->getRules()) ?></script>
+
+<form action="" id="firecheckout-form" method="post">
+<?php
+if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/top')) :
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
+endif;
+?>
+<div class="clearer"></div>
+
+<div class="onecolumn firecheckout-set expanded-off">
+    <?php if (!$this->isCustomerLoggedIn()) : ?>
+    <div class="step step-name" id="step-name" data-step-save="saveName">
+        <div class="step-content">
+            <?php echo $this->getChildHtml('billing.address.name') ?>
+            <div class="step-mask"></div>
+        </div>
+        <div class="step-buttons-set">
+            <?php echo $this->getChildHtml('step.name.buttons.additional') ?>
+            <button type="button" title="<?php echo $this->__('Edit Section') ?>" class="button edit">
+                <?php echo $this->__('Edit Section') ?>
+            </button>
+            <button type="button" title="<?php echo $this->__('Log In') ?>" class="button btn-login">
+                <?php echo $this->__('Log In') ?>
+            </button>
+            <button type="button" title="<?php echo $this->__('Continue Checkout') ?>" class="button next">
+                <?php echo $this->__('Continue Checkout') ?>
+            </button>
+        </div>
+    </div>
+    <?php endif ?>
+
+    <div class="step step-address" id="step-address" data-step-save="saveAddress">
+        <div class="step-content">
+            <?php echo $this->getChildHtml('billing.address') ?>
+            <?php echo $this->getChildHtml('shipping.address') ?>
+            <div class="step-mask"></div>
+        </div>
+        <div class="step-buttons-set">
+            <button type="button" title="<?php echo $this->__('Edit Section') ?>" class="button edit">
+                <?php echo $this->__('Edit Section') ?>
+            </button>
+            <button type="button" title="<?php echo $this->__('Continue Checkout') ?>" class="button next">
+                <?php echo $this->__('Continue Checkout') ?>
+            </button>
+        </div>
+    </div>
+
+    <?php
+        $shippingMethods = $this->getChildHtml('shipping.method');
+        $columnClass = 'col2-set ';
+        $saveMethod = 'saveShippingAndPaymentMethods';
+        if (!$shippingMethods) {
+            $columnClass = '';
+            $saveMethod = 'savePaymentMethod';
+        }
+    ?>
+    <div class="<?php echo $columnClass ?>step step-shipping-payment-method" id="step-shipping-payment-method" data-step-save="<?php echo $saveMethod ?>">
+        <div class="step-content">
+            <?php if ($shippingMethods) : ?>
+                <div class="col-1">
+                    <?php echo $shippingMethods ?>
+                </div>
+            <?php endif ?>
+            <div class="col-2">
+                <?php echo $this->getChildHtml('payment.method') ?>
+                <?php
+                    $j2tRewardPoints = $this->getLayout()->getBlock('checkout_cart_coupon_normal');
+                    $coupon = trim($this->getChildHtml('coupon'));
+                    $giftcard = trim($this->getChildHtml('giftcard'));
+
+                ?>
+                <?php if ($j2tRewardPoints || $coupon || $giftcard) : ?>
+                    <ul class="form-list discount-block">
+                        <li class="control">
+                            <input type="checkbox" class="checkbox" id="discount_block_toggle" title="<?php echo $this->__('Apply giftcard and discount coupon') ?>" value="1" name="discount-coupon"><label for="discount_block_toggle"><?php echo $this->__('Check, if you have a giftcard or discount code') ?></label>
+                        </li>
+                        <li class="form">
+                            <?php // rewardpoints extension override standard discount block too
+                            if ($j2tRewardPoints): ?>
+                                <div id="checkout-coupon-discount-load">
+                                    <?php echo $j2tRewardPoints->toHtml(); ?>
+                                </div>
+                            <?php elseif ($coupon): ?>
+                                <div id="checkout-coupon-discount-load">
+                                    <?php echo $coupon ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($giftcard) : ?>
+                                <div id="checkout-giftcard-load">
+                                    <?php echo $this->getChildHtml('giftcard') ?>
+                                </div>
+                            <?php endif ?>
+                        </li>
+                    </ul>
+                <?php endif ?>
+            </div>
+            <div class="step-mask"></div>
+        </div>
+        <div class="step-buttons-set">
+            <button type="button" title="<?php echo $this->__('Edit Section') ?>" class="button edit">
+                <?php echo $this->__('Edit Section') ?>
+            </button>
+            <button type="button" title="<?php echo $this->__('Continue Checkout') ?>" class="button next">
+                <?php echo $this->__('Continue Checkout') ?>
+            </button>
+        </div>
+    </div>
+
+    <?php $additional = trim($this->getChildHtml('checkout.additional.information')) ?>
+    <?php if ($additional) : ?>
+        <div class="step step-additional" id="step-additional">
+            <div class="step-content">
+                <?php echo $additional ?>
+                <div class="step-mask"></div>
+            </div>
+            <div class="step-buttons-set">
+                <button type="button" title="<?php echo $this->__('Edit Section') ?>" class="button edit">
+                    <?php echo $this->__('Edit Section') ?>
+                </button>
+                <button type="button" title="<?php echo $this->__('Continue Checkout') ?>" class="button next">
+                    <?php echo $this->__('Continue Checkout') ?>
+                </button>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <div class="step step-review" id="step-review">
+        <?php echo $this->getChildHtml('review') ?>
+    </div>
+</div>
+
+<div class="onecolumn-aside firecheckout-set">
+    <?php
+        if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/sidebar_top')) :
+            echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
+        endif;
+    ?>
+    <?php echo $this->getChildHtml('sidebar') ?>
+    <?php
+        if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/sidebar_bottom')) :
+            echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
+        endif;
+    ?>
+</div>
+
+<?php if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/bottom')) : ?>
+    <div class="clearer"></div>
+<?php
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
+endif;
+?>
+<div class="clearer"></div>
+</form>
+
+<?php echo $this->getChildHtml('customer.login') ?>
+<?php echo $this->getChildHtml('customer.forgot') ?>
+<?php if (Mage::helper('core')->isModuleOutputEnabled('RedPandaPlus_OrderAttachments')) : ?>
+    <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+    <?php $customerCanUploadAttachment = Mage::helper('redpandaplus_orderattachments')->customerCanUploadAttachment($customer); ?>
+    <?php $canAddAttachments = Mage::helper('redpandaplus_orderattachments')->getCanAddAttachments(); ?>
+    <?php if ($customerCanUploadAttachment && $canAddAttachments): ?>
+        <div id="firecheckout-attachments-window" style="display: none;">
+            <div class="order-attachments">
+                <?php echo $this->getChildHtml('order_attachments') ?>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<?php if (Mage::helper('core')->isModuleOutputEnabled('Mage_Persistent')) : ?>
+    <?php echo $this->getChildHtml('persistent.login') ?>
+<?php endif; ?>
+<div id="checkout-centinel-iframe-load" style="display: none;"></div>
+<div id="checkout-paypaliframe-load" class="authentication" style="display: none;"></div>
+<div id="checkout-sagepay-iframe-load"></div>
+<form id="co-payment-form" method="post" action=""></form>
+
+<?php echo $this->getChildHtml('firecheckout.scripts') ?>
+
+<script type="text/javascript">
+//<![CDATA[
+    <?php $_isSecure = $this->getRequest()->isSecure(); ?>
+    Object.extend(checkout.urls, {
+        save: '<?php echo $this->getUrl('firecheckout/onecolumn/saveOrder', array('_secure'=>$_isSecure, 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>',
+        billing_address_with_validation: '<?php echo $this->getUrl('firecheckout/onecolumn/saveBilling', array('_secure'=>$_isSecure)) ?>',
+        email_verification: '<?php echo $this->getUrl('firecheckout/index/verifyEmail', array('_secure'=>$_isSecure)) ?>',
+        login: '<?php echo $this->getUrl('firecheckout/index/login', array('_secure'=>$_isSecure)) ?>',
+        forgotpassword: '<?php echo $this->getUrl('firecheckout/index/forgotpassword', array('_secure'=>$_isSecure)) ?>',
+    });
+//]]>
+</script>
+
+<?php echo $this->getChildHtml('firecheckout.custom') ?>

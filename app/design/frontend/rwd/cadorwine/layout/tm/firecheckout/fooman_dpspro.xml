@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs"><script>fooman/dpspro/fusion.js</script></action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/fooman_dpspro.js</name>
+            </action>
+        </reference>
+
+        <reference name="checkout.onepage.payment.methods.additional">
+            <block type="foomandpspro/pxpostrebill_ccSave" name="fooman_ccsave" as="fooman_ccsave" template="fooman/dpspro/onePageCheckout.phtml"/>
+        </reference>
+        <reference name="firecheckout.payment.after">
+            <block type="core/template" name="pxfusion_iframe" as="pxfusion_iframe" template="fooman/dpspro/pxfusion/iframe.phtml" />
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.onepage.payment.methods.additional">
+            <block type="foomandpspro/pxpostrebill_ccSave" name="fooman_ccsave" as="fooman_ccsave" template="fooman/dpspro/onePageCheckout.phtml"/>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

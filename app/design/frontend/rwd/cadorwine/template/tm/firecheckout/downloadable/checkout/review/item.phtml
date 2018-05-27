@@ -30,66 +30,65 @@
 ?>
 <tr>
     <td>
-        <?php
-            $image = Mage::getStoreConfigFlag('firecheckout/shopping_cart/image');
-            $style = '';
-        ?>
-        <?php if ($image) :
+    <div class="collateral-wrapper">
+        <?php if (Mage::getStoreConfigFlag('firecheckout/shopping_cart/image')) :
             $width  = (int)Mage::getStoreConfig('firecheckout/shopping_cart/image_width');
             $height = (int)Mage::getStoreConfig('firecheckout/shopping_cart/image_height');
-            $style = 'style="margin-left:' . ($width + 5) . 'px"';
         ?>
             <div class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize($width, $height); ?>" width="<?php echo $width ?>" height="<?php echo $height; ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /></div>
         <?php endif; ?>
-        <h3 class="product-name" <?php echo $style ?>>
-            <?php if ($_nameAsLink) : ?>
-                <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>">
-            <?php endif; ?>
-                    <?php echo $this->htmlEscape($this->getProductName()) ?>
-            <?php if ($_nameAsLink) : ?>
-                </a>
-            <?php endif; ?>
-        </h3>
-        <?php if (Mage::getStoreConfig('firecheckout/shopping_cart/short_description')) :
-            $this->getProduct()->load($this->getProduct()->getId());
-            if ($description = $this->getProduct()->getShortDescription()):?>
-                <div class="short-description" <?php echo $style ?>>
-                    <div class="std"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), nl2br($description), 'short_description') ?></div>
-                </div>
-            <?php endif;?>
-        <?php endif; ?>
-        <?php if ($_options = $this->getOptionList()):?>
-        <dl class="item-options" <?php echo $style ?>>
-            <?php foreach ($_options as $_option) : ?>
-            <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-            <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
-            <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
-                <?php if (isset($_formatedOptionValue['full_view'])): ?>
-                <div class="truncated_full_value">
-                    <dl class="item-options">
-                        <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
-                        <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
-                    </dl>
-                </div>
+        <div class="collateral">
+            <h3 class="product-name">
+                <?php if ($_nameAsLink) : ?>
+                    <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>">
                 <?php endif; ?>
-            </dd>
+                        <?php echo $this->htmlEscape($this->getProductName()) ?>
+                <?php if ($_nameAsLink) : ?>
+                    </a>
+                <?php endif; ?>
+            </h3>
+            <?php if (Mage::getStoreConfig('firecheckout/shopping_cart/short_description')) :
+                $this->getProduct()->load($this->getProduct()->getId());
+                if ($description = $this->getProduct()->getShortDescription()):?>
+                    <div class="short-description">
+                        <div class="std"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), nl2br($description), 'short_description') ?></div>
+                    </div>
+                <?php endif;?>
+            <?php endif; ?>
+            <?php if ($_options = $this->getOptionList()):?>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
+                <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
+                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                    <div class="truncated_full_value">
+                        <dl class="item-options">
+                            <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                            <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
+                        </dl>
+                    </div>
+                    <?php endif; ?>
+                </dd>
+                <?php endforeach; ?>
+            </dl>
+            <?php endif;?>
+            <?php /*if ($messages = $this->getMessages()): ?>
+            <?php foreach ($messages as $message): ?>
+                <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $message['text'] ?></p>
             <?php endforeach; ?>
-        </dl>
-        <?php endif;?>
-        <?php /*if ($messages = $this->getMessages()): ?>
-        <?php foreach ($messages as $message): ?>
-            <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $message['text'] ?></p>
-        <?php endforeach; ?>
-        <?php endif;*/ ?>
-        <?php if ($links = $this->getLinks()): ?>
-        <dl class="item-options">
-            <dt><?php echo $this->getLinksTitle() ?></dt>
-            <?php foreach ($links as $link): ?>
-                <dd><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
-            <?php endforeach; ?>
-        </dl>
-        <?php endif; ?>
-        <!-- EOF downloadable -->
+            <?php endif;*/ ?>
+            <?php if ($links = $this->getLinks()): ?>
+            <dl class="item-options downloadable-links">
+                <dt><?php echo $this->getLinksTitle() ?></dt>
+                <?php foreach ($links as $link): ?>
+                    <dd><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
+                <?php endforeach; ?>
+            </dl>
+            <?php endif; ?>
+            <!-- EOF downloadable -->
+        </div>
+    </div>
     </td>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">

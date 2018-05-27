@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/mage_molpayseamless.js</name></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="firecheckout_mage_molpayseamless" template="tm/firecheckout/mage_molpayseamless/form.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+</layout>

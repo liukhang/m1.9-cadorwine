@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>netresearch/ops/payment.js</script>
+            </action>
+            <action method="addJs">
+                <script>netresearch/ops/tokenization.js</script>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/ops.css</stylesheet>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/netresearch_ops.js</name>
+            </action>
+
+            <block type="ops/checkout_deviceFingerprinting"
+                   name="ops_deviceFingerprinting" as="ops.devicefingerprinting" />
+        </reference>
+
+
+        <!-- NOT AVAILABLE IN 16.05.26 VERSION
+        <reference name="payment.method">
+            <block type="core/template" name="ops_iframe" as="ops_iframe" template="ops/iframe.phtml" />
+        </reference>
+        -->
+        <reference name="payment.method">
+            <block type="ops/frauddetection" name="ops_frauddetection" template="ops/frauddetection.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+</layout>

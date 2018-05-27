@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <block type="page/html_head" name="head_locationfinder" as="head_locationfinder" template="dhl_locationfinder/page/html/head.phtml">
+                <action method="addJs">
+                    <script>dhl_locationfinder/locationfinder.js</script>
+                </action>
+                <action method="addCss">
+                    <stylesheet>css/dhl_locationfinder/storelocator.css</stylesheet>
+                </action>
+                <action method="addCss">
+                    <stylesheet>css/dhl_locationfinder/styles.css</stylesheet>
+                </action>
+                <action method="addJs">
+                    <script>googlemaps/store-locator.min.js</script>
+                </action>
+            </block>
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <file>tm/firecheckout/css/integration/dhl_locationfinder.css</file>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <block type="dhl_locationfinder/checkout_onepage_locationfinder" name="dhl_locationfinder.popup" template="dhl_locationfinder/checkout/onepage/locationfinder.popup.phtml" before="-"/>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

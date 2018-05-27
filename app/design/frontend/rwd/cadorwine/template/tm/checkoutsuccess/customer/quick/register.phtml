@@ -1,0 +1,34 @@
+<div class="quick-account-create">
+    <h2><?php echo $this->__('Create account for next time') ?></h2>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="quick-register">
+        <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input type="hidden" name="last_order" value="<?php echo $this->escapeHtml($this->getSuccessBlock()->getOrderId()) ?>" />
+        <div class="fieldset">
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field">
+                        <label for="password" class="required"><?php echo $this->__('Password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="password" id="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>" class="input-text required-entry validate-password" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="confirmation" class="required"><?php echo $this->__('Confirm Password') ?></label>
+                        <div class="input-box">
+                            <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Create Account')) ?>" class="cs-button"><?php echo $this->__('Create Account') ?></button>
+        </div>
+    </form>
+    <div class="response-success" style="display: none;">
+        <h2><?php echo $this->__('Great, now you are registered') ?></h2>
+    </div>
+    <div class="response-error" style="display: none;">
+        <h2><?php echo $this->__('Ooops, something went wrong') ?></h2>
+    </div>
+</div>

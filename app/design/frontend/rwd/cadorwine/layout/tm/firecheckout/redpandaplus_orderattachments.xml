@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout>
+    <firecheckout_index_index>
+        <reference name="head">
+          <action method="addCss"><stylesheet>pws_orderattachments/css/pws_orderattachments.css</stylesheet></action>
+        </reference>
+        <reference name="firecheckout">
+            <block type="redpandaplus_orderattachments/attachments" name="checkout.onepage.attachments" as="order_attachments" template="redpandaplus_orderattachments/checkout/onepage/attachments.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+</layout>

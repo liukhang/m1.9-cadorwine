@@ -1,0 +1,11 @@
+<?php echo $this->__('Order Attachments') ?>
+
+<?php foreach ($this->getAttachments() as $attachment) : ?>
+
+    <?php echo $this->__('File') . ': ' . $this->escapeHtml($attachment->getFilename()) ?>
+
+    <?php echo $this->__('Comment') . ': ' . $this->escapeHtml($attachment->getComment()) ?>
+
+    <?php echo $this->__('Download Url') . ': ' . $attachment->getDownloadUrl() ?>
+
+<?php endforeach; ?>

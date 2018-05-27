@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="payment/authorizenet_directpost/active"><file>mage/directpost.js</file></action>
+            <action method="addItem" ifconfig="payment/authorizenet_directpost/active"><type>skin_js</type><name>tm/firecheckout/js/integration/mage_directpost.js</name></action>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_saveorder>
+        <block type="directpost/form" name="payment.form.directpost" template="tm/firecheckout/authorizenet/directpost/form.phtml">
+            <action method="setMethodInfo"></action>
+        </block>
+    </firecheckout_index_saveorder>
+</layout>

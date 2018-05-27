@@ -1,0 +1,40 @@
+/**
+ * Tablet layout with sticky order summary
+ */
+@media (max-width: 800px) and (min-width: 640px) {
+    .firecheckout-set .col2-set .col-1,
+    .firecheckout-set .col2-set .col-2 {
+        box-sizing: border-box;
+        float: none;
+        width: auto;
+    }
+
+    #firecheckout-form .col2-fire-set,
+    #firecheckout-form .col3-fire-set { position: relative; }
+    #firecheckout-form .col2-fire-set #checkout-review,
+    #firecheckout-form .col3-fire-set #checkout-review,
+    #firecheckout-form .col2-fire-set .col-fire-1,
+    #firecheckout-form .col2-fire-set .col-fire-2,
+    #firecheckout-form .col3-fire-set .col-fire-1,
+    #firecheckout-form .col3-fire-set .col-fire-2,
+    #firecheckout-form .col3-fire-set .col-fire-3 {
+        width: 49.2%;
+    }
+    #firecheckout-form .col2-fire-set .col-fire-1,
+    #firecheckout-form .col2-fire-set .col-fire-2,
+    #firecheckout-form .col3-fire-set .col-fire-1,
+    #firecheckout-form .col3-fire-set .col-fire-2,
+    #firecheckout-form .col3-fire-set .col-fire-3 {
+        float: left;
+        clear: left;
+    }
+    #firecheckout-form .col2-fire-set #checkout-review,
+    #firecheckout-form .col3-fire-set #checkout-review {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    #checkout-review > .block-title::before {
+        display: none;
+    }
+}

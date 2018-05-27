@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="removeItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/></action>
+            <action method="removeItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/webshopapps_calendarbase.js</name></action>
+        </reference>
+        <remove name="html_calendar"/>
+    </firecheckout_index_index>
+
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-1.7.1.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-ui-1.8.18.custom.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>jquery-ui/js/jquery-fix.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/wsa/calendarbase.css</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.shipping_method">
+            <block type="calendarbase/checkout_onepage_shipping_method_available"
+                   name="checkout.onepage.shipping_method.available" as="available">
+                <action method="setTemplate">
+                    <template helper="calendarbase/getTemplateLocation"/>
+                </action>
+            </block>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <block type="calendarbase/checkout_onepage_shipping_method_available"
+               name="checkout.shipping.method" as="available">
+            <action method="setTemplate">
+                <template helper="calendarbase/getTemplateLocation"/>
+            </action>
+        </block>
+    </firecheckout_index_updatecheckout>
+</layout>

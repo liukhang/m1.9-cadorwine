@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/amasty/amcheckoutfees/amcheckoutfees.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>amasty/amcheckoutfees/amcheckoutfees.js</name>
+                <params/>
+            </action>
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>tm/firecheckout/css/integration/amasty_checkoutfees.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/amasty_checkoutfees.js</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="firecheckout.shipping.after">
+            <block type="amcheckoutfees/checkout_onepage_shipping_additional_info"
+                   template="amasty/amcheckoutfees/checkout/onepage/shipping/additional/info.phtml" name="amcheckoutfees_shipping"
+                   as="amcheckoutfees_shipping"/>
+        </reference>
+        <reference name="firecheckout.payment.after">
+            <block template="amasty/amcheckoutfees/checkout/onepage/payment/additional.phtml"
+                   type="amcheckoutfees/checkout_onepage_payment_additional" name="amcheckoutfees_methods"/>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

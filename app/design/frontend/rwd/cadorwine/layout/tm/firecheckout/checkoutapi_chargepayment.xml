@@ -1,0 +1,29 @@
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/checkoutapi_chargepayment.js</name></action>
+            <block type="core/text" name="checkoutapi_js">
+                <action method="setText" ifconfig="payment/creditcard/active">
+                    <content helper="checkoutapi_chargePayment/data/chargePayment/data/getJsPath"/>
+                </action>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <block name="checkoutapi.widget" type="checkoutapi_chargePayment/checkoutjs">
+                <action method="setTemplate" ifconfig="payment/creditcard/active">
+                    <template>chargepayment/jsinit.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.onepage.review.info.items.after">
+            <block name="checkoutapi.widget" type="checkoutapi_chargePayment/checkoutjs">
+                <action method="setTemplate" ifconfig="payment/creditcard/active">
+                    <template>chargepayment/jsinit.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

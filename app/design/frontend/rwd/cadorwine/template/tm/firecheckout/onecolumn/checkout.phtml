@@ -6,6 +6,13 @@
             title="<?php echo $this->__('Back to Store') ?>"
         ><?php echo $this->__('Back to Store') ?></a>
     </h1>
+
+    <?php $subtitle = trim(Mage::getStoreConfig('firecheckout/general/subtitle')); ?>
+    <?php if ($subtitle) : ?>
+        <div class="checkout-subtitle">
+            <?php echo $this->__($subtitle) ?>
+        </div>
+    <?php endif ?>
 </div>
 
 <?php
@@ -29,6 +36,7 @@
 <script type="text/javascript">FC.Ajax.rules = <?php echo Mage::helper('core')->jsonEncode(Mage::helper('firecheckout/ajax')->getRules()) ?></script>
 
 <form action="" id="firecheckout-form" method="post">
+<?php echo $this->getBlockHtml('formkey') ?>
 <?php
 if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/top')) :
     echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
@@ -36,7 +44,7 @@ endif;
 ?>
 <div class="clearer"></div>
 
-<div class="onecolumn firecheckout-set expanded-off">
+<div class="onecolumn firecheckout-set">
     <?php if (!$this->isCustomerLoggedIn()) : ?>
     <div class="step step-name" id="step-name" data-step-save="saveName">
         <div class="step-content">
@@ -59,7 +67,7 @@ endif;
     <?php endif ?>
 
     <div class="step step-address" id="step-address" data-step-save="saveAddress">
-        <div class="step-content">
+        <div class="step-content firecheckout-section address-section">
             <?php echo $this->getChildHtml('billing.address') ?>
             <?php echo $this->getChildHtml('shipping.address') ?>
             <div class="step-mask"></div>
@@ -92,37 +100,6 @@ endif;
             <?php endif ?>
             <div class="col-2">
                 <?php echo $this->getChildHtml('payment.method') ?>
-                <?php
-                    $j2tRewardPoints = $this->getLayout()->getBlock('checkout_cart_coupon_normal');
-                    $coupon = trim($this->getChildHtml('coupon'));
-                    $giftcard = trim($this->getChildHtml('giftcard'));
-
-                ?>
-                <?php if ($j2tRewardPoints || $coupon || $giftcard) : ?>
-                    <ul class="form-list discount-block">
-                        <li class="control">
-                            <input type="checkbox" class="checkbox" id="discount_block_toggle" title="<?php echo $this->__('Apply giftcard and discount coupon') ?>" value="1" name="discount-coupon"><label for="discount_block_toggle"><?php echo $this->__('Check, if you have a giftcard or discount code') ?></label>
-                        </li>
-                        <li class="form">
-                            <?php // rewardpoints extension override standard discount block too
-                            if ($j2tRewardPoints): ?>
-                                <div id="checkout-coupon-discount-load">
-                                    <?php echo $j2tRewardPoints->toHtml(); ?>
-                                </div>
-                            <?php elseif ($coupon): ?>
-                                <div id="checkout-coupon-discount-load">
-                                    <?php echo $coupon ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if ($giftcard) : ?>
-                                <div id="checkout-giftcard-load">
-                                    <?php echo $this->getChildHtml('giftcard') ?>
-                                </div>
-                            <?php endif ?>
-                        </li>
-                    </ul>
-                <?php endif ?>
             </div>
             <div class="step-mask"></div>
         </div>
@@ -136,7 +113,7 @@ endif;
         </div>
     </div>
 
-    <?php $additional = trim($this->getChildHtml('checkout.additional.information')) ?>
+    <?php $additional = trim($this->getChildHtml('checkout.additional.information')) // it's not used ?>
     <?php if ($additional) : ?>
         <div class="step step-additional" id="step-additional">
             <div class="step-content">
@@ -208,13 +185,26 @@ endif;
 
 <script type="text/javascript">
 //<![CDATA[
-    <?php $_isSecure = $this->getRequest()->isSecure(); ?>
+    <?php
+        $_isSecure = $this->getRequest()->isSecure();
+        $_saveUrl = $this->getFirecheckoutSaveUrl(); // @see firecheckout_col1-expanded in layout/tm/firecheckout.xml
+        if (!$_saveUrl) :
+            $_saveUrl = 'firecheckout/onecolumn/saveOrder';
+        endif;
+    ?>
     Object.extend(checkout.urls, {
-        save: '<?php echo $this->getUrl('firecheckout/onecolumn/saveOrder', array('_secure'=>$_isSecure, 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>',
+        save: '<?php echo $this->getUrl($_saveUrl, array('_secure'=>$_isSecure, 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>',
         billing_address_with_validation: '<?php echo $this->getUrl('firecheckout/onecolumn/saveBilling', array('_secure'=>$_isSecure)) ?>',
         email_verification: '<?php echo $this->getUrl('firecheckout/index/verifyEmail', array('_secure'=>$_isSecure)) ?>',
-        login: '<?php echo $this->getUrl('firecheckout/index/login', array('_secure'=>$_isSecure)) ?>',
-        forgotpassword: '<?php echo $this->getUrl('firecheckout/index/forgotpassword', array('_secure'=>$_isSecure)) ?>',
+        login: '<?php echo $this->getUrl('firecheckout/index/login', array('_secure'=>$_isSecure)) ?>'
+    });
+
+    document.observe('dom:loaded', function() {
+        var stickyEl = $$('.onecolumn-aside').first();
+        if (stickyEl) {
+            var stickySummary = new FC.Sticky(stickyEl);
+            stickySummary.stick();
+        }
     });
 //]]>
 </script>

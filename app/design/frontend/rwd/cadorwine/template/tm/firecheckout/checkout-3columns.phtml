@@ -2,12 +2,19 @@
     <h1><?php echo Mage::getStoreConfig('firecheckout/general/title') ?></h1>
     <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
     <p class="firecheckout-login-wrapper">
-		<span><?php echo $this->__('Sei già registrato?') ?></span>
+        <span><?php echo $this->__('Continua come ospite. Sei già registrato?') ?></span>
         <a href="<?php echo $this->getUrl('customer/account/login') ?>" class="firecheckout-login">
-            <span><span><?php echo $this->__('ACCEDI') ?></span></span>
+            <?php echo __('ACCEDI') ?>
         </a>
     </p>
     <?php endif; ?>
+
+    <?php $subtitle = trim(Mage::getStoreConfig('firecheckout/general/subtitle')); ?>
+    <?php if ($subtitle) : ?>
+        <div class="checkout-subtitle">
+            <?php echo $this->__($subtitle) ?>
+        </div>
+    <?php endif ?>
 </div>
 
 <?php
@@ -31,6 +38,7 @@
 <script type="text/javascript">FC.Ajax.rules = <?php echo Mage::helper('core')->jsonEncode(Mage::helper('firecheckout/ajax')->getRules()) ?></script>
 
 <form action="" id="firecheckout-form" method="post">
+<?php echo $this->getBlockHtml('formkey') ?>
 <?php
 if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/top')) :
     echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
@@ -40,6 +48,7 @@ endif;
 
 <div class="col3-fire-set firecheckout-set">
     <div class="col-fire-1">
+        <div class="firecheckout-section address-section">
         <?php
         foreach (array('billing.address', 'shipping.address') as $block) {
             if (!$this->getChild($block) || !$this->getChild($block)->isShow()) {
@@ -48,31 +57,14 @@ endif;
             echo $this->getChildHtml($block);
         }
         ?>
-		<ul class="form-list">
-			<li class="control">
-				<input type="checkbox" name="privacy-check-checkout" id="privacy-check-checkout" value="1" class="checkbox required-entry" /><label><?php echo $this->__('Ho letto e accetto l’');?><a target="_blank" href="<?php echo$this->getUrl('privacy-policy-cookie-restriction-mode/')?>"><?php echo $this->__('informativa sulla privacy policy');?></a></label>
-			</li>
-		</ul>
+        </div>
     </div>
     <div class="col-fire-2">
         <?php echo $this->getChildHtml('shipping.method') ?>
         <?php echo $this->getChildHtml('payment.method') ?>
-        <?php // rewardpoints extension override standard discount block too
-        if ($j2tRewardPoints = $this->getLayout()->getBlock('checkout_cart_coupon_normal')): ?>
-            <div id="checkout-coupon-discount-load">
-                <?php echo $j2tRewardPoints->toHtml(); ?>
-            </div>
-        <?php else: ?>
-            <div id="checkout-coupon-discount-load">
-                <?php echo $this->getChildHtml('coupon') ?>
-            </div>
-        <?php endif; ?>
-        <div id="checkout-giftcard-load">
-            <?php echo $this->getChildHtml('giftcard') ?>
-        </div>
     </div>
     <div class="col-fire-3">
-        <?php echo $this->getChildHtml('checkout.additional.information') ?>
+        <?php echo $this->getChildHtml('checkout.additional.information') // it's not used since 3.8 ?>
         <?php echo $this->getChildHtml('review') ?>
     </div>
 </div>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout>
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/amasty_giftcard.js</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.payment">
+            <block type="amscheckout/amgiftcard" name="checkout.giftcard" as="giftcard"/>
+        </reference>
+    </firecheckout_index_index>
+    <firecheckout_index_updatecheckout>
+        <block type="amscheckout/amgiftcard" name="checkout.giftcard" as="giftcard"/>
+    </firecheckout_index_updatecheckout>
+</layout>

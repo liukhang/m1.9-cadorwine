@@ -1,0 +1,26 @@
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="paczkomaty/frontend/showmap">
+                <script>paczkomaty/paczkomaty.js</script>
+            </action>
+            <action method="addJs" ifconfig="paczkomaty/frontend/addjquery">
+                <script>paczkomaty/jquery-1.10.0.min.noConflict.js</script>
+            </action>
+            <block type="core/template" name="gmapsapi">
+                <action method="setTemplate" ifconfig="paczkomaty/frontend/showmap">
+                    <template>paczkomaty/head.phtml</template>
+                </action>
+            </block>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.available">
+            <block type="paczkomaty/paczkomaty" name="paczkomaty" template="paczkomaty/shipping_method/paczkomaty.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.shipping.method">
+            <block type="paczkomaty/paczkomaty" name="paczkomaty" template="paczkomaty/shipping_method/paczkomaty.phtml"/>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

@@ -24,46 +24,61 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->getItems()->getSize()): ?>
-<div class="block block-related-cador">
-    <div class="block-title">
-        <h2><?php echo $this->__('Potrebbero interessarti anche') ?></h2>
-    </div>
-    <div class="block-content-cador">
-        <?php /*
-<p class="block-subtitle"><?php echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?php echo $this->__('select all') ?></a></p>
-        */ ?>
-        <ol class="mini-products-list-cador owl-carousel products-grid products-grid--max-4-col first last odd" id="block-related-cador">
-        <?php foreach($this->getItems() as $_item): ?>
-            <li class="item">
-<?php /*
-                <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
-                    <?php if (!$_item->getRequiredOptions()): ?>
-                        <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
-                    <?php endif; ?>
-                <?php endif; ?>
-*/ ?>
-                <div class="product">
-                    <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(250,400) ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
-                    <div class="product-info">
-                        <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
-                        
-                        <span class="slezione">Selezione Grand Vintage Franciacorta D.O.C.G</span>
-                        <span class="ml">750 ml</span>
-                        <?php echo $this->getPriceHtml($_item, true, '-related') ?>
-<?php /*
-                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                            <a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
-                        <?php endif; ?>
-*/ ?>
+<?php 
+$category_id  = 0;
+if(Mage::registry('current_category')){
+    $category_id  = Mage::registry('current_category')->getId();
+}else{
+    $category_ids = Mage::registry('current_product')->getCategoryIds();
+    
+    $category_id  = $category_ids[count($category_ids)-1];
+    
+}
+$category = Mage::getModel('catalog/category')->load($category_id);
+$productCollection = Mage::getResourceModel('catalog/product_collection')
+                                 ->addCategoryFilter($category)
+                                 ->addAttributeToFilter('status',1)
+                                 ->addAttributeToFilter('visibility',4)
+                                 ->setPageSize(9)
+                                ->setCurPage(1);;
+?>
 
-                        <div class="actions-cador">
-                            <?php if(!$_item->canConfigure() && $_item->isSaleable()): ?>
-                                <button type="button" title="<?php echo $this->quoteEscape($this->__('Acquista')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Acquista') ?></span></span></button>
-                            <?php elseif($_item->getStockItem() && $_item->getStockItem()->getIsInStock()): ?>
-                                <a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
+<?php if(count($productCollection)>1): ?>
+    <div class="block block-related-cador">
+        <div class="block-title">
+            <h2><?php echo $this->__('Potrebbero interessarti anche') ?></h2>
+        </div>
+        <div class="category-products block-content-cador">
+            <ul id="related_product_owl" class="owl-carousel owl-theme products-grid mini-products-list-cador">
+            <?php foreach($productCollection as $_item): ?>
+                <?php if($_item->getId() !=Mage::registry('current_product')->getId()){ ?>
+                <?php $_product = Mage::getModel('catalog/product')->load($_item->getId()); ?>
+                <li class="item<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?> in-stock<?php else: ?> out-stock<?php endif; ?>">
+                    
+                    <div class="product">
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image">
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(250,400) ?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" />
+                        <?php /* <img class="hover-images" src="<?php echo $this->helper('catalog/image')->init($_product, 'kk_hover')->resize(414,620) ?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /> */ ?>
+                        </a>
+                            
+                        
+                        <div class="product-info">
+                            <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></p>
+                            
+
+    <?php if($_product->getData("short_description")!=''){ ?>
+    <span class="slezione"><?php echo $_product->getData("short_description") ?></span>
+    <?php } ?>
+     
+    <span class="ml"><?php echo $_product->getData("cd_scheda_tecnica_volume") ?></span>
+                            <?php echo $this->getPriceHtml($_product, true, '-related') ?>
+                             <div class="actions-cador">
+                            <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                                <button type="button" title="<?php echo $this->quoteEscape($this->__('Acquista')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Acquista') ?></span></span></button>
+                            <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                                <a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
                             <?php else: ?>
-                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                <button disabled="disabled" type="button" title="" class="button"><span><span><?php echo $this->__('Sold out') ?></span></span></button>
                             <?php endif; ?>
                             <?php /*
                             <ul class="add-to-links">
@@ -76,15 +91,16 @@
                             </ul>
                             */ ?>
                         </div>
-
+                        </div>
                     </div>
-
-                </div>
-            </li>
-        <?php endforeach ?>
-        </ol>
-        <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
+                    
+                </li>
+                <?php } ?>
+            <?php endforeach ?>
+            </ul>
+        </div>
     </div>
+        <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
     <script type="text/javascript">
     //<![CDATA[
     $$('.related-checkbox').each(function(elem){
@@ -121,11 +137,11 @@
     }
     //]]>
     </script>
-</div>
 <?php endif ?>
 
+
 <script type="text/javascript">
-    jQuery('.mini-products-list-cador.owl-carousel').owlCarousel({
+    jQuery('#related_product_owl').owlCarousel({
         loop: false,
         navSpeed: 1000,
         smartSpeed:1000,
@@ -137,16 +153,13 @@
         responsive: {
             0: {
                 items: 1,
+                dots: false,
                 // autoplay:true,
                 nav: true
             },
-            361: {
-                items: 1,
-                // autoplay:true,
-                nav: true
-            },
-            641: {
-                items: 3,
+            479: {
+                items: 2,
+                dots: false,
                 // autoplay:true,
                 nav: true
             },
@@ -155,6 +168,7 @@
                 // nav: true,
                 loop: false,
                 // autoplay:true,
+                dots: false,
                 margin: 20
             },
             1024: {

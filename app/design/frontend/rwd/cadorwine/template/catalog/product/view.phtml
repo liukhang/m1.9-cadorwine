@@ -1,410 +1,410 @@
-<?php
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    design
- * @package     rwd_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
-
-/**
- * Product view template
- *
- * @see Mage_Catalog_Block_Product_View
- * @see Mage_Review_Block_Product_View
- */
-?>
-<?php $_helper = $this->helper('catalog/output'); ?>
-<?php $_product = $this->getProduct(); ?>
-<script type="text/javascript">
-    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
-</script>
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
-<div class="product-view">
-    <div class="product-essential">
-        <form action="<?php echo $this->getSubmitUrl($_product, array('_secure' => $this->_isSecure())) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
-            <?php echo $this->getBlockHtml('formkey') ?>
-            <div class="no-display">
-                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
-                <input type="hidden" name="related_product" id="related-products-field" value="" />
-            </div>
-
-            <div class="product-img-box">
-                <div class="product-name">
-                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
-                </div>
-                <?php echo $this->getChildHtml('media') ?>
-            </div>
-
-            <div class="product-shop">
-				<div class="product-shop-top">
-					<div class="product-name">
-						<span class="h1"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
-					</div>
-					<span class="slezione">Selezione Grand Vintage Franciacorta D.O.C.G</span>
-					<span class="ml">750 ml</span>
-
-					
-<?php /*					<?php if ($_product->getSku()):?>
-						<div class="product_sku">
-							<p><?php echo $this->__('Cod. ') ?><span><?php echo $_product->getCb_cod_articolo(); ?></span></p>
-						</div>
-					<?php endif;?>*/ ?>
-
-					<div class="price-info">
-						<?php echo $this->getPriceHtml($_product); ?>
-						<?php echo $this->getChildHtml('bundle_prices') ?>
-						<?php echo $this->getTierPriceHtml() ?>						
-						<?php /*<span class="product-ivainclusa"><?php echo $this->__('iva inclusa');?></span>*/ ?>
-					</div>
-					<span class="disp">Disponibilità immediata</span>
-					<div class="extra-info">
-						<?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
-						
-					</div>
-					
-					<?php /*
-					<div class="show_sizeguide">
-						<p class="click_show"><?php echo $this->__('Guida alle taglie') ?></p> 
-					</div>
-					*/ ?>
-					<?php echo $this->getChildHtml('alert_urls') ?>
-
-					<?php echo $this->getChildHtml('other');?>
-				</div>
-                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-                <?php endif;?>
-
-				<div class="add-to-cart-wrapper">
-					<?php echo $this->getChildHtml('product_type_data') ?>
-					<?php echo $this->getChildHtml('extrahint') ?>
-
-					<?php if (!$this->hasOptions()):?>
-						<div class="add-to-box">
-							<?php if($_product->isSaleable()): ?>
-								<?php echo $this->getChildHtml('addtocart') ?>
-								<?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
-									<span class="or"><?php echo $this->__('OR') ?></span>
-								<?php endif; ?>
-							<?php endif; ?>
-							<?php /*<?php echo $this->getChildHtml('addto') ?>*/ ?>
-							
-						</div>
-					<?php echo $this->getChildHtml('extra_buttons') ?>
-					<?php elseif (!$_product->isSaleable()): ?>
-						<div class="add-to-box">
-							<?php echo $this->getChildHtml('addto') ?>
-							
-						</div>
-					<?php endif; ?>
-				</div>
-				
-				<?php /*
-				<div class="video">
-					<a href="javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i><?php echo $this->__('Guarda il Video') ?></a>
-				</div>
-				*/ ?>
-				
-				<?php if ($_product->getShortDescription()):?>
-					<div class="short-description">
-						<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
-					</div>
-				<?php endif;?>
-				
-				<a href="#" target="_blank" class="pr_pdf"><i class="far fa-file-pdf"></i>SCARICA SCHEDA TECNICA</a>
-			</div>
-			
-            
-
-            <div class="clearer"></div>
-            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-            <?php endif;?>
-        </form>
-        <script type="text/javascript">
-        //<![CDATA[
-            var productAddToCartForm = new VarienForm('product_addtocart_form');
-            productAddToCartForm.submit = function(button, url) {
-                if (this.validator.validate()) {
-                    var form = this.form;
-                    var oldUrl = form.action;
-
-                    if (url) {
-                       form.action = url;
-                    }
-                    var e = null;
-                    try {
-                        this.form.submit();
-                    } catch (e) {
-                    }
-                    this.form.action = oldUrl;
-                    if (e) {
-                        throw e;
-                    }
-
-                    if (button && button != 'undefined') {
-                        button.disabled = true;
-                    }
-                }
-            }.bind(productAddToCartForm);
-
-            productAddToCartForm.submitLight = function(button, url){
-                if(this.validator) {
-                    var nv = Validation.methods;
-                    delete Validation.methods['required-entry'];
-                    delete Validation.methods['validate-one-required'];
-                    delete Validation.methods['validate-one-required-by-name'];
-                    // Remove custom datetime validators
-                    for (var methodName in Validation.methods) {
-                        if (methodName.match(/^validate-datetime-.*/i)) {
-                            delete Validation.methods[methodName];
-                        }
-                    }
-
-                    if (this.validator.validate()) {
-                        if (url) {
-                            this.form.action = url;
-                        }
-                        this.form.submit();
-                    }
-                    Object.extend(Validation.methods, nv);
-                }
-            }.bind(productAddToCartForm);
-        //]]>
-        </script>
-    </div>
-	
-	<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('block_tab_product_view')->toHtml(); ?>
-	
-<div class="box_product_cador">
-	<div class="left gusto">
-		<h3>Gusto autorevole di <span>Ca’ d’Or</span></h3>
-		<p>Nasce dai nostri vigneti Grand Cru coltivati ad uva Chardonnay e Pinot Nero. Dopo i 7 mesi per la prima fermentazione in piccole vasche di acciaio, per 48 mesi circa, riposa, matura e si affina rifermentando in bottiglia, a contatto con i lieviti selezionati, nell’oscurità e nel silenzio della Cantina.</p>
-		<p>Il nostro Pas Dosé Riserva è il prodotto più autorevole della ricchezza sensoriale di Ca’ d’Or. E’ di un intenso color giallo dorato, con riflessi ramati. Viene lavorato in purezza ed esprime al naso profumi intensi e complessi, con note originali di tabacco verde, di noce e richiami di ribes nero. Al palato risulta elegante, armonico, di grande corpo, struttura e sapidità.</p>
-		<p>La bollicina è molto fine e di raffinata eleganza. Il finale è lungo, forte e di perfetto equilibrio.</p>
-	</div>
-	<div class="right note">
-		<h3>Note sensoriali</h3>
-		<ul>
-			<li><span>Alla vista intenso colore giallo dorato,</br> con riflessi ramati.</span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-1.png'/>"; ?></li>
-			<li><span>All’olfatto profumi intensi e complessi, </br>con note originali di tabacco verde, di noce </br>e richiami di ribes nero.</span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-2.png'/>"; ?></li>
-			<li><span>Al palato elegante ed armonico.</br>Grande corpo, struttura e sapidità.</span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-3.png'/>"; ?></li>
-
-
-		</ul>
-	</div>
-</div>
-
-<div class="box_scheda_cador">
-	<h3>Scheda tecnica vino</h3>
-	<table>
-		<tr>
-			<td class="left" width="50%">Tipologia vino:</td>
-			<td width="50%">Franciacorta D.O.C.G. Pas Dosé Riserva</td>
-		</tr>
-		<tr>
-			<td class="left" width="50%">Volume della bottiglia:</td>
-			<td width="50%">750 ml</td>
-		</tr>
-		<tr>
-			<td class="left" width="50%">Origine: </td>
-			<td width="50%">55% Chardonnay, 45% Pinot Nero</td>
-		</tr>
-		<tr>
-			<td class="left" width="50%">Volume della bottiglia:</td>
-			<td width="50%">Piccola porzione di vigneto, con posizione particolarmente esposta e ventilata, suolo ciottoloso, moderatamente calcareo ed ottimamente drenante</td>
-		</tr>
-	</table>
-</div>
-
-<div class="box_product_infor">
-<?php echo $this->getChildHtml('related_products') ?>
-<?php /*
-	<div class="tab-view">
-		<div class="tab-item">
-			<a class="title toggle-title-view" href="javascript:void(0)"><span><?php echo $this->__('Dettagli prodotto e composizione');?></span></a>
-			<div class="tab-item-content">
-               	<p><?php echo $_product->getDescription() ?></p>
-				<p><?php echo $_product->getAttributeText("cb_composizione") ?></p>
-			</div>
-		</div>
-		<div class="tab-item lavaggio">
-			<a class="title toggle-title-view" href="javascript:void(0)"><span>Lavaggio</span></a>
-			<div class="tab-item-content">
-				<ul>
-					<li class="lavaggio1">
-						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/30-gradi.png" alt="" /></p>
-						<p>Temperatura massima 30°</p>
-					</li>
-					<li class="lavaggio2">
-						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-candeggina.png" alt="" /></p>
-						<p>Non candeggiare</p>
-					</li>
-					<li class="lavaggio3">
-						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-asciuga.png" alt="" /></p>
-						<p>Non usare l’asciugatrice</p>
-					</li>
-					<li class="lavaggio4">
-						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-stira.png" alt="" /></p>
-						<p>Non stirare</p>
-					</li>
-					<li class="lavaggio5">
-						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-secco.png" alt="" /></p>
-						<p>Non lavare a secco</p>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="tab-item tecniche">
-			<a class="title toggle-title-view" href="javascript:void(0)"><span>Caratteristiche Tecniche</span></a>
-			<div class="tab-item-content">
-				<ul>
-					<li>Traspirabilità</li>
-					<li>Perfetta vestibilità</li>
-					<li>Cuciture piatte</li>
-					<li>Comfort senza cuciture</li>
-					<!--<li>Comfort zona inguinale</li>-->
-				</ul>
-				<ul>
-                	
-					<li>Micromassaggio e Ri-Modellazione</li>
-					<li>Mantenimento della forma</li>
-					<li>Tessuto elastico</li>
-                         
-					<!--<li>Microfibra elasticizzata</li>
-					<li>Anti-Batterico</li>-->
-				</ul>
-			</div>
-		</div>
-		<div class="tab-item">
-			<a class="title toggle-title-view" href="javascript:void(0)"><span>Come Indossarlo</span></a>
-			<div class="tab-item-content">
-				<ul>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come1.jpg" alt="" /></div>
-						<div class="text"><p><b>1.</b> Verificare la posizione dell’etichetta. Indossando il capo si deve trovare sul  retro rivolta verso l’interno</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come2.jpg" alt="" /></div>
-						<div class="text"><p><b>2.</b> Arrotolare tra le mani le gambe del capo</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come3.jpg" alt="" /></div>
-						<div class="text"><p><b>3.</b> Sedersi ed infilare la gamba nel capo e tirate verso il cavallo. Ripetere l’operazione dall’altro lato.</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come4.jpg" alt="" /></div>
-						<div class="text"><p><b>4.</b> Alzarsi e tirare il capo verso il cavallo fino al posizionamento corretto</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come5.jpg" alt="" /></div>
-						<div class="text"><p><b>5.</b> Assicurarsi che il cavallo del capo sia posizionato correttamente anche sul retro</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come6.jpg" alt="" /></div>
-						<div class="text"><p><b>6.</b> Spingere verso il basso la base del capo e posizionare correttamente</p></div>
-					</li>
-					<li>
-						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come7.jpg" alt="" /></div>
-						<div class="text"><p><b>7.</b> Spingere verso l’alto la parte superiore del capo e posizionare correttamente</p></div>
-					</li>
-					<li class="no_img">
-						<div class="text">
-							<p><strong>Ora il capo è indossato completamnete. Assicurarsi che sia comfortevole</strong></p>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="tab-item comepressione">
-			<a class="title toggle-title-view" href="javascript:void(0)"><span>Zone di compressione</span></a>
-			<div class="tab-item-content">
-				<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>picto-3d/<?php echo $_product->getCb_picto_3d() ?>" alt="" />
-			</div>
-		</div>
-		<div class="tab-item">
-			<a class="title toggle-title-view video" href="javascript:void(0)"><span>Video</span></a>
-			<div class="tab-item-content video">
-				<p><iframe src="<?php echo $_product->getData("cb_video") ?>" frameborder="0" allowfullscreen></iframe></p>				
-			</div>
-		</div>
-	</div>
-*/ ?>
-	<script type="text/javascript">// &lt;![CDATA[
-		jQuery('.tab-item-content').hide();
-			 jQuery(function() {				
-				jQuery(".toggle-title-view").click(function(event){
-					var is_active = false;
-					if(jQuery(this).hasClass('active')){
-						is_active = true;
-					}
-					jQuery(".toggle-title-view.active").each(function() {
-						jQuery(this).toggleClass('active');
-						jQuery(this).next('.tab-item-content').slideToggle();
-					});
-					event.preventDefault();
-					if(is_active == false){
-						jQuery(this).toggleClass('active');
-						jQuery(this).next('.tab-item-content').slideToggle();
-					}
-				  });
-			});
-		// ]]&gt;
-		
-		jQuery("div.video").click(function(){
-			jQuery(".tab-item .toggle-title-view.video").addClass("active");
-			jQuery(".tab-item .tab-item-content.video").show();
-			jQuery('html, body').animate({
-				scrollTop: jQuery(".tab-item .toggle-title-view.video").offset().top
-			}, 1000);
-		});
-		
-	</script>
-</div>
-	
-	
-	
-	
-
-<?php /*
-    <?php include('list/correlati.phtml') ?>
-    <?php echo $this->getChildHtml('upsell_products') ?>
-    <?php echo $this->getChildHtml('product_additional_data') ?>
-	<div class="product-collateral-review">
-	<div class="product-collateral toggle-content tabs">
-        <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
-            <dl id="collateral-tabs" class="collateral-tabs">
-                <?php foreach ($detailedInfoGroup as $alias => $html):?>
-                    <dt class="tab"><span><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
-                    <dd class="tab-container">
-                        <div class="tab-content"><?php echo $html ?></div>
-                    </dd>
-                <?php endforeach;?>
-            </dl>
-        <?php endif; ?>
-    </div>
-    </div>
-*/ ?>
-	
-
-	
-	
-</div>
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="product-view">
+    <div class="product-essential">
+        <form action="<?php echo $this->getSubmitUrl($_product, array('_secure' => $this->_isSecure())) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+
+            <div class="product-img-box">
+                <div class="product-name">
+                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                </div>
+                <?php echo $this->getChildHtml('media') ?>
+            </div>
+
+            <div class="product-shop">
+				<div class="product-shop-top">
+					<div class="product-name">
+						<span class="h1"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+					</div>
+					
+					<?php if($_product->getData("short_description")!=''){ ?>
+					<span class="slezione"><?php echo $_product->getData("short_description") ?></span>
+					<?php } ?>
+					
+					<span class="ml"><?php echo $_product->getData("cd_scheda_tecnica_volume") ?></span>
+
+					
+<?php /*					<?php if ($_product->getSku()):?>
+						<div class="product_sku">
+							<p><?php echo $this->__('Cod. ') ?><span><?php echo $_product->getCb_cod_articolo(); ?></span></p>
+						</div>
+					<?php endif;?>*/ ?>
+
+					<div class="price-info">
+						<?php echo $this->getPriceHtml($_product); ?>
+						<?php echo $this->getChildHtml('bundle_prices') ?>
+						<?php echo $this->getTierPriceHtml() ?>						
+						<?php /*<span class="product-ivainclusa"><?php echo $this->__('iva inclusa');?></span>*/ ?>
+					</div>
+					<span class="disp">Disponibilità immediata</span>
+					<div class="extra-info">
+						<?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
+						
+					</div>
+					
+					<?php /*
+					<div class="show_sizeguide">
+						<p class="click_show"><?php echo $this->__('Guida alle taglie') ?></p> 
+					</div>
+					*/ ?>
+					<?php echo $this->getChildHtml('alert_urls') ?>
+
+					<?php echo $this->getChildHtml('other');?>
+				</div>
+                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                <?php endif;?>
+
+				<div class="add-to-cart-wrapper">
+					<?php echo $this->getChildHtml('product_type_data') ?>
+					<?php echo $this->getChildHtml('extrahint') ?>
+
+					<?php if (!$this->hasOptions()):?>
+						<div class="add-to-box">
+							<?php if($_product->isSaleable()): ?>
+								<?php echo $this->getChildHtml('addtocart') ?>
+								<?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+									<span class="or"><?php echo $this->__('OR') ?></span>
+								<?php endif; ?>
+							<?php endif; ?>
+							<?php /*<?php echo $this->getChildHtml('addto') ?>*/ ?>
+							
+						</div>
+					<?php echo $this->getChildHtml('extra_buttons') ?>
+					<?php elseif (!$_product->isSaleable()): ?>
+						<div class="add-to-box">
+							<?php echo $this->getChildHtml('addto') ?>
+							
+						</div>
+					<?php endif; ?>
+				</div>
+				
+				<?php /*
+				<div class="video">
+					<a href="javascript:void(0)"><i class="fa fa-youtube-play" aria-hidden="true"></i><?php echo $this->__('Guarda il Video') ?></a>
+				</div>
+				*/ ?>
+				
+				<?php if ($_product->getDescription()!=''){ ?>
+					<div class="short-description">
+						<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+					</div>
+				<?php }else{ ?>
+					<div class="short-description">
+						<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+					</div>
+				<?php } ?>
+				
+				<a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'wysiwyg/pdf/'.$_product->getData('cd_scarica_scheda_tecnica')  ?>" target="_blank" class="pr_pdf"><i class="far fa-file-pdf"></i><?php echo __('SCARICA SCHEDA TECNICA') ?></a>
+			</div>
+			
+            
+
+            <div class="clearer"></div>
+            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif;?>
+        </form>
+        <script type="text/javascript">
+        //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+        //]]>
+        </script>
+    </div>
+	
+	<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('block_tab_product_view')->toHtml(); ?>
+	
+<div class="box_product_cador">
+	<div class="left gusto">
+		<?php echo $_helper->productAttribute($_product, nl2br($_product->getData('cd_descrizione_secondaria')), 'cd_descrizione_secondaria') ?>
+	</div>
+	<div class="right note">
+		<h3><?php echo __('Note sensoriali') ?></h3>
+		<ul>
+			<li><span><?php echo $_product->getData('cd_nota_sensoriale_vista') ?></span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-1.png'/>"; ?></li>
+			<li><span><?php echo $_product->getData('cd_nota_sensoriale_olfatto') ?></span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-2.png'/>"; ?></li>
+			<li><span><?php echo $_product->getData('cd_nota_sensoriale_palato') ?></span><?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/".trim($value)."note-3.png'/>"; ?></li>
+
+
+		</ul>
+	</div>
+</div>
+
+
+<?php $array1 = array('cd_scheda_tecnica_vino','cd_scheda_tecnica_volume','cd_scheda_tecnica_uve','cd_scheda_tecnica_origine','cd_scheda_tecnica_areaprod','cd_scheda_tecnica_vitigno','cd_scheda_tecnica_vigneto','cd_scheda_tecnica_allevamento','cd_scheda_tecnica_impianto','cd_scheda_tecnica_resa','cd_scheda_tecnica_resa_vino','cd_scheda_tecnica_altitudine','cd_scheda_tecnica_eta_viti','cd_scheda_tecnica_ceppi','cd_scheda_tecnica_produzione','cd_scheda_tecnica_bottiglie','cd_scheda_tecnica_raccolta','cd_scheda_tecnica_vendemmia','cd_scheda_tecnica_vinificazion','cd_scheda_tecnica_affinamento','cd_scheda_tecnica_stabilizza','cd_scheda_tecnica_afflieviti','cd_scheda_tecnica_affsboccat','cd_scheda_tecnica_gradazione','cd_scheda_tecnica_alcohol','cd_scheda_tecnica_fermenta','cd_scheda_tecnica_maturazione','cd_scheda_tecnica_abbinamenti','cd_scheda_tecnica_temperatura','cd_scheda_tecnica_conservabili'); ?>
+<div class="box_scheda_cador">
+	<h3><?php echo __('Scheda tecnica vino') ?></h3>
+	<table>
+	<?php for($i=0;$i<=count($array1);$i++){ ?>
+		<?php if($_product->getData($array1[$i])!=''){ ?>
+		<tr>
+			<td class="left" width="50%"><?php echo $_product->getResource()->getAttribute($array1[$i])->getStoreLabel() ?></td>
+			<td width="50%"><?php echo $_product->getData($array1[$i]) ?></td>
+		</tr>
+		<?php } ?>
+	<?php } ?>	
+		
+	</table>
+</div>
+
+<div class="box_product_infor">
+<?php echo $this->getChildHtml('related_products') ?>
+<?php /*
+	<div class="tab-view">
+		<div class="tab-item">
+			<a class="title toggle-title-view" href="javascript:void(0)"><span><?php echo $this->__('Dettagli prodotto e composizione');?></span></a>
+			<div class="tab-item-content">
+               	<p><?php echo $_product->getDescription() ?></p>
+				<p><?php echo $_product->getAttributeText("cb_composizione") ?></p>
+			</div>
+		</div>
+		<div class="tab-item lavaggio">
+			<a class="title toggle-title-view" href="javascript:void(0)"><span>Lavaggio</span></a>
+			<div class="tab-item-content">
+				<ul>
+					<li class="lavaggio1">
+						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/30-gradi.png" alt="" /></p>
+						<p>Temperatura massima 30°</p>
+					</li>
+					<li class="lavaggio2">
+						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-candeggina.png" alt="" /></p>
+						<p>Non candeggiare</p>
+					</li>
+					<li class="lavaggio3">
+						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-asciuga.png" alt="" /></p>
+						<p>Non usare l’asciugatrice</p>
+					</li>
+					<li class="lavaggio4">
+						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-stira.png" alt="" /></p>
+						<p>Non stirare</p>
+					</li>
+					<li class="lavaggio5">
+						<p class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_products/no-secco.png" alt="" /></p>
+						<p>Non lavare a secco</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="tab-item tecniche">
+			<a class="title toggle-title-view" href="javascript:void(0)"><span>Caratteristiche Tecniche</span></a>
+			<div class="tab-item-content">
+				<ul>
+					<li>Traspirabilità</li>
+					<li>Perfetta vestibilità</li>
+					<li>Cuciture piatte</li>
+					<li>Comfort senza cuciture</li>
+					<!--<li>Comfort zona inguinale</li>-->
+				</ul>
+				<ul>
+                	
+					<li>Micromassaggio e Ri-Modellazione</li>
+					<li>Mantenimento della forma</li>
+					<li>Tessuto elastico</li>
+                         
+					<!--<li>Microfibra elasticizzata</li>
+					<li>Anti-Batterico</li>-->
+				</ul>
+			</div>
+		</div>
+		<div class="tab-item">
+			<a class="title toggle-title-view" href="javascript:void(0)"><span>Come Indossarlo</span></a>
+			<div class="tab-item-content">
+				<ul>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come1.jpg" alt="" /></div>
+						<div class="text"><p><b>1.</b> Verificare la posizione dell’etichetta. Indossando il capo si deve trovare sul  retro rivolta verso l’interno</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come2.jpg" alt="" /></div>
+						<div class="text"><p><b>2.</b> Arrotolare tra le mani le gambe del capo</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come3.jpg" alt="" /></div>
+						<div class="text"><p><b>3.</b> Sedersi ed infilare la gamba nel capo e tirate verso il cavallo. Ripetere l’operazione dall’altro lato.</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come4.jpg" alt="" /></div>
+						<div class="text"><p><b>4.</b> Alzarsi e tirare il capo verso il cavallo fino al posizionamento corretto</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come5.jpg" alt="" /></div>
+						<div class="text"><p><b>5.</b> Assicurarsi che il cavallo del capo sia posizionato correttamente anche sul retro</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come6.jpg" alt="" /></div>
+						<div class="text"><p><b>6.</b> Spingere verso il basso la base del capo e posizionare correttamente</p></div>
+					</li>
+					<li>
+						<div class="img"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>wysiwyg/img_theme/img_come7.jpg" alt="" /></div>
+						<div class="text"><p><b>7.</b> Spingere verso l’alto la parte superiore del capo e posizionare correttamente</p></div>
+					</li>
+					<li class="no_img">
+						<div class="text">
+							<p><strong>Ora il capo è indossato completamnete. Assicurarsi che sia comfortevole</strong></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="tab-item comepressione">
+			<a class="title toggle-title-view" href="javascript:void(0)"><span>Zone di compressione</span></a>
+			<div class="tab-item-content">
+				<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>picto-3d/<?php echo $_product->getCb_picto_3d() ?>" alt="" />
+			</div>
+		</div>
+		<div class="tab-item">
+			<a class="title toggle-title-view video" href="javascript:void(0)"><span>Video</span></a>
+			<div class="tab-item-content video">
+				<p><iframe src="<?php echo $_product->getData("cb_video") ?>" frameborder="0" allowfullscreen></iframe></p>				
+			</div>
+		</div>
+	</div>
+*/ ?>
+	<script type="text/javascript">// &lt;![CDATA[
+		jQuery('.tab-item-content').hide();
+			 jQuery(function() {				
+				jQuery(".toggle-title-view").click(function(event){
+					var is_active = false;
+					if(jQuery(this).hasClass('active')){
+						is_active = true;
+					}
+					jQuery(".toggle-title-view.active").each(function() {
+						jQuery(this).toggleClass('active');
+						jQuery(this).next('.tab-item-content').slideToggle();
+					});
+					event.preventDefault();
+					if(is_active == false){
+						jQuery(this).toggleClass('active');
+						jQuery(this).next('.tab-item-content').slideToggle();
+					}
+				  });
+			});
+		// ]]&gt;
+		
+		jQuery("div.video").click(function(){
+			jQuery(".tab-item .toggle-title-view.video").addClass("active");
+			jQuery(".tab-item .tab-item-content.video").show();
+			jQuery('html, body').animate({
+				scrollTop: jQuery(".tab-item .toggle-title-view.video").offset().top
+			}, 1000);
+		});
+		
+	</script>
+</div>
+	
+	
+	
+	
+
+<?php /*
+    <?php include('list/correlati.phtml') ?>
+    <?php echo $this->getChildHtml('upsell_products') ?>
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+	<div class="product-collateral-review">
+	<div class="product-collateral toggle-content tabs">
+        <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
+            <dl id="collateral-tabs" class="collateral-tabs">
+                <?php foreach ($detailedInfoGroup as $alias => $html):?>
+                    <dt class="tab"><span><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
+                    <dd class="tab-container">
+                        <div class="tab-content"><?php echo $html ?></div>
+                    </dd>
+                <?php endforeach;?>
+            </dl>
+        <?php endif; ?>
+    </div>
+    </div>
+*/ ?>
+	
+
+	
+	
+</div>

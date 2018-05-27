@@ -1,0 +1,264 @@
+.firecheckout-set input.input-text,
+.firecheckout-set .form-list select,
+.firecheckout-set select,
+.firecheckout-set textarea {
+    height: auto;
+    width: 100%;
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 7px;
+    font: 15px Arial, Helvetica, sans-serif;
+    line-height: normal;
+    text-indent: 0;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.firecheckout-set input.input-text:focus,
+.firecheckout-set .form-list select:focus,
+.firecheckout-set select:focus,
+.firecheckout-set textarea:focus {
+    border: 1px solid #bbb;
+}
+.firecheckout-set input.input-text:disabled,
+.firecheckout-set .form-list select:disabled,
+.firecheckout-set select:disabled,
+.firecheckout-set textarea:disabled,
+.firecheckout-set input[type="checkbox"]:disabled,
+.firecheckout-set input[type="radio"]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.firecheckout-set select,
+.firecheckout-set .form-list select {
+    margin: 0;
+    padding-right: 27px;
+    background-image: url(../../images/ios7-arrow-down.png);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    background-size: 27px 9px;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .firecheckout-set select,
+    .firecheckout-set .form-list select {
+        background-image: url(../../images/ios7-arrow-down@2x.png);
+    }
+}
+.firecheckout-set select::-ms-expand,
+.firecheckout-set .form-list select::-ms-expand {
+    display: none;
+}
+
+.firecheckout-set input[type="checkbox"] + label,
+.firecheckout-set input[type="radio"] + label {
+    display: inline-block;
+    padding: 0 0 0 20px;
+    line-height: normal;
+    vertical-align: top;
+}
+.firecheckout-set input[type="checkbox"],
+.firecheckout-set input[type="radio"] {
+    float: left;
+    margin: 0 -20px 0 0 !important;
+    top: 0;
+    vertical-align: middle;
+    display: inline-block;
+}
+/* Fix for billing agreements */
+.firecheckout-set label input[type="checkbox"],
+.firecheckout-set label input[type="radio"] {
+    margin: 0 5px 0 0 !important;
+}
+
+.checkoutfield-note { font-size: .9em; color: #aaa; display: block; }
+
+/*********************/
+/* reset standard form styles */
+.firecheckout-set .form-list,
+.firecheckout-set .form-list ul { margin: 0; list-style: none; }
+.firecheckout-set .form-list ul { padding: 0; }
+.firecheckout-set .form-list li,
+.firecheckout-set .form-list ul li { margin-left: 0; margin-right: 0; }
+.firecheckout-set .sp-methods ul { margin: 0; }
+.firecheckout-set .sp-methods ul,
+.firecheckout-set .sp-methods li { padding: 0; list-style: none; }
+.firecheckout-set .form-list .validation-advice { width: auto; }
+.firecheckout-set span.validation-error,
+.firecheckout-set div.validation-error,
+.firecheckout-set span.validation-passed,
+.firecheckout-set div.validation-passed { background: none; padding: 0; }
+.firecheckout-set .form-list textarea { height: 60px; }
+.firecheckout-set .input-text,
+.firecheckout-set .form-list textarea,
+.firecheckout-set .form-list li.wide textarea,
+.firecheckout-set .form-list select,
+.firecheckout-set .form-list li.wide select,
+.firecheckout-set .form-list input.input-text,
+.firecheckout-set .form-list li.wide input.input-text,
+.firecheckout-set .gift-messages-form .item .details .form-list input.input-text,
+.firecheckout-set .gift-messages-form .item .details .form-list li.wide textarea {
+    max-width: none;
+    width: 100% !important; /* rewrite theme styles */
+}
+.firecheckout-set .form-list li.fields { margin: 0; }
+.firecheckout-set .form-list .field,
+.firecheckout-set .form-list .fields .field,
+.firecheckout-set .form-list .wide,
+.firecheckout-set .form-list .control,
+.firecheckout-set .form-list .captcha-input-container,
+.firecheckout-set .form-list .captcha-img-container,
+.firecheckout-set .form-list > dd {
+    margin: 0;
+    padding: 4px;
+    box-sizing: border-box !important;
+}
+
+/* fluid form styles */
+.firecheckout-set .form-list { padding: 0; margin: 0 -4px; }
+.firecheckout-set .form-list label { width: auto; color: #444; }
+.firecheckout-set .form-list label,
+.firecheckout-set .form-list li.wide label { padding: 0; }
+.firecheckout-set .form-list label em { display: none; }
+.firecheckout-set .form-list label.required::after {
+    content: '*';
+    margin-left: 2px;
+    color: #df280a;
+    font-weight: normal;
+    line-height: normal;
+}
+.firecheckout-set .form-list .field,
+.firecheckout-set .form-list .input-box { width: 100%; max-width: 100%; margin: 0; }
+.firecheckout-set .form-list .input-box { padding: 0; }
+.firecheckout-set .form-list .fields .field { clear: none; }
+.firecheckout-set .form-list .fields .field,
+.firecheckout-set .form-list .fields .input-box,
+.firecheckout-set .gift-messages-form .item .details .form-list .field { width: 50%; }
+.firecheckout-set .form-list .field .input-box,
+.firecheckout-set .form-list .fields .field .input-box,
+.firecheckout-set .gift-messages-form .item .details .form-list li.wide .input-box { width: 100%; }
+.firecheckout-set .form-list .wide .field,
+.firecheckout-set .form-list .wide .input-box { width: 100%; }
+.firecheckout-set .form-list .wide .input-box { padding: 0; }
+.firecheckout-set .form-list .wide .field .input-box { width: 100%; }
+
+/* dob */
+.firecheckout-set .form-list .customer-dob input + label { margin: 0; color: #888; }
+.firecheckout-set .form-list .customer-dob .dob-day,
+.firecheckout-set .form-list .customer-dob .dob-month {
+    width: 30%;
+    margin: 0;
+    padding: 0 4px 0 0;
+    box-sizing: border-box !important;
+}
+.firecheckout-set .form-list .customer-dob .dob-day .input-text,
+.firecheckout-set .form-list .customer-dob .dob-month .input-text { width: 100%; }
+.firecheckout-set .form-list .customer-dob .dob-year { width: 40%; }
+.firecheckout-set .form-list .customer-dob .dob-year input.input-text { width: 100%; }
+
+/* Hide validation message below date because another message is shown below all fields */
+.firecheckout-set .dob-day .validation-advice,
+.firecheckout-set .dob-month .validation-advice,
+.firecheckout-set .dob-year .validation-advice,
+.firecheckout-set .dob-full .validation-advice { display: none; }
+
+.address-select-item { text-align: left !important; }
+.address-select-item label { width: auto !important; text-align: left !important; margin: 0 0 5px !important; }
+.address-select-item .input-box,
+.address-select-item .input-box select { max-width: 100% !important; width: 100% !important; }
+
+/* Inline address form */
+.inline-address-form .form-list {
+    margin: 0;
+}
+.inline-address-form .form-list .fields .field,
+.inline-address-form .form-list .fields .field:first-child .input-box,
+.firecheckout-window .inline-address-form .form-list .wide .input-box,
+.firecheckout-window .inline-address-form .form-list input.input-text,
+.firecheckout-window .inline-address-form .form-list textarea {
+    width: 100%;
+    max-width: 100%;
+}
+.inline-address-form .form-list fieldset li:not(.inline-form-visible) {
+    margin: 0;
+}
+.inline-address-form fieldset li.wide:not(.inline-form-visible),
+.inline-address-form fieldset li.control:not(.inline-form-visible),
+.inline-address-form fieldset div.field:not(.inline-form-visible) {
+    display: none;
+}
+
+.fields .field { float: left; margin: 0; }
+
+@media (max-width: 800px) {
+    .firecheckout-set .wide .input-box { max-width: 100% !important; }
+    .firecheckout-set .form-list li.wide textarea,
+    .firecheckout-set .form-list li.wide select,
+    .firecheckout-set .form-list li.wide input.input-text { max-width: 100%; width: 100%; }
+}
+
+/* One field per line */
+.fc-form-wide .firecheckout-set .form-list .fields .field,
+.fc-form-wide .firecheckout-set .form-list .fields .input-box,
+.fc-form-wide .firecheckout-set .gift-messages-form .item .details .form-list .field {
+    width: 100%;
+    clear: left;
+}
+
+/* Label and field in one line */
+.fc-form-horizontal .firecheckout-set .address-section .form-list .fields .field,
+.fc-form-horizontal .firecheckout-set .step-name .form-list .fields .field {
+    width: 100%;
+    clear: left;
+}
+@media (min-width: 1024px), (max-width: 800px) {
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .fields label,
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .wide label,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .fields label,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .wide label {
+        float: none;
+        display: inline-block;
+        vertical-align: middle;
+        width: 80px;
+        text-align: right;
+        word-break: break-word;
+        margin: 0 5px 0 0;
+    }
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .fields .field .input-box,
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .wide .input-box,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .fields .field .input-box,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .wide .input-box  {
+        float: none;
+        display: inline-block;
+        vertical-align: middle;
+        clear: none;
+        width: calc(100% - 90px);
+        padding: 0;
+    }
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .control,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .control {
+        padding-left: 95px;
+    }
+    .fc-form-horizontal .fc-saved-address .control {
+        padding-left: 4px !important;
+    }
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .wide,
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .field {
+        max-width: none;
+        text-align: right;
+    }
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .wide .input-box,
+    .fc-form-horizontal .firecheckout-set .address-section .form-list .field .input-box,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .wide .input-box,
+    .fc-form-horizontal .firecheckout-set .step-name .form-list .field .input-box {
+        text-align: left;
+    }
+}
+
+/* checkmoney, bankpayment fixes */
+.firecheckout-set td label {
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+}

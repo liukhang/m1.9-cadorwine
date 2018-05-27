@@ -1,0 +1,22 @@
+.firecheckout-set {
+    counter-reset: firecheckout-section-number;
+}
+#billing-address > .block-title::before,
+#shipping-method > .block-title::before,
+#payment-method  > .block-title::before,
+#checkout-review > .block-title::before {
+    counter-increment: firecheckout-section-number;
+    content: counter(firecheckout-section-number);
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    margin: 0 7px 0 0;
+    background: #000;
+    color: #fff;
+    font-weight: normal;
+    vertical-align: top;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+}

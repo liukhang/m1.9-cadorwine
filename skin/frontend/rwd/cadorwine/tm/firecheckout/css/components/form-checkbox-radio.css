@@ -1,0 +1,99 @@
+.firecheckout-set input[type="checkbox"] + label,
+.firecheckout-set input[type="radio"] + label,
+.firecheckout-set input[type="checkbox"] + * + label,
+.firecheckout-set input[type="radio"] + * + label,
+/* RWD fix */
+.firecheckout-set #checkout-shipping-method-load .sp-methods dd input + label,
+.firecheckout-set #checkout-shipping-method-load .sp-methods dd input + * + label {
+    cursor: pointer;
+    padding: 0 0 0 25px;
+    line-height: 18px;
+}
+.firecheckout-set input[type="checkbox"][hidden],
+.firecheckout-set input[type="radio"][hidden] {
+    display: none;
+}
+.firecheckout-set input[type="checkbox"],
+.firecheckout-set input[type="radio"] {
+    -webkit-appearance: none;
+    position: relative;
+    z-index: 1; /* Move it above the label in case if label has wrong 'for' */
+    padding: 0;
+    background: none;
+    opacity: 1 !important;
+    box-shadow: 0 0 0 0 #aaa inset !important;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    outline: 0;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    cursor: pointer;
+}
+.firecheckout-set input[type="checkbox"]:checked,
+.firecheckout-set input[type="radio"]:checked {
+    box-shadow: 0 0 0 10px #888 inset !important;
+    border: none;
+}
+.firecheckout-set input[type="checkbox"]:focus,
+.firecheckout-set input[type="radio"]:focus {
+    border-color: #555;
+    outline: 0;
+}
+.firecheckout-set input[type="checkbox"]:checked:focus,
+.firecheckout-set input[type="radio"]:checked:focus {
+    box-shadow: 0 0 0 10px #666 inset !important;
+}
+.firecheckout-set input[type="checkbox"]::after,
+.firecheckout-set input[type="radio"]::after {
+    content: ' ';
+
+    background-image: url(../../images/checkmark.png);
+    background-size: 12px 10px;
+
+    /* background-image: url(../../images/ios-checkmark-empty.svg);
+    background-size: 26px 26px; */
+
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+    -webkit-transition: all 0.2s ease-in-out 0.1s;
+    transition: all 0.2s ease-in-out 0.1s;
+    transform: scale(0.2);
+    opacity: 0;
+
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    margin-top: -9px;
+}
+.firecheckout-set input[type="radio"] {
+    border-radius: 50%;
+}
+.firecheckout-set input[type="radio"]::after {
+    background-image: url(../../images/record.svg);
+    background-size: 8px 8px;
+}
+.firecheckout-set input[type="checkbox"]:checked::after,
+.firecheckout-set input[type="radio"]:checked::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Hide custom checkbox and raio styles in third-party themes */
+.firecheckout-set input[type="checkbox"] + label::before,
+.firecheckout-set input[type="checkbox"] + * + label::before,
+.firecheckout-set input[type="checkbox"] + span > label::before,
+.firecheckout-set input[type="radio"] + label::before,
+.firecheckout-set input[type="radio"] + * + label::before,
+.firecheckout-set input[type="radio"] + span > label::before {
+    display: none !important;
+}

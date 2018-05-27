@@ -65,16 +65,18 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
             <?php echo $this->escapeHtml($this->getProductName()) ?>
         <?php endif; ?>
         </h2>
+
+
+        
         <?php 
         $_product = Mage::getModel('catalog/product')->load($_item->getProductId());
+
 
          ?>
         <?php if($_product->getData("short_description")!=''){ ?>
          <span class="slezione"><?php echo $_product->getData("short_description") ?></span>
          <?php } ?>
-        <span class="ml"><?php echo $_product->getData("cd_scheda_tecnica_volume") ?></span>  
-
-
+        <span class="ml"><?php echo $_product->getData("cd_scheda_tecnica_volume") ?></span>      
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">
             <?php foreach ($_options as $_option) : ?>
@@ -229,7 +231,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         </ul>
 
     </td>
-	
+    
 
 
     <!--Sub total starts here -->
@@ -276,9 +278,9 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
                 </div>
             <?php endif; ?>
         <?php endif; ?>
-		
-		
-		
+        
+        
+        
     </td>
 
     <?php endif; ?>
@@ -328,8 +330,8 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
                 </div>
             <?php endif; ?>
         <?php endif; ?>
-		
-		<a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="remove"><?php echo $this->__('Remove') ?></a>
+        
+<?php /*        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="remove"><?php echo $this->__('Remove') ?></a>*/ ?>
     </td>
     <?php endif; ?>
     <td class="custom_edit">

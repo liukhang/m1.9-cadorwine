@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <update handle="multifees_head_handle"/>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/mageworx_multifees.js</name>
+            </action>
+        </reference>
+        <reference name="after_body_start">
+            <block type="core/template" name="checkout.cart.multifees.wrapper" as="multifees_wrapper" template="mageworx/multifees/wrapper.phtml">
+                <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml" />
+            </block>
+        </reference>
+    </firecheckout_index_index>
+</layout>

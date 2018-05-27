@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+
+    <checkout_onepage_success>
+        <reference name="head">
+            <action method="addItem" ifconfig="checkoutsuccess/general/enabled">
+                <type>skin_css</type>
+                <name>tm/checkoutsuccess/css/checkoutsuccess.css</name>
+            </action>
+            <action method="addItem" ifconfig="checkoutsuccess/general/enabled">
+                <type>skin_js</type>
+                <name>tm/checkoutsuccess/js/checkoutsuccess.js</name>
+                <params>defer</params>
+            </action>
+        </reference>
+    </checkout_onepage_success>
+
+    <tm_checkoutsuccess_order_view>
+
+        <update handle="sales_order_view"/>
+        <update handle="page_one_column"/>
+        <remove name="customer_account_navigation"/>
+        <remove name="left"/>
+        <remove name="right"/>
+        <remove name="downloadable.checkout.success"/>
+
+        <!-- revert some changes of sales_order_view handle -->
+        <remove name="sales.order.info.buttons"/>
+        <reference name="my.account.wrapper">
+            <action method="unsetChildren"/>
+        </reference>
+        <reference name="sales.order.info">
+            <action method="setTemplate"><template>tm/checkoutsuccess/sales/order/info.phtml</template></action>
+        </reference>
+        <reference name="sales.order.view">
+            <action method="setTemplate"><template>tm/checkoutsuccess/sales/order/view.phtml</template></action>
+        </reference>
+
+        <!-- change blocks location -->
+        <reference name="checkout.success">
+            <action method="setTemplate"><template>tm/checkoutsuccess/success.phtml</template></action>
+            <action method="insert">
+                <blockName>sales.order.info</blockName>
+                <alias>info</alias>
+            </action>
+            <action method="insert">
+                <blockName>sales.order.view</blockName>
+                <alias>sales.order.view</alias>
+            </action>
+        </reference>
+
+        <update handle="tm_checkoutsuccess_add_child_blocks"/>
+
+    </tm_checkoutsuccess_order_view>
+
+    <tm_checkoutsuccess_recurring_profile_view>
+
+        <!-- add unique class name for recurring profile success page -->
+        <reference name="root">
+            <action method="addBodyClass"><classname>recurring-profile</classname></action>
+        </reference>
+
+        <update handle="sales_recurring_profile_view"/>
+        <update handle="page_one_column"/>
+        <remove name="customer_account_navigation"/>
+        <remove name="left"/>
+        <remove name="right"/>
+        <remove name="downloadable.checkout.success"/>
+
+        <!-- revert some changes of sales_recurring_profile_view handle -->
+        <reference name="my.account.wrapper">
+            <action method="unsetChildren"/>
+        </reference>
+        <reference name="sales.recurring.profile.view">
+            <action method="setTemplate"><template>tm/checkoutsuccess/sales/recurring/profile/view.phtml</template></action>
+        </reference>
+        <!-- <remove name="sales.recurring.profile.view.billing"/> -->
+        <!-- <remove name="sales.recurring.profile.view.shipping"/> -->
+
+        <reference name="checkout.success">
+            <action method="setTemplate"><template>tm/checkoutsuccess/success.phtml</template></action>
+            <action method="insert">
+                <blockName>sales.recurring.profile.view</blockName>
+                <alias>sales.recurring.profile.view</alias>
+            </action>
+            <block type="core/template" name="sales.order.view">
+                <action method="setTemplate">
+                    <template>tm/checkoutsuccess/sales/recurring/profile/view/section.phtml</template>
+                </action>
+                <action method="setData">
+                    <key>recurring_profile_parent_group</key>
+                    <value>1</value>
+                </action>
+            </block>
+            <block type="core/template" name="sales.order.info">
+                <action method="setTemplate">
+                    <template>tm/checkoutsuccess/sales/recurring/profile/view/section.phtml</template>
+                </action>
+                <action method="setData">
+                    <key>recurring_profile_parent_group</key>
+                    <value>3</value>
+                </action>
+            </block>
+            <block type="core/template" name="sales.recurring.profile.schedule">
+                <action method="setTemplate">
+                    <template>tm/checkoutsuccess/sales/recurring/profile/view/section.phtml</template>
+                </action>
+                <action method="setData">
+                    <key>recurring_profile_parent_group</key>
+                    <value>2</value>
+                </action>
+            </block>
+        </reference>
+
+        <update handle="tm_checkoutsuccess_add_child_blocks"/>
+
+    </tm_checkoutsuccess_recurring_profile_view>
+
+    <tm_checkoutsuccess_add_child_blocks>
+        <reference name="checkout.success">
+            <block type="checkoutsuccess/template" name="checkoutsuccess.thank.you">
+                <action method="setTemplate">
+                    <template>tm/checkoutsuccess/success/thank-you.phtml</template>
+                </action>
+            </block>
+            <block type="core/template" name="checkoutsuccess.additional" template="tm/checkoutsuccess/success/additional.phtml"/>
+            <block type="checkoutsuccess/quick_register" name="checkoutsuccess.quick.register" template="tm/checkoutsuccess/customer/quick/register.phtml" />
+            <block type="cms/block" name="checkoutsuccess.cms.1">
+                <action method="setBlockId">
+                    <block_id helper="checkoutsuccess/getConfigCmsBlock1" />
+                </action>
+            </block>
+            <block type="cms/block" name="checkoutsuccess.cms.2">
+                <action method="setBlockId">
+                    <block_id helper="checkoutsuccess/getConfigCmsBlock2" />
+                </action>
+            </block>
+            <block type="cms/block" name="checkoutsuccess.cms.3">
+                <action method="setBlockId">
+                    <block_id helper="checkoutsuccess/getConfigCmsBlock3" />
+                </action>
+            </block>
+            <block type="cms/block" name="checkoutsuccess.cms.4">
+                <action method="setBlockId">
+                    <block_id helper="checkoutsuccess/getConfigCmsBlock4" />
+                </action>
+            </block>
+            <block type="checkoutsuccess/html_bottom" name="checkoutsuccess.bottom.html" />
+        </reference>
+    </tm_checkoutsuccess_add_child_blocks>
+</layout>

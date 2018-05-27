@@ -1,7 +1,7 @@
 <?php if (Mage::helper('persistent/session')->isPersistent() && !Mage::getSingleton('customer/session')->isLoggedIn()): ?>
     <?php $customer = Mage::helper('persistent/session')->getCustomer(); ?>
     <div id="persistent-cart-window" style="display:none;">
-        <div class="page-title">
+        <div class="fc-window-title">
             <span><?php echo Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($customer->getName(), null)) ?></span>
         </div>
         <div class="content">

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pointofsale/css/pointofsale.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>pointofsale/js/pointofsale.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>pickupatstore/js/script.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/wyomind_pickupatstore.js</name>
+            </action>
+            <block type="core/text" name="googlemap">
+                <action method="setText">
+                    <text>
+           <![CDATA[<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.available">
+            <action method='setTemplate'>
+                <template>pickupatstore/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.shipping.method">
+            <action method='setTemplate'>
+                <template>pickupatstore/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

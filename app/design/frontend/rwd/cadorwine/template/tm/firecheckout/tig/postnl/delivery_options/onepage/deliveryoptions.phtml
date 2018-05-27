@@ -33,7 +33,7 @@
  * versions in the future. If you wish to customize this module for your
  * needs please contact servicedesk@tig.nl for more information.
  *
- * @copyright   Copyright (c) 2014 Total Internet Group B.V. (http://www.tig.nl)
+ * @copyright   Copyright (c) 2017 Total Internet Group B.V. (http://www.tig.nl)
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
  */
 ?>
@@ -46,9 +46,15 @@
 <?php $_address                        = $this->getShippingAddress(); ?>
 <?php $_postcode                       = $this->getPostcode(); ?>
 <?php $_country                        = $this->getCountry(); ?>
-<?php $_deliveryDate                   = $this->getDeliveryDate(); ?>
+<?php $_deliveryDate                   = $this->getDeliveryDate('delivery'); ?>
+<?php $_pickupDate                     = $this->getDeliveryDate('pickup'); ?>
 <?php $_streetData                     = $this->getStreetData(); ?>
 <?php $_housenumber                    = $_streetData['housenumber']; ?>
+<?php $_street                         = $_streetData['streetname']; ?>
+<?php $_city                           = $this->getCity(); ?>
+<?php $_weekdayCutOffTime              = $this->getCutOff('weekday'); ?>
+<?php $_sundayCutOffTime               = $this->getCutOff('sunday'); ?>
+<?php $_sameDayCutOffTime              = $this->getCutOff('sameday'); ?>
 
 <?php $_canAddLocation                 = true; ?>
 <?php $_canUseResponsive               = $this->canUseResponsive(); ?>
@@ -57,7 +63,7 @@
 
 <?php $_canShowOnlyStatedAddressOption = $this->canShowOnlyStatedAddressOption(); ?>
 <?php $_canUseSundaySorting            = $this->canUseSundaySorting(); ?>
-<?php $_canUsePakjeGemak               = $this->canUsePakjeGemak(); ?>
+<?php $_canUsePakjeGemak               = $this->canUsePakjeGemak($_country); ?>
 <?php $_canUsePakketAutomaat           = $this->canUsePakketAutomaat(); ?>
 <?php $_canUsePakjeGemakExpress        = false; ?>
 <?php if ($_canUsePakjeGemak): ?>
@@ -70,6 +76,10 @@
 
 <?php $_eveningFeeIncl    = $this->getFee('evening', true); ?>
 <?php $_eveningFeeExcl    = $this->getFee('evening', false); ?>
+<?php $_sundayFeeIncl     = $this->getFee('sunday', true); ?>
+<?php $_sundayFeeExcl     = $this->getFee('sunday', false); ?>
+<?php $_sameDayFeeIncl    = $this->getFee('sameday', true); ?>
+<?php $_sameDayFeeExcl    = $this->getFee('sameday', false); ?>
 <?php $_expressFeeIncl    = $this->getFee('express', true); ?>
 <?php $_expressFeeExcl    = $this->getFee('express', false); ?>
 <?php $_pakjeGemakFeeIncl = $this->getFee('pakje_gemak', true); ?>
@@ -79,6 +89,8 @@
 <?php $_methodRate = $this->getMethodRate(); ?>
 
 <?php $_pakjeGemakRate = $_methodRate + $this->getFee('pakje_gemak', $this->helper('tax')->shippingPriceIncludesTax()); ?>
+
+<?php $_deliveryOptionsAjaxTimeout = $this->getDeliveryOptionsAjaxTimeout(); ?>
 <div id="initial_loader" class="postnl-loader"><?php echo $this->__('Loading...'); ?></div>
 <div id="postnl_delivery_options" style="display:none;">
     <div class="title">
@@ -158,6 +170,8 @@
                     </li>
                 </ul>
             </div>
+
+            <?php echo $this->getChildHtml('postnl.add.idcheck'); ?>
         </div>
     </div>
     <?php echo $this->getChildHtml('postnl.add.location') ?>
@@ -184,23 +198,37 @@
         timeframesUrl      : '<?php echo $this->getUrl('postnl/deliveryOptions/getDeliveryTimeframes', array('_secure' => true)) ?>',
         locationsUrl       : '<?php echo $this->getUrl('postnl/deliveryOptions/getNearestLocations', array('_secure' => true)) ?>',
         locationsInAreaUrl : '<?php echo $this->getUrl('postnl/deliveryOptions/getLocationsInArea', array('_secure' => true)) ?>',
-        postcode           : '<?php echo $this->escapeHtml($_postcode); ?>',
-        housenumber        : '<?php echo $this->escapeHtml($_housenumber); ?>',
-        country            : '<?php echo $this->escapeHtml($_country); ?>',
-        deliveryDate       : '<?php echo $this->escapeHtml($_deliveryDate); ?>',
+        postcode           : '<?php echo $this->escapeJavascriptHtml($_postcode); ?>',
+        housenumber        : '<?php echo $this->escapeJavascriptHtml($_housenumber); ?>',
+        street             : '<?php echo $this->escapeJavascriptHtml($_street); ?>',
+        city               : '<?php echo $this->escapeJavascriptHtml($_city); ?>',
+        country            : '<?php echo $this->escapeJavascriptHtml($_country); ?>',
+        deliveryDate       : '<?php echo $this->escapeJavascriptHtml($_deliveryDate); ?>',
+        pickupDate         : '<?php echo $this->escapeJavascriptHtml($_pickupDate); ?>',
         imageBaseUrl       : baseUrl,
-        fullAddress        : "<?php echo $this->escapeHtml(implode(' ', $_address->getStreet()) . ', ' . $_address->getCity() . ', ' . $_address->getPostcode() . ', ' . $_address->getCountry()); ?>"
+        fullAddress        : "<?php echo $this->escapeJavascriptHtml(implode(' ', $_address->getStreet()) . ', ' . $_address->getCity() . ', ' . $_address->getPostcode() . ', ' . $_address->getCountry()); ?>",
+        cutOffTimes        : {
+            weekday: '<?php echo $_weekdayCutOffTime; ?>',
+            sunday: '<?php echo $_sundayCutOffTime; ?>',
+            sameday: '<?php echo $_sameDayCutOffTime; ?>'
+        }
     };
 
     options = {
         taxDisplayType         : <?php echo $this->getTaxDisplayType() ?>,
         eveningFeeIncl         : <?php echo $_eveningFeeIncl; ?>,
         eveningFeeExcl         : <?php echo $_eveningFeeExcl; ?>,
+        sundayFeeIncl          : <?php echo $_sundayFeeIncl; ?>,
+        sundayFeeExcl          : <?php echo $_sundayFeeExcl; ?>,
+        sameDayFeeIncl         : <?php echo $_sameDayFeeIncl; ?>,
+        sameDayFeeExcl         : <?php echo $_sameDayFeeExcl; ?>,
         expressFeeIncl         : <?php echo $_expressFeeIncl; ?>,
         expressFeeExcl         : <?php echo $_expressFeeExcl; ?>,
         pakjeGemakFeeIncl      : <?php echo $_pakjeGemakFeeIncl; ?>,
         pakjeGemakFeeExcl      : <?php echo $_pakjeGemakFeeExcl; ?>,
         eveningFeeText         : '<?php echo $this->getFeeText('evening', $this->helper('tax')->displayShippingPriceIncludingTax()); ?>',
+        sundayFeeText          : '<?php echo $this->getFeeText('sunday', $this->helper('tax')->displayShippingPriceIncludingTax()); ?>',
+        sameDayFeeText         : '<?php echo $this->getFeeText('sameday', $this->helper('tax')->displayShippingPriceIncludingTax()); ?>',
         expressFeeText         : '<?php echo $this->getFeeText('express', $this->helper('tax')->displayShippingPriceIncludingTax()); ?>',
         pakjeGemakFeeText      : '<?php echo $this->getFeeText('pakje_gemak', $this->helper('tax')->displayShippingPriceIncludingTax()); ?>',
         allowPg                : <?php echo $_canUsePakjeGemak               ? 'true' : 'false'; ?>,
@@ -210,6 +238,7 @@
         allowDeliveryDays      : <?php echo $this->canUseDeliveryDays()      ? 'true' : 'false'; ?>,
         allowTimeframes        : <?php echo $this->canUseTimeframes()        ? 'true' : 'false'; ?>,
         allowEveningTimeframes : <?php echo $this->canUseEveningTimeframes() ? 'true' : 'false'; ?>,
+        allowFallBackTimeFrame : <?php echo $this->canUseFallBackTimeframe() ? 'true' : 'false'; ?>,
         allowStreetview        : <?php echo $this->canUseStreetview()        ? 'true' : 'false'; ?>,
         disableCufon           : <?php echo $this->getUseCufon()             ? 'true' : 'true'; ?>,
         isBuspakje             : <?php echo $this->getIsBuspakje()           ? 'true' : 'false'; ?>,
@@ -225,56 +254,58 @@
                 }
             },
         <?php endif; ?>
-        currencySymbol         : '<?php echo Mage::app()->getLocale()->currency($_store->getCurrentCurrencyCode())->getSymbol(); ?>'
+        currencySymbol         : '<?php echo Mage::app()->getLocale()->currency($_store->getCurrentCurrencyCode())->getSymbol(); ?>',
+        getLocationsTimeout    : <?php echo $_deliveryOptionsAjaxTimeout; ?>,
+        getTimeframesTimeout   : <?php echo $_deliveryOptionsAjaxTimeout; ?>
     };
 
-    // firecheckout modification
-    function initDeliveryOptions() {
-    // end of firecheckout modification
+// firecheckout modification
+function initDeliveryOptions() {
+// end of firecheckout modification
+    try {
+        deliveryOptions = new PostnlDeliveryOptions(params, options, postnlDebugMode);
+        deliveryOptions.updateShippingPrice = deliveryOptions.updateShippingPrice.wrap(function(o) {
+            o();
+            shippingMethod.save();
+        });
+    } catch(e) {
+        $('initial_loader').hide();
+        $('postnl_delivery_options').hide().up().hide();
+        $('postnl_pickup').hide();
+        console.error(e);
+    }
+
+    if (typeof deliveryOptions != 'undefined') {
         try {
-            deliveryOptions = new PostnlDeliveryOptions(params, options, postnlDebugMode);
-            deliveryOptions.updateShippingPrice = deliveryOptions.updateShippingPrice.wrap(function(o) {
-                o();
-                shippingMethod.save();
-            });
-        } catch(e) {
-            $('initial_loader').hide();
-            $('postnl_delivery_options').hide().up().hide();
-            $('postnl_pickup').hide();
-            console.error(e);
-        }
+            deliveryOptions.showOptions();
+            window.deliveryOptions = deliveryOptions;
 
-        if (typeof deliveryOptions != 'undefined') {
-            try {
-                deliveryOptions.showOptions();
-                window.deliveryOptions = deliveryOptions;
-
-                <?php if($_canShowSeparateRates): ?>
-                    /**
-                     * Hide the default price label as this will be replaced by separate prices for delivery and pick up options.
-                     */
-                    var methodLabel = $$('label[for="<?php echo $_methodName; ?>"]')[0];
-                    if (methodLabel) {
-                        methodLabel.update('<?php echo $this->escapeHtml($this->getRate()->getMethodTitle()); ?>');
-                    }
-                <?php endif; ?>
-            } catch(e) {
-                $('initial_loader').hide();
-                $('postnl_delivery_options').show();
-                $('postnl_pickup').hide();
-                if ('function' === typeof deliveryOptions.showDefaultTimeframe) {
-                    deliveryOptions.showDefaultTimeframe();
+            <?php if($_canShowSeparateRates): ?>
+                /**
+                 * Hide the default price label as this will be replaced by separate prices for delivery and pick up options.
+                 */
+                var methodLabel = $$('label[for="<?php echo $_methodName; ?>"]')[0];
+                if (methodLabel) {
+                    methodLabel.update('<?php echo $this->escapeHtml($this->getRate()->getMethodTitle()); ?>');
                 }
-                console.error(e);
-            }
-        } else {
+            <?php endif; ?>
+        } catch(e) {
             $('initial_loader').hide();
             $('postnl_delivery_options').show();
             $('postnl_pickup').hide();
+            if ('function' === typeof deliveryOptions.showDefaultTimeframe) {
+                deliveryOptions.showDefaultTimeframe();
+            }
+            console.error(e);
         }
-    // firecheckout modification
+    } else {
+        $('initial_loader').hide();
+        $('postnl_delivery_options').show();
+        $('postnl_pickup').hide();
     }
-    // end of firecheckout modification
+// firecheckout modification
+}
+// end of firecheckout modification
 
     // firecheckout modification
     if (typeof PostnlDeliveryOptions === 'undefined') {
@@ -293,6 +324,15 @@
     // document.observe('postnl:selectOptionSaved', function() {
     //     checkout.reloadProgressBlock('shipping_method');
     // });
+
+    function firecheckoutOnPostcodeCheckSuccess(url, sections) {
+        if (checkout._requestStates[url]) {
+            return setTimeout(function() {
+                firecheckoutOnPostcodeCheckSuccess(url, sections);
+            }, 100);
+        }
+        checkout.update.bind(checkout).delay(0.1, url, FC.Ajax.arrayToJson(sections));
+    }
 
     document.stopObserving('postnl:postcodeCheckSuccess');
     document.observe('postnl:postcodeCheckSuccess', function(e) {
@@ -316,7 +356,7 @@
         }
 
         if (sections.length) {
-            checkout.update.bind(checkout).delay(0.1, url, FC.Ajax.arrayToJson(sections));
+            firecheckoutOnPostcodeCheckSuccess(url, sections);
         }
     });
     // end of firecheckout modification

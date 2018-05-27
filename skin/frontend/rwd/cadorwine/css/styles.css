@@ -10609,3 +10609,39 @@ div.calendar table td.button {
   color: inherit;
   text-transform: none;
 }
+
+.nor-titolo {
+	margin-top: 40px;
+}
+.nor-titolo h1 {
+	font-size: 38px;
+	color: #393937;	
+}
+.testo-nor {
+	margin-bottom: 30px;	
+}
+.testo-nor p {
+    font-size: 18px !important;
+    line-height: 25px !important;
+}
+.nor-button {
+	    text-align: center;
+		min-height:50px;
+		margin-bottom:65px;
+}
+.nor-button a {
+	font-weight: bold;
+	font-size: 18px;
+	padding: 10px 25px 10px 25px;
+	background-color: #F2C02F;
+	border:1px solid #F2C02F;
+	    display: inline-block;
+}
+.nor-button a:hover {
+	background-color: white;
+	color: #F2C02F;
+}
+.nor-img img {
+	width: auto !important;
+	margin: 0 auto;
+}

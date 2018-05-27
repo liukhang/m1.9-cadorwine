@@ -36,10 +36,7 @@ if (window.top == window.self) {
     window.location = "<?php echo $this->getUrl('checkout/cart') ?>";
 }
 <?php if ($this->getGotoSection()): ?>
-    window.top.firecheckoutWindow.setModal(0).hide();
-    window.top.document.getElementById('firecheckout-form').setStyle({
-        'visibility': 'visible'
-    });
+    window.top.document.getElementById('firecheckout-form').show();
     window.top.document.getElementById('<?php echo (version_compare(Mage::helper('firecheckout')->getMagentoVersion(), '1.6.1.0') >= 0) ? 'hss-iframe' : 'payflow-link-iframe' ?>').firecheckoutCancelLoad = 1;
     window.top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>

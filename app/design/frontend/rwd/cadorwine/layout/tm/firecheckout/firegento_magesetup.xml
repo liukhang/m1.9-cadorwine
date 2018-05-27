@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <file>tm/firecheckout/css/integration/firegento_magesetup.css</file>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.review">
+            <action method="unsetChild"><name>checkout.onepage.agreements</name></action>
+            <block type="magesetup/checkout_agreements" name="checkout.onepage.agreements" as="agreements" template="magesetup/checkout/onepage/agreements.phtml"/>
+        </reference>
+        <reference name="checkout.onepage.review.info.items.after">
+            <block type="magesetup/checkout_information" name="checkout.onepage.additional" as="additional"
+                   template="magesetup/checkout/additional.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <action method="unsetChild"><name>checkout.onepage.agreements</name></action>
+        <block type="magesetup/checkout_agreements" name="checkout.onepage.agreements" as="agreements" template="magesetup/checkout/onepage/agreements.phtml"/>
+        <reference name="checkout.onepage.review.info.items.after">
+            <block type="magesetup/checkout_information" name="checkout.onepage.additional" as="additional"
+                   template="magesetup/checkout/additional.phtml"/>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

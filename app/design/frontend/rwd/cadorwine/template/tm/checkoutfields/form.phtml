@@ -15,14 +15,11 @@ endif;
         $required = ('req' === $fieldConfig['status']);
         $value    = $this->escapeHtml($this->getQuote()->getData($fieldName));
     ?>
-    <li<?php echo 'checkbox' === $fieldConfig['type'] ? ' class="control"' : '' ?>>
+    <li class="<?php echo 'checkbox' === $fieldConfig['type'] ? 'control' : 'wide' ?>">
         <?php if ('checkbox' !== $fieldConfig['type']) : ?>
             <label for="order-<?php echo $fieldName ?>"
                 class="<?php echo $required ? 'required' : '' ?>"
-                ><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml($fieldConfig['label']) ?></label><br/>
-            <?php if (!empty($fieldConfig['description'])) : ?>
-                <small class="checkoutfield-note"><?php echo $this->escapeHtml($fieldConfig['description']) ?></small>
-            <?php endif; ?>
+                ><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml($fieldConfig['label']) ?></label>
         <?php endif; ?>
         <div class="input-box">
             <?php switch ($fieldConfig['type']) :
@@ -35,10 +32,7 @@ endif;
                     />
                     <label for="order-<?php echo $fieldName ?>"
                         class="<?php echo $required ? 'required' : '' ?>"
-                        ><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml($fieldConfig['label']) ?></label><br/>
-                    <?php if ($fieldConfig['description']) : ?>
-                        <small class="checkoutfield-note"><?php echo $this->escapeHtml($fieldConfig['description']) ?></small>
-                    <?php endif; ?>
+                        ><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml($fieldConfig['label']) ?></label>
                 <?php break; ?>
                 <?php /*case 'multiselect': ?>
                     <select type="text"
@@ -83,6 +77,9 @@ endif;
                     </select>
                 <?php break; ?>
             <?php endswitch; ?>
+            <?php if (!empty($fieldConfig['description'])) : ?>
+                <small class="checkoutfield-note"><?php echo $this->escapeHtml($fieldConfig['description']) ?></small>
+            <?php endif; ?>
         </div>
     </li>
 <?php endforeach; ?>

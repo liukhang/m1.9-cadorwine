@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addCss" ifconfig="carriers/mondialrelaypickup/active">
+                <stylesheet>css/Man4x_MondialRelay.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="shipping.methods.after">
+            <block type="mondialrelay/checkout_shippingmethods" name="mondialrelay_shippingmethods" after='-' template="Man4x_MondialRelay/shippingmethods.phtml" />
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="shipping.methods.after">
+            <block type="mondialrelay/checkout_shippingmethods" name="mondialrelay_shippingmethods" after='-' template="Man4x_MondialRelay/shippingmethods.phtml" />
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

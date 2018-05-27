@@ -1,0 +1,93 @@
+.fc-form-compact .field,
+.fc-form-compact .wide,
+.fc-form-compact .captcha-input-container {
+    position: relative;
+}
+.fc-form-compact .field:not(.control) label,
+.fc-form-compact .wide:not(.control) label,
+.fc-form-compact .captcha-input-container label {
+    pointer-events: none;
+
+    position: absolute !important;
+    margin: 0;
+    color: #999;
+    z-index: 5;
+    left: 12px;
+    top: 16px;
+
+    white-space: nowrap;
+    max-width: 85%;
+    width: auto;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    top: 10px;
+    font-size: 11px;
+    opacity: 0;
+    -webkit-transition: all 100ms ease-in-out;
+    transition: all 100ms ease-in-out;
+}
+.fc-form-compact .field input[type="checkbox"] + label,
+.fc-form-compact .field input[type="radio"] + label,
+.fc-form-compact .wide input[type="checkbox"] + label,
+.fc-form-compact .wide input[type="radio"] + label {
+    pointer-events: all;
+    position: static !important;
+    opacity: 1;
+}
+.fc-form-compact .field.fc-dirty label,
+.fc-form-compact .field .fc-dirty label,
+.fc-form-compact .wide.fc-dirty label,
+.fc-form-compact .wide .fc-dirty label {
+    top: 8px;
+    opacity: 1;
+    color: #bbb;
+    line-height: normal;
+}
+.fc-form-compact .field label em,
+.fc-form-compact .wide label em,
+.fc-form-compact .field label.required::after,
+.fc-form-compact .wide label.required::after,
+.fc-form-compact .captcha-input-container label em,
+.fc-form-compact .captcha-input-container label.required::after {
+    right: 0 !important;
+    color: currentColor;
+}
+.fc-form-compact .field .input-box,
+.fc-form-compact .wide .input-box,
+.fc-form-compact .captcha-input-container .input-box {
+    position: relative;
+}
+.fc-form-compact .field .input-box input,
+.fc-form-compact .field .input-box select,
+.fc-form-compact .field .input-box textarea,
+.fc-form-compact .wide .input-box input,
+.fc-form-compact .wide .input-box select,
+.fc-form-compact .wide .input-box textarea,
+.fc-form-compact .captcha-input-container .input-box input {
+    -webkit-transition: all 100ms ease-in-out;
+    transition: all 100ms ease-in-out;
+    padding: 0.68em 0.48em !important; /* important is used for third-party themes compatibility */
+}
+.fc-form-compact .field.fc-dirty .input-box input,
+.fc-form-compact .field.fc-dirty .input-box select,
+.fc-form-compact .field.fc-dirty .input-box textarea,
+.fc-form-compact .wide.fc-dirty .input-box input,
+.fc-form-compact .wide.fc-dirty .input-box select,
+.fc-form-compact .wide.fc-dirty .input-box textarea,
+.fc-form-compact .captcha-input-container.fc-dirty .input-box input {
+    padding-top: 1em !important;
+    padding-bottom: 0.36em !important;
+}
+.fc-form-compact .field .input-box select,
+.fc-form-compact .wide .input-box select,
+.fc-form-compact .field.fc-dirty .input-box select,
+.fc-form-compact .wide.fc-dirty .input-box select {
+    padding-right: 27px !important;
+}
+.fc-form-compact .dob-day label,
+.fc-form-compact .dob-month label,
+.fc-form-compact .dob-year label {
+    display: none;
+}

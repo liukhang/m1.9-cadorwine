@@ -37,9 +37,8 @@
     <nav id="nav">
         <ol class="nav-primary">
             <?php echo $_menu ?>
-			<li class="level0 nav-1 parent"><a href="#" title="Confezioni regalo" class="level0">Confezioni regalo</a></li>
-			<li class="level0 nav-1 parent"><a href="#" title="Club CA’ D’OR" class="level0">Club CA’ D’OR</a></li>
-			<li class="level0 nav-1 parent"><a href="#" title="Customer care" class="level0">Customer care</a></li>
+			<li class="level0 nav-1"><a href="<?php echo $this->getUrl('club-cador'); ?>" title="Club CA’ D’OR" class="level0">Club CA’ D’OR</a></li>
+			<li class="level0 nav-1"><a href="<?php echo $this->getUrl('customer-care'); ?>" title="Customer care" class="level0">Customer care</a></li>
         </ol>
     </nav>
 <?php endif ?>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addItem" ifconfig="carriers/dhlversenden/active">
+                <type>skin_js</type>
+                <script>js/dhl_versenden/opcheckout.js</script>
+            </action>
+            <action method="addItem" ifconfig="carriers/dhlversenden/active">
+                <type>skin_css</type>
+                <script>css/dhl_versenden/styles.css</script>
+            </action>
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <file>tm/firecheckout/css/integration/dhl_versenden.css</file>
+            </action>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

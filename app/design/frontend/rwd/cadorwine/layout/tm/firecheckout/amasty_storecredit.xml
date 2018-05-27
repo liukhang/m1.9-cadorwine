@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/amasty_storecredit.js</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.payment.methods_additional">
+            <block type="amstcred/checkout_onepage_payment_additional" template="amasty/amstcred/onepage/payment/additional.phtml" name="amstcred_balance" />
+        </reference>
+    </firecheckout_index_index_custom>
+
+    <firecheckout_index_updatecheckout_custom>
+        <reference name="checkout.onepage.payment.methods.scripts">
+            <block type="amstcred/checkout_onepage_payment_additional" template="amasty/amstcred/onepage/payment/scripts.phtml" name="amstcred_scripts" />
+        </reference>
+    </firecheckout_index_updatecheckout_custom>
+</layout>

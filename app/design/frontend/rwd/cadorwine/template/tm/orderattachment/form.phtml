@@ -4,7 +4,7 @@
 ?>
 
 <div class="orderattachment">
-    <label for="attachment" class="label<?php echo $required ? ' required' : '' ?>"><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml('Order attachments') ?></label><br/>
+    <label for="attachment" class="label<?php echo $required ? ' required' : '' ?>"><?php if ($required): ?><em>*</em><?php endif; ?><?php echo $this->escapeHtml($this->__('Order Attachments')) ?></label><br/>
     <button type="button" id="btn-attachment" class="button btn-attachment"><span><span><?php echo $this->__('Choose File') ?></span></span></button>
 
     <?php if ($ext = $helper->getAllowedExtensions()) : ?>

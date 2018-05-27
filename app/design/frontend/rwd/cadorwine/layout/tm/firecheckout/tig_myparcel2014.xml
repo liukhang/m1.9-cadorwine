@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <file>js/TIG/MyParcel2014/jquery-myparcel.min.js</file>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <file>js/TIG/MyParcel2014/checkout.js</file>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <file>tm/firecheckout/js/integration/tig_myparcel2014.js</file>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.available">
+            <action method="setTemplate">
+                <template>TIG/MyParcel2014/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.shipping.method">
+            <action method="setTemplate">
+                <template>TIG/MyParcel2014/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

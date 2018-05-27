@@ -40,6 +40,50 @@
     </div>
 </div>
 */ ?>
+<script type="text/javascript">
+
+        // Output the preloader HTML
+        document.write('<div id="ish-site-preloader-holder" class="ish-site-preloader-holder">' +
+        '<div class="ish-site-preloader-content">' +
+        '<div class="ish-site-preloader"><div class="ish-loader"><div class="ish-flipper"><div class="ish-front"><img src="<?php echo $this->getSkinUrl('images/loading.png'); ?>" /></div><div class="ish-back"><img src="<?php echo $this->getSkinUrl('images/loading.png'); ?>" /></div></div></div></div>' +
+        '<div class="ish-site-preloader-text">Loading...</div>' +
+        '</div>' +
+        '</div>');
+
+</script>
+<script>
+(function($) {
+    "use strict";
+    if (ish == null || typeof(ish) !== "object") {
+        var ish = {}
+    }
+    jQuery(window).load(function () {
+        ish.deactivate_site_preloader();
+
+    });
+    jQuery(window).bind('beforeunload', function () {
+        ish.activate_site_preloader();
+    });
+    ish.activate_site_preloader = function (){
+
+        var site_preloader = jQuery('.ish-site-preloader-holder');
+
+        if ( site_preloader.length > 0 ) {
+            site_preloader.fadeIn(250);
+        }
+
+    }
+    ish.deactivate_site_preloader = function (){
+
+        var site_preloader = jQuery('.ish-site-preloader-holder');
+
+        if ( site_preloader.length > 0 ) {
+            site_preloader.fadeOut(250);
+        }
+    }
+})(jQuery);
+
+</script>
 <header id="header" class="page-header">
     <div class="page-header-container">
         <div class="h-right">
@@ -54,7 +98,7 @@
                 <a href="#header-nav" class="skip-link skip-nav">
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </a>
-                <!-- <a href="javascript:void(0)" class="custom-icon-search"><i class="fa fa-search" aria-hidden="true"></i></a> -->
+				<a href="javascript:void(0)" class="custom-icon-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                 <a href="#header-search" class="skip-link skip-search">
                         <i class="fa fa-search" aria-hidden="true"></i>
                 </a>
@@ -118,22 +162,23 @@ jQuery(window).scroll(function () {
 </script> -->
 <script>
 
-    jQuery('.click_remove').click(function(){
+	jQuery('.click_remove').click(function(){
 
-        jQuery('.popup_login').removeClass('skip-active');
+		jQuery('.popup_login').removeClass('skip-active');
 
-        jQuery('.popup_register').removeClass('skip-active');
+		jQuery('.popup_register').removeClass('skip-active');
 
-    });
+	});
 
 </script>
 
-<!-- <script>
+<script>
 
-    jQuery('.custom-icon-search').click(function(){
+	jQuery('.custom-icon-search').click(function(){
 
-        jQuery('#header-search').toggleClass('care-active');
+		jQuery('#header-search').toggleClass('care-active');
 
-    });
+	});
 
-</script> -->
+</script>
+

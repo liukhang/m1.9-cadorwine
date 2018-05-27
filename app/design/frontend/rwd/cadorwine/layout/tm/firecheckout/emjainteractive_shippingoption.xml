@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout>
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/emjainteractive/shippingoption.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/emjainteractive_shippingoption.js</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.available">
+            <action method="setTemplate">
+                <template>emjainteractive/shippingoption/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="checkout.shipping.method">
+            <action method="setTemplate">
+                <template>emjainteractive/shippingoption/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

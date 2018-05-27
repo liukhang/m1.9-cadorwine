@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/upsship.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.shipping_method.additional">
+            <action method="setTemplate"><template>sr/upsship/checkout/onepage/shipping_method/additional.phtml</template></action>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

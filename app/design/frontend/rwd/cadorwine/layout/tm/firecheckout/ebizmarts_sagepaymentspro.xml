@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaymentspro/css/sagepaymentspro_checkout.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/sagepaymentspro_checkout.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaymentspro/js/common.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ebizmarts_sagepaymentspro/javascriptVars" name="sagepaymentspro.js.vars" template="ebizmarts/sagepaymentspro/payment/SageVars.phtml" />
+        </reference>
+    </firecheckout_index_index>
+</layout>

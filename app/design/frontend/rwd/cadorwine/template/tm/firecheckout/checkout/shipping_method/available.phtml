@@ -80,11 +80,6 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
 // TIG_PostNL end
 ?>
 
-<?php // Wyomind_Pickupatstore ?>
-<?php if (Mage::helper('core')->isModuleOutputEnabled('Wyomind_Pickupatstore')) : ?>
-<?php $pos = Mage::app()->getLayout()->createBlock('pointofsale/pointofsale'); ?>
-<?php endif; ?>
-
 <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
@@ -127,93 +122,6 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
 
         <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
         <dd>
-            <?php // Wyomind_Pickupatstore ?>
-            <?php if ($code == "pickupatstore" && Mage::getStoreConfig('carriers/pickupatstore/dropdown')): ?>
-                <select id="pickupatstore">
-                    <option  value=''><?php echo $this->__('Choose a location'); ?></option>
-                    <?php
-                    foreach ($_rates as $_rate):
-                        ?>
-                        <?php $shippingCodePrice[] = "'" . $_rate->getCode() . "':" . (float) $_rate->getPrice(); ?>
-                        <option id="<?php echo $_rate->getCode() ?>" value="<?php echo $_rate->getCode() ?>" >
-                            <?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
-                            <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
-                            <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
-                            <?php echo $_excl; ?>
-                            <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                            <?php endif ?>
-                        </option>
-
-                    <?php endforeach; ?>
-                </select>
-
-                <?php
-                $maxdays = Mage::getStoreConfig("carriers/pickupatstore/scheduleahead");
-                $minimum_delay = Mage::getStoreConfig("carriers/pickupatstore/minimaldelay") * 60;
-                $currentTime = Mage::getSingleton('core/date')->gmtTimestamp();
-                $currentDay = Mage::getSingleton('core/date')->date("l", $currentTime + $minimum_delay);
-                $currentHour = Mage::getSingleton('core/date')->date("H:i", $currentTime + $minimum_delay);
-
-                $__date = substr(Mage::getSingleton('checkout/session')->getQuote()->getPickupDatetime(), 0, 10);
-                $__time = substr(Mage::getSingleton('checkout/session')->getQuote()->getPickupDatetime(), 11, 5);
-                ?>
-
-                <?php if (Mage::getStoreConfig('carriers/pickupatstore/date')): ?>
-
-                    <?php
-                    echo "<script type='text/javascript'>";
-                    ?>
-                    <?php
-                    $data = array();
-                    if (Mage::getSingleton('core/date')->date("Y-m-d", $currentTime + $minimum_delay) <= Mage::getSingleton('core/date')->date("Y-m-d", $currentTime))
-                        $data[] = "{'value':'" . Mage::getSingleton('core/date')->date("Y-m-d", $currentTime + $minimum_delay) . "','label':'" . $this->__('Today') . ' - ' . Mage::getSingleton('core/date')->date(Mage::getStoreConfig("carriers/pickupatstore/dateformat"), $currentTime + $minimum_delay) . "'}";
-                    else
-                        $data[] = "{'value':'" . Mage::getSingleton('core/date')->date("Y-m-d", $currentTime + $minimum_delay) . "','label':'" . $this->__(Mage::getSingleton('core/date')->date("l", $currentTime + $minimum_delay)) . ' - ' . Mage::getSingleton('core/date')->date(Mage::getStoreConfig("carriers/pickupatstore/dateformat"), $currentTime + $minimum_delay) . "'}";
-
-
-                    $j = 1;
-                    while ($j < $maxdays) {
-                        $data[] = "{'value':'" . Mage::getSingleton('core/date')->date("Y-m-d", $currentTime + $minimum_delay + $j * 86400) . "','label':'" . $this->__(Mage::getSingleton('core/date')->date("l", $currentTime + $minimum_delay + $j * 86400)) . ' - ' . Mage::getSingleton('core/date')->date(Mage::getStoreConfig("carriers/pickupatstore/dateformat"), $currentTime + $minimum_delay + $j * 86400) . "'}";
-                        $j++;
-                    }
-                    echo "PickupAtStore.days=[" . implode(',', str_replace("'",'"',$data)) . "];\r\n";
-                    echo "</script>";
-                    // echo "PickupAtStore.days=[" . implode(',', $data) . "]\r\n</script>";
-                    ?>
-
-                    <select id='pickupatstore_days' name='pickup_day'>
-                        <option  value='' selected><?php echo $this->__('Prefered day'); ?></option>
-                    </select>
-                <?php endif; ?>
-
-                <?php if (Mage::getStoreConfig('carriers/pickupatstore/time') && Mage::getStoreConfig("carriers/pickupatstore/date")): ?>
-                    <?php
-                    echo "<script type='text/javascript'>";
-                    $data = array();
-                    $range = Mage::getStoreConfig("carriers/pickupatstore/timerange"); // @TODO -> configuration > system
-                    for ($h = 0; $h <= 24; $h++) {
-                        for ($m = 0; $m < 60; $m = $m + $range) {
-                            $t = $h * 60 * 60 + $m * 60 + 1;
-                            $h_formated = str_pad($h, 2, 0, STR_PAD_LEFT);
-                            $m_formated = str_pad($m, 2, 0, STR_PAD_LEFT);
-
-                            ($time == $h_formated . ':' . $m_formated ) ? $selected = " selected " : $selected = null;
-                            $data[] = "{'value':'$h_formated:$m_formated','label':'" . date(Mage::getStoreConfig("carriers/pickupatstore/timeformat"), $t) . "'}";
-                            if ($h == 24)
-                                break;
-                        }
-                    }
-
-                    echo "PickupAtStore.hours=[" . implode(',', $data) . "];\r\n</script>";
-                    ?>
-                    <select id='pickupatstore_hours'  name='pickup_hour'>
-                        <option  value=''><?php echo $this->__('Prefered time'); ?></option>
-                    </select>
-                <?php endif; ?>
-            <?php endif ?>
-            <?php // end Wyomind_Pickupatstore ?>
-
             <?php // Lisää SmartPOST-koodi alkaen tästä ?>
             <?php if($code == 'itellaSmartPost'): ?>
                 <?php echo $this->getLayout()->createBlock('core/template', 'smartpost_search')->setTemplate('smartpost/search.phtml')->toHtml() ?>
@@ -222,7 +130,7 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
             <ul>
             <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
-                <li <?php if ($code == "pickupatstore" && Mage::getStoreConfig('carriers/pickupatstore/dropdown')) echo " style='display:none'"; ?>>
+                <li>
                    <?php if ($_rate->getErrorMessage()): ?>
                     <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
                    <?php else: ?>
@@ -395,8 +303,9 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
                             <?php if ($_rate->getCode() == 'tnt_JD') { ?>
                                 <input name="tnt_relais" type="hidden" id="tnt_relais1" class="radio" value="" />
                                 <div id="tnt_pr" style="display:none">
+                                <?php $strpos = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'); ?>
                                 <?php if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) {
-                                    if (intval(substr($_SERVER['HTTP_USER_AGENT'], strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')+5)) <= 8) { ?>
+                                    if (intval(substr($_SERVER['HTTP_USER_AGENT'], $strpos+5)) <= 8) { ?>
                                         <a href="javascript:fenetreCent('<?php echo Mage::getBaseUrl ('skin');  ?>/frontend/default/default/tnt_relaisColis.php?cp=<?php echo $quote->getShippingAddress()->getPostcode(); ?>', 'popup_tnt' ,'900', '530','scrollbars=no,location:no,menubar=no,status=no,resizable=no');" onclick="javascript:fenetreCent('<?php echo Mage::getBaseUrl ('skin');  ?>/frontend/default/default/tnt_relaisColis.php?cp=<?php echo $quote->getShippingAddress()->getPostcode(); ?>', 'popup_tnt' ,'900', '530','scrollbars=no,location:no,menubar=no,status=no,resizable=no');" id="openRelais">Choisissez votre Relais Colis®</a>
                                     <?php } else { ?>
                                         <a href="<?php echo Mage::getBaseUrl ('skin');  ?>/frontend/default/default/tnt_relaisColis.php?cp=<?php echo $quote->getShippingAddress()->getPostcode(); ?>" rel="superbox[iframe]" id="openRelais">Choisissez votre Relais Colis®</a>
@@ -413,19 +322,6 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
             <?php endforeach; ?>
             </ul>
 
-            <?php if ($code == 'umosaco' && Mage::helper('core')->isModuleOutputEnabled('Emjainteractive_ShippingOption')): ?>
-                <?php $_options = $this->helper('emjainteractive_shippingoption')->getCarrierOptions($code); ?>
-                <?php if ($options) : ?>
-                    <table cellspacing="0" class="form-list data-table options-table" style="" id="options-<?php echo $code; ?>">
-                    <?php foreach ($_options as $_option):?>
-                       <tr>
-                           <?php echo $_option; ?>
-                       </tr>
-                    <?php endforeach;?>
-                    </table>
-                <?php endif; ?>
-            <?php endif;?>
-
             <?php if($code == 'storepickup') : ?>
             <div id="free-location-box" >
                 <?php echo $this->getChildHtml('storepickup') ?>
@@ -435,7 +331,6 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
         </dd>
     <?php endforeach; ?>
 </dl>
-<div class="gratuite"><?php echo $this->__('Spedizioni')?> <span><?php echo $this->__('GRATUITE');?></span> <?php echo $this->__('per ordini superiori  a 39,90 €');?></div>
 
 <?php if ($fmeFieldsmanager) : ?>
     <ul><?php echo $fmeFieldsmanager->getfieldshtml(2); ?></ul>
@@ -443,83 +338,9 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
 <?php endif ?>
 <script type="text/javascript">
 //<![CDATA[
-    <?php //Wyomind_Pickupatstore ?>
-    <?php if (Mage::getStoreConfig('carriers/pickupatstore/dropdown')): ?>
-        <?php
-        foreach ($pos->getPointofsale() as $store) {
-            $isOpen = false;
-            if ($store->getHours()) {
-                $datetime = array();
-                $data = json_decode($store->getHours());
-
-                $j = 0;
-                while ($j < $maxdays) {
-                    $date = Mage::getSingleton('core/date')->date("Y-m-d", $currentTime + $minimum_delay + $j * 86400);
-                    $day = Mage::getSingleton('core/date')->date("l", $currentTime + $minimum_delay + $j * 86400);
-                    if (isset($data->$day) && $data->$day != null) {
-                        $hours = $data->$day;
-                        if ($hours->from <= $currentHour && $j == 0) {
-                            $datetime[$date] = array($currentHour, $hours->to);
-                        } else {
-                            $datetime[$date] = array($hours->from, $hours->to);
-                        }
-                    }
-                    $j++;
-                }
-
-                echo "PickupAtStore.store_" . $store->getPlaceId() . "=" . json_encode(array("datetime" => $datetime)) . ";\n";
-            } else
-                echo "PickupAtStore.store_" . $store->getPlaceId() . "=false;\n";
-        }
-
-        echo "PickupAtStore.today='" . $currentDay . "';\n";
-        echo "PickupAtStore.dropdownEnabled=" . ((Mage::getStoreConfig('carriers/pickupatstore/dropdown')) ? "true" : "false") . ";\n";
-        echo "PickupAtStore.dateEnabled=" . ((Mage::getStoreConfig('carriers/pickupatstore/date')) ? "true" : "false") . ";\n";
-        echo "PickupAtStore.timeEnabled=" . ((Mage::getStoreConfig('carriers/pickupatstore/time')) ? "true" : "false") . ";\n";
-        echo "PickupAtStore.gmapEnabled=" . ((Mage::getStoreConfig('carriers/pickupatstore/gmap')) ? "true" : "false") . ";\n";
-        echo "PickupAtStore.selected=" . ((Mage::getSingleton('core/session')->getPickupatstore()) ? "true" : "false") . ";\n";
-    endif;
-    ?>
-    <?php
-    if ($this->getAddressShippingMethod() != "" && strstr($this->getAddressShippingMethod(), "pickupatstore") && Mage::getStoreConfig('carriers/pickupatstore/dropdown')):
-
-        $storeId = substr($this->getAddressShippingMethod(), stripos($this->getAddressShippingMethod(), '_') + 1);
-        ?>
-        <?php if (Mage::getStoreConfig('carriers/pickupatstore/date')): ?>
-            <?php echo "PickupAtStore.date='" . $__date . "';\n"; ?>
-                PickupAtStore.setStoreId(<?php echo $storeId; ?>);
-                PickupAtStore.updateDays(true);
-            <?php if (Mage::getStoreConfig('carriers/pickupatstore/time')): ?>
-                <?php echo "PickupAtStore.time='" . $__time . "';\n"; ?>
-                    PickupAtStore.updateHours(true);
-            <?php endif; ?>
-        <?php endif; ?>
-    <?php endif; ?>
-    <?php //End of Wyomind_Pickupatstore ?>
-
-    // Emjainteractive_ShippingOption integration
-    if (typeof OptionsModel !== 'undefined') {
-        OptionsModel.prototype.bindShippingMethods = function() {
-            $$('input[name="shipping_method"]').each(function(radio){
-                Event.observe($(radio), 'click', this.checkMethodSelected.bind(this));
-                if ($(radio).checked) {
-                    this.checkMethodSelected({
-                        target: $(radio)
-                    });
-                }
-            }.bind(this));
-        }
-        options = new OptionsModel();
-    }
-    // End of Emjainteractive_ShippingOption integration
-
     <?php if (!empty($shippingCodePrice)): ?>
         var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
     <?php endif; ?>
-
-    if (typeof PickupAtStore !== 'undefined') {
-        PickupAtStore.observer();
-    }
 
     $$('input[type="radio"][name="shipping_method"]').each(function(el){
         Event.observe(el, 'click', function(){
@@ -575,74 +396,6 @@ if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) : ?>
     <?php endif ?>
 //]]>
 </script>
-
-<?php //Wyomind_Pickupatstore ?>
-<?php if (Mage::getStoreConfig('carriers/pickupatstore/active') && Mage::getStoreConfig('carriers/pickupatstore/dropdown') && Mage::getStoreConfig('carriers/pickupatstore/gmap')): ?>
-
-    <div id="pointofsale_box">
-        <div id="tools" style='width:auto; display:none;'>
-            <span id="searching"><?php echo Mage::helper('pointofsale')->__('Searching your location'); ?></span>
-        </div>
-        <div id="map_canvas_pointofsale"></div>
-        <div id="pointofsale">
-            <div id="title">
-                <?php echo Mage::helper('pointofsale')->__('All our store locations'); ?>
-                <?php $countries = $pos->getCountries(); ?>
-
-                <?php if (count($countries) > 1) : ?>
-                    <div id="country_selection">
-                        <select id="country_place">
-                            <option value="*">
-                                <?php echo Mage::helper('pointofsale')->__('All countries'); ?>
-                            </option>
-                            <?php foreach ($countries as $country): ?>
-                                <option value="<?php echo $country['code']; ?>">
-                                    <?php echo $country['name']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div id="pointofsale_scroll">
-                <?php $i = 0; ?>
-                <?php
-                $html = null;
-                $ai_enabled = Mage::helper("core")->isModuleEnabled("Wyomind_Advancedinventory");
-                if ($ai_enabled) {
-                    $places = Mage::helper("advancedinventory")->getPickupPlaces($pos->getPointofsale());
-                } else {
-                    $places = $pos->getPointofsale();
-                }
-                foreach ($places as $place) {
-
-                    $html.= '<div class="place ' . $place->getCountryCode() . '" >';
-
-                    $html.= '<h3><a href="javascript:void(0)" class="go-to-place" id="' . $place->getPlaceId() . '">' . $place->getName() . '</a></h3>';
-                    $html.= '<div id="place_' . $place->getPlaceId() . '" class="details">';
-                    $html.= Mage::helper('pointofsale')->getStoreDescription($place);
-                    $html.= '</div>
-                            </div>';
-                }
-                echo $html;
-                ?>
-            </div>
-        </div>
-    </div>
-    <div id="dirRendererBlock">
-        <div id="direction_title">
-            <h3><?php echo Mage::helper('pointofsale')->__('Your directions') ?></h3>
-            <span><a class="render_tool" href="javascript:closeDirection()"><?php echo Mage::helper('pointofsale')->__('Close') ?></a></span> |
-            <span><a class="render_tool" href="javascript:print()"><?php echo Mage::helper('pointofsale')->__('Print') ?></a></span>
-        </div>
-        <div id="directions"></div>
-    </div>
-    <script type="text/javascript" src="http<?php if (Mage::app()->getStore()->isCurrentlySecure()) echo "s" ?>://maps.googleapis.com/maps/api/js?sensor=false&v=3" ></script>
-    <script type="text/javascript">
-    <?php echo $pos->renderJs(); ?>
-    </script>
-<?php endif; ?>
-<?php // End of Wyomind_Pickupatstore ?>
 
 <?php echo $this->getChildHtml('shipping_methods_after') ?>
 

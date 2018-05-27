@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <update handle="addressautocomplete"/>
+    </firecheckout_index_index>
+
+    <checkout_onepage_index>
+        <update handle="addressautocomplete"/>
+    </checkout_onepage_index>
+
+    <opc_index_index>
+        <update handle="addressautocomplete"/>
+    </opc_index_index>
+
+    <aw_onestepcheckout_index_index>
+        <update handle="addressautocomplete"/>
+    </aw_onestepcheckout_index_index>
+
+    <!-- Need to prevent form submitting on enter key, to use on this page -->
+    <!-- <customer_address_form>
+        <update handle="addressautocomplete"/>
+    </customer_address_form> -->
+
+    <addressautocomplete>
+        <reference name="head">
+            <action method="addItem" ifconfig="addressautocomplete/general/enabled">
+                <type>skin_js</type>
+                <name>tm/addressautocomplete/js/address-autocomplete.js</name>
+            </action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/text" name="addressautocomplete.library">
+                <action method="setText" ifconfig="addressautocomplete/general/enabled">
+                    <text helper="addressautocomplete/getJsIncludes"/>
+                </action>
+            </block>
+        </reference>
+    </addressautocomplete>
+</layout>

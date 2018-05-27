@@ -1,12 +1,14 @@
 <script type="text/javascript">
 //<![CDATA[
-var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
-var checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
-var lastPrice;
+    var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
+    var checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+    var quoteGrandTotalClean = quoteBaseGrandTotal;
+
+    var lastPrice;
 //]]>
 </script>
 <div id="payment-method" class="firecheckout-section">
-    <div class="block-title"><span><?php echo $this->__('Payment Method') ?></span><span id="payment-method-reset"><?php echo $this->__('Reset') ?></span></div>
+    <div class="block-title"><span><?php echo $this->__('MODALITÀ DI PAGAMENTO') ?></span><span id="payment-method-reset"><?php echo $this->__('Reset') ?></span></div>
     <div class="tool-tip" id="payment-tool-tip" style="display:none;">
         <div class="btn-close"><a href="#" id="payment-tool-tip-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a></div>
         <div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" /></div>
@@ -36,7 +38,7 @@ var lastPrice;
             }
 
             var left = center.left - parentOffset.left - 250,
-                top = center.top - parentOffset.top - 150;
+                top = center.top - parentOffset.top - 200;
 
             if ((left + 500) > (viewportOffset.left + viewportSize.width)) {
                 left = viewportOffset.left + viewportSize.width - 510;
@@ -48,7 +50,7 @@ var lastPrice;
 
             tooltip.setStyle({
                 top:  top + 'px',
-                left: left + 'px'
+                left: (left < 0 ? 0 : left) + 'px'
             });
             tooltip.toggle();
         }
@@ -61,10 +63,56 @@ var lastPrice;
     <?php echo $this->getChildChildHtml('methods_additional', '', true, true) ?>
     <div id="checkout-payment-method-load">
         <?php echo $this->getChildHtml('methods') ?>
+        <p class="text_small"><?php echo __('* Sarai reindirizzato al sito PayPal.') ?></p>
     </div>
     <script type="text/javascript">
     //<![CDATA[
         payment.currentMethod = "<?php echo $this->getChild('methods')->getSelectedMethodCode() ?>";
     //]]>
     </script>
+
+    <?php
+        $j2tRewardPoints = $this->getLayout()->getBlock('checkout_cart_coupon_normal');
+        $coupon = trim($this->getChildHtml('coupon'));
+        $giftcard = trim($this->getChildHtml('giftcard'));
+
+        $checkboxState = Mage::getStoreConfig('firecheckout/general/discount_checkbox_state');
+    ?>
+    <?php if ($j2tRewardPoints || $coupon || $giftcard) : ?>
+        <ul class="form-list discount-block">
+            <li class="control"<?php echo ($checkboxState === 'hidden') ? ' style="display:none"' : '' ?>>
+                <input type="checkbox"
+                    class="checkbox"
+                    id="discount_block_toggle"
+                    title="<?php echo $this->__('Apply giftcard and discount coupon') ?>"
+                    value="1"
+                    <?php echo ($checkboxState === 'checked') ? ' checked="checked"' : '' ?>
+                    name="discount-coupon"
+                ><label for="discount_block_toggle"
+                    ><?php echo $j2tRewardPoints ?
+                        $this->__('Check, if you have a rewardpoints, giftcard or discount code') :
+                        $this->__('Check, if you have a giftcard or discount code') ?></label>
+            </li>
+            <li class="form<?php echo in_array($checkboxState, array('checked', 'hidden')) ? ' shown' : '' ?>">
+                <?php // rewardpoints extension override standard discount block too
+                if ($j2tRewardPoints): ?>
+                    <div id="checkout-coupon-discount-load">
+                        <?php echo $j2tRewardPoints->toHtml(); ?>
+                    </div>
+                <?php elseif ($coupon): ?>
+                    <div id="checkout-coupon-discount-load">
+                        <?php echo $coupon ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($giftcard) : ?>
+                    <div id="checkout-giftcard-load">
+                        <?php echo $this->getChildHtml('giftcard') ?>
+                    </div>
+                <?php endif ?>
+            </li>
+        </ul>
+    <?php endif ?>
+
+    <?php echo $this->getChildHtml('firecheckout.payment.after') ?>
 </div>

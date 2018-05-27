@@ -1,0 +1,121 @@
+/* Klarna */
+.klarna_box { min-width: 0 !important; border: none !important; }
+.klarna_box_top { height: auto !important; }
+.klarna_box_bottom_left { float: none !important; width: 100% !important; }
+.klarna_box_bottom_right { float: none !important; width: 100% !important; }
+.klarna_box_bottom input[type="radio"], .klarna_box_bottom input[type="checkbox"] { float: none !important; }
+/* Klarna */
+
+/* SagePay Server Integration */
+#checkout-sagepay-iframe-load {  }
+iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
+*:first-child+html iframe#sage-pay-server-iframe { width: 485px; }
+/* End of SagePay Server Integration */
+
+/* Relaypoint Integration */
+.firecheckout-set #relaypoint { padding: 0; }
+.firecheckout-set #relaypoint #suggestion { padding-left: 10px; }
+.firecheckout-set #relaypoint #suggestion label { width: 245px; }
+.firecheckout-set #relaypoint #suggestion label .s1 { width: auto; padding: 0; }
+.firecheckout-set #relaypoint #address { width: 240px; }
+.firecheckout-set #relaypoint #zipcode { width: 50px; }
+.firecheckout-set #relaypoint #city { width: 130px; }
+/* Relaypoint Integration */
+
+/* Craftyclicks postcode lookup */
+#billing_cp_result_display,
+#shipping_cp_result_display { width: 260px !important; }
+#billing_cp_result_display select,
+#shipping_cp_result_display select { width: 265px !important; }
+/* Craftyclicks postcode lookup */
+
+/* AW_Newsletter */
+.firecheckout-set div.awan-checkoutcheckboxes { padding: 0; margin: 0; border: none; }
+.firecheckout-set div.awan-checkoutcheckboxes label { float: none; }
+.firecheckout-set div.awan-checkoutcheckboxes label.an-data { float: none; font-weight: normal; color: #000; margin: 0 0 3px; position: static; display: block; }
+.firecheckout-set div.awan-checkoutcheckboxes ul.an-checkboxes { padding: 0 0 0 12px; }
+/* AW_Newsletter */
+
+/* givechange */
+#givechange { margin: 0 !important; border: none !important; border-bottom: 1px solid #ccc !important; }
+#givechange-how { margin: 0 20px !important; }
+/* givechange */
+
+/* infostrates tnt */
+.firecheckout-set .tnt_description { width: auto; }
+/* infostrates tnt */
+
+/* PostcodeNL */
+.form-list input.pcnl-input-text-half,
+.form-list select.pcnl-input-text-half { width: 45% !important; }
+/* PostcodeNL */
+
+/* TIG_PostNL */
+#opc_postnl_ce .input-text { width: 100% !important; }
+#opc_postnl_ce .field-postcode .input-box { width: 98% !important; }
+#opc_postnl_ce .field { width: 50% !important; }
+#opc_postnl_ce .field-postcode { width: 50% !important; }
+#opc_postnl_ce .postnl.validation-advice { width: auto !important; }
+.firecheckout-set .postnl-container .col2-set .col-2 { float: left; }
+/* TIG_PostNL */
+
+/* Ebizmarts_MageMonkey */
+.form-list .page-title h1 { font-size: 1em; }
+/* Ebizmarts_MageMonkey */
+
+/* IWD opc_signature */
+.firecheckout-index-index .signature_wrapper { width: 50%; float: right; }
+.firecheckout-index-index .signature_wrapper .signature { padding-right: 10px; }
+/* IWD opc_signature */
+
+/* MW_Storecreditpro */
+#mw_storecredit_value { width: auto !important; }
+#mw-checkout-payment-storecredit { margin-bottom: 10px; }
+/* MW_Storecreditpro */
+
+/* Billsafe */
+#payment_form_billsafe .fields .field { width: 100%; } /* fixed styles for invalid billsafe markup */
+/* Billsafe */
+
+/* AW_Storecredit */
+.checkout-onepage-payment-storecredit { padding: 0 8px 5px; }
+/* AW_Storecredit */
+
+/* Phoenix_Wirecard Seamless */
+#window-overlay-qmore { display: none; }
+/* Phoenix_Wirecard Seamless */
+
+/* Emjainteractive_ShippingOption */
+.umosaco-table td { border: none; vertical-align: middle; }
+.umosaco-table td.label { display: table-cell; }
+.umosaco-table label { margin: 0; }
+/* Emjainteractive_ShippingOption */
+
+/* ultimo theme integration */
+/*
+@media (min-width:960px) and (max-width:1200px) {
+    .firecheckout-set #checkout-review .product-image { display: none; }
+    .firecheckout-set #checkout-review .product-name,
+    .firecheckout-set #checkout-review .short-description,
+    .firecheckout-set #checkout-review .item-options { margin: 0 !important; }
+    .data-table th,
+    .data-table td { padding: 12px 6px; }
+}
+@media (max-width: 959px) {
+    .data-table table { display: table; }
+    .data-table thead { display: table-header-group; }
+    .data-table tbody { display: table-row-group; }
+    .data-table tr { display: table-row; }
+    table.data-table th, table.data-table td { display: table-cell; }
+}
+@media (max-width: 767px) {
+    .data-table th,
+    .data-table td { padding: 12px 6px; }
+}
+*/
+
+/* Webgriffe_Tntpro */
+#shipping-address #map_canvas {
+    max-width: 100%;
+}
+/* Webgriffe_Tntpro */

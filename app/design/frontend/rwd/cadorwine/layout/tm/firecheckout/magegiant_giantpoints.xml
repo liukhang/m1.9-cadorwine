@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <update handle="giantpoints_slider_default"/>
+    </firecheckout_index_index_custom>
+</layout>

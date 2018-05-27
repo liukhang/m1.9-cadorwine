@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs">
+                <name>shipperhq/jquery-loader.js</name>
+            </action>
+        </reference>
+        <reference name="billing.additional.container">
+            <block type="shipperhq_validation/checkout_onepage_billing" name="shipperhq_validation.billing" as="shipperhq.billing" template="shipperhq/validation/checkout/onepage/choose_billing.phtml"/>
+        </reference>
+        <reference name="shipping.additional.container">
+            <block type="shipperhq_validation/checkout_onepage_shipping" name="shipperhq_validation.shipping" as="shipperhq.shipping" template="shipperhq/validation/checkout/onepage/choose_shipping.phtml"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" template="shipperhq/js/bottom.phtml" name="shipperhq.jquery.bottom.end" />
+        </reference>
+    </firecheckout_index_index>
+</layout>

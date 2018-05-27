@@ -22,8 +22,6 @@ $helper = Mage::helper('firecheckout/deliverydate');
             <?php if ($useCalendar) : ?>
                 <div class="v-fix delivery-date">
                     <input type="text" class="input-text" value="" id="delivery_date" name="delivery_date[date]"/>
-                    <img title="Select Date" id="delivery_date_button" class="v-middle" alt="" src="<?php echo $this->getSkinUrl("images/calendar.gif");?> "/>
-                    <label for="delivery_date"><?php echo $this->__("Example: %s", '{{date}}') ?></label>
                 </div>
             <?php endif; ?>
             <?php if ($useRange) : ?>

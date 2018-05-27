@@ -1,3 +1,15 @@
+<div id="inline-address-form" style="display: none">
+    <div class="fc-window-title">
+        <span>{{update_address_title}}</span>
+    </div>
+    <div class="firecheckout-set inline-address-form">
+        <div class="form-list">
+            <div class="fc-window-content"></div>
+        </div>
+    </div>
+    <a href="javascript:void(0)" class="close">×</a>
+</div>
+
 <script type="text/javascript">
 //<![CDATA[
     <?php $_isSecure = $this->getRequest()->isSecure(); ?>
@@ -6,18 +18,23 @@
         save            : '<?php echo $this->getUrl('firecheckout/index/saveOrder',          array('_secure'=>$_isSecure, 'form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>',
         billing_address : '<?php echo $this->getUrl('firecheckout/index/saveBilling',        array('_secure'=>$_isSecure)) ?>',
         shipping_address: '<?php echo $this->getUrl('firecheckout/index/saveShipping',       array('_secure'=>$_isSecure)) ?>',
+        update_address: '<?php echo $this->getUrl('firecheckout/index/updateSavedAddress',   array('_secure'=>$_isSecure)) ?>',
         shipping_method : '<?php echo $this->getUrl('firecheckout/index/saveShippingMethod', array('_secure'=>$_isSecure)) ?>',
         payment_method  : '<?php echo $this->getUrl('firecheckout/index/savePayment',        array('_secure'=>$_isSecure)) ?>',
+        update_sections : '<?php echo $this->getUrl('firecheckout/index/updateSections',     array('_secure'=>$_isSecure)) ?>',
         coupon          : '<?php echo $this->getUrl('firecheckout/index/saveCoupon',         array('_secure'=>$_isSecure)) ?>',
         giftcard        : '<?php echo $this->getUrl('firecheckout/index/saveGiftcard',       array('_secure'=>$_isSecure)) ?>',
         paymentdata     : '<?php echo $this->getUrl('firecheckout/index/savePaymentData',    array('_secure'=>$_isSecure)) ?>',
         presave         : '<?php echo $this->getUrl('firecheckout/index/preSaveOrder',       array('_secure'=>$_isSecure)) ?>',
         shopping_cart   : '<?php echo $this->getUrl('firecheckout/index/saveCart',           array('_secure'=>$_isSecure)) ?>',
+        forgotpassword  : '<?php echo $this->getUrl('firecheckout/index/forgotpassword',     array('_secure'=>$_isSecure)) ?>',
         failure         : '<?php echo $this->getUrl('checkout/cart') ?>'
     }, {
         acceptAgreementText: "<?php echo $this->__('Please agree to all the terms and conditions before placing the order.') ?>",
         spinnerText        : "<?php echo $this->__('Please wait...') ?>",
-        productRemoveConfirm: "<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>"
+        productRemoveConfirm: "<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>",
+        updateBillingAddress: "<?php echo $this->__('Update your Billing Address details') ?>",
+        updateShippingAddress: "<?php echo $this->__('Update your Shipping Address details') ?>"
     });
     var fireCart = new FC.Cart({
         descriptionLength: <?php echo (int)Mage::getStoreConfig('firecheckout/shopping_cart/short_description_length') ?>
@@ -39,27 +56,27 @@
     }
     <?php endif; ?>
 
+    var loginLinks = [
+        '.firecheckout-login',
+        'a[href="<?php echo Mage::helper('customer')->getLoginUrl() ?>"]'
+    ];
     document.observe("dom:loaded", function() {
         firecheckoutWindow = new FC.Window({
             triggers: {
                 login: {
-                    el    : $$('.firecheckout-login'),
+                    el    : $$(loginLinks.join(', ')),
                     event : 'click',
-                    window: $('firecheckout-login-window'),
-                    size: {
-                        maxWidth: 380
-                    }
+                    window: $('firecheckout-login-window')
                 },
                 forgot: {
                     el    : $$('.firecheckout-forgot'),
                     event : 'click',
-                    window: $('firecheckout-forgot-window'),
-                    size: {
-                        maxWidth: 380
-                    }
+                    window: $('firecheckout-forgot-window')
                 }
             }
         });
     });
+
+    FC.Sticky.prototype.config.offset_top = <?php echo (int) Mage::getStoreConfig('firecheckout/design/sticky_offset') ?>;
 //]]>
 </script>

@@ -1,0 +1,40 @@
+/**
+ * Layout with sticky order summary
+ */
+@media (min-width: 640px) {
+    .firecheckout-col2-set-sticky .firecheckout-set .col2-set .col-1,
+    .firecheckout-col2-set-sticky .firecheckout-set .col2-set .col-2 {
+        box-sizing: border-box;
+        float: none;
+        width: auto;
+    }
+
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set { position: relative; }
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set #checkout-review,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set #checkout-review,
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set .col-fire-1,
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set .col-fire-2,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-1,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-2,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-3 {
+        width: 49.2%;
+    }
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set .col-fire-1,
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set .col-fire-2,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-1,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-2,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set .col-fire-3 {
+        float: left;
+        clear: left;
+    }
+    .firecheckout-col2-set-sticky #firecheckout-form .col2-fire-set #checkout-review,
+    .firecheckout-col2-set-sticky #firecheckout-form .col3-fire-set #checkout-review {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .firecheckout-col2-set-sticky #checkout-review > .block-title::before {
+        display: none;
+    }
+}

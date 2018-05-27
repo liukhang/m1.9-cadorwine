@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addJs" ifconfig="payment/payex_financing/checkout_field">
+                <script>payex/social_security_number.js</script>
+            </action>
+            <action method="addItem" ifconfig="payment/payex_financing/checkout_field">
+                <type>skin_css</type>
+                <name>css/payex/social_security_number.css</name>
+            </action>
+        </reference>
+        <reference name="firecheckout.billing.before">
+            <block type="core/template" name="payex.ssn">
+                <action method="setTemplate" ifconfig="payment/payex_financing/checkout_field">
+                    <template>tm/firecheckout/payex/checkout/onepage/ssn.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

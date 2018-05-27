@@ -1,0 +1,13 @@
+#firecheckout-form #dhl_locationfinder_trigger > img {
+    margin-bottom: 45px;
+}
+
+#dhl_locationfinder_trigger .locationfinder-opener {
+    left: 0;
+}
+
+#dhl_locationfinder_trigger::after {
+    content: "";
+    display: table;
+    clear: both;
+}

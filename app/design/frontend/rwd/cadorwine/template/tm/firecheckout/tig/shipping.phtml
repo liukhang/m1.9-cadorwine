@@ -16,10 +16,12 @@
         ),
         'fax' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Fax'
         ),
         'telephone' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Telephone'
         ),
         // 'city' => array(
@@ -57,9 +59,13 @@
             'label'  => 'VAT Number'
         );
     }
+
+    // ability to disable fields programmatically from layout xml update
+    $disabledFields = $this->getDisabledFields() ? $this->getDisabledFields() : array();
+    $fields = array_diff_key($fields, $this->getDisabledFields());
 ?>
 
-<div id="shipping-address" class="firecheckout-section"<?php if($this->getAddress()->getSameAsBilling()): ?> style="display: none;"<?php endif; ?>>
+<div id="shipping-address"<?php if($this->getAddress()->getSameAsBilling()): ?> style="display: none;"<?php endif; ?>>
     <div class="block-title"><span><?php echo $this->__('Shipping Address') ?></span></div>
     <div class="block-content">
         <ul class="form-list">

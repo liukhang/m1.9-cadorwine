@@ -45,10 +45,7 @@
         window_top.location="<?php echo $this->getUrl('checkout/cart') ?>";
     }
 
-    window_top.firecheckoutWindow.setModal(0).hide();
-    window_top.document.getElementById('firecheckout-form').setStyle({
-        'visibility': 'visible'
-    });
+    window.top.document.getElementById('firecheckout-form').show();
     window_top.document.getElementById('payflow-link-iframe').firecheckoutCancelLoad = 1;
     window_top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>

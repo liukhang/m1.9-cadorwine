@@ -1,97 +1,97 @@
-<?php
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    design
- * @package     rwd_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
-?>
-<?php
-	$prodotti = array();
-	$prodotti[] = $_product->getName();
-	
-	$numProdotti = 0;
-	$block = Mage::getBlockSingleton('Mage_Catalog_Block_Product_View');
-	$categoryid = Mage::registry('current_product')->getCategoryId();
-	if(!empty($categoryid))
-	{
-		$categoryIds = $_product->getCategoryIds();
-		
-		$_columnCount = 5;
-		echo '<div class="box-collateral category-products box-up-sell">';
-		echo '<h2 style="margin-bottom:25px">'.$block->__('You may also be interested in the following product(s)').' '.$categoryId.'</h2>';
-		echo '<ul class="products-grid products-grid--max-'.$_columnCount.'-col" id="upsell-product-table">';
-		
-		$j = 0;
-		foreach($categoryIds as $categoryId)
-		{
-			$j++;
-			$category = new Mage_Catalog_Model_Category();
-			$category->load($categoryId);
-			$collection = $category->getProductCollection();
-			$collection->addAttributeToSelect('*')
-				->addMinimalPrice() 
-				->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH);
-		
-			if(count($collection))
-			{
-				$i = 0;
-				foreach ($collection as $link)
-				{
-					if ($j == 1)
-					{
-						if ($i > 2)
-							break;
-					}
-					elseif ($j == 2)
-					{
-						if ($i > 1)
-							break;
-					}
-					elseif ($numProdotti >= 5)
-						break;
-						
-					$_link = Mage::getModel("catalog/product")->load($link->getId());
-					
-					if (array_search($_link->getName(), $prodotti) !== false)
-						continue;
-
-					$i++;
-					$prodotti[] = $_link->getName();
-					
-					echo '<li>
-							<a href="'.$_link->getProductUrl().'" title="'.$block->escapeHtml($_link->getName()).'" class="product-image">
-								<img src="'.$block->helper('catalog/image')->init($_link, 'small_image')->resize(210).'" alt="'.$block->escapeHtml($_link->getName()).'" />
-								<img class="hoverImage" src="'.$block->helper('catalog/image')->init($_link, 'thumbnail')->resize(210,210).'" alt="'.$block->stripTags($this->getImageLabel($_link, 'thumbnail'), null, true).'"/>
-							</a>
-							<h3 class="product-name">
-								<a href="'.$_link->getProductUrl().'" title="'.$block->escapeHtml($_link->getName()).'">'.$block->escapeHtml($_link->getName()).'</a>
-							</h3>'.
-							$block->getPriceHtml($_link, true, '-upsell').$block->getReviewsSummaryHtml($_link).'
-						</li>';
-						
-					$numProdotti++;
-				}
-			}
-		}
-				
-		echo '</ul></div>';
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+	$prodotti = array();
+	$prodotti[] = $_product->getName();
+	
+	$numProdotti = 0;
+	$block = Mage::getBlockSingleton('Mage_Catalog_Block_Product_View');
+	$categoryid = Mage::registry('current_product')->getCategoryId();
+	if(!empty($categoryid))
+	{
+		$categoryIds = $_product->getCategoryIds();
+		
+		$_columnCount = 5;
+		echo '<div class="box-collateral category-products box-up-sell">';
+		echo '<h2 style="margin-bottom:25px">'.$block->__('You may also be interested in the following product(s)').' '.$categoryId.'</h2>';
+		echo '<ul class="products-grid products-grid--max-'.$_columnCount.'-col" id="upsell-product-table">';
+		
+		$j = 0;
+		foreach($categoryIds as $categoryId)
+		{
+			$j++;
+			$category = new Mage_Catalog_Model_Category();
+			$category->load($categoryId);
+			$collection = $category->getProductCollection();
+			$collection->addAttributeToSelect('*')
+				->addMinimalPrice() 
+				->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH);
+		
+			if(count($collection))
+			{
+				$i = 0;
+				foreach ($collection as $link)
+				{
+					if ($j == 1)
+					{
+						if ($i > 2)
+							break;
+					}
+					elseif ($j == 2)
+					{
+						if ($i > 1)
+							break;
+					}
+					elseif ($numProdotti >= 5)
+						break;
+						
+					$_link = Mage::getModel("catalog/product")->load($link->getId());
+					
+					if (array_search($_link->getName(), $prodotti) !== false)
+						continue;
+
+					$i++;
+					$prodotti[] = $_link->getName();
+					
+					echo '<li>
+							<a href="'.$_link->getProductUrl().'" title="'.$block->escapeHtml($_link->getName()).'" class="product-image">
+								<img src="'.$block->helper('catalog/image')->init($_link, 'small_image')->resize(210).'" alt="'.$block->escapeHtml($_link->getName()).'" />
+								<img class="hoverImage" src="'.$block->helper('catalog/image')->init($_link, 'thumbnail')->resize(210,210).'" alt="'.$block->stripTags($this->getImageLabel($_link, 'thumbnail'), null, true).'"/>
+							</a>
+							<h3 class="product-name">
+								<a href="'.$_link->getProductUrl().'" title="'.$block->escapeHtml($_link->getName()).'">'.$block->escapeHtml($_link->getName()).'</a>
+							</h3>'.
+							$block->getPriceHtml($_link, true, '-upsell').$block->getReviewsSummaryHtml($_link).'
+						</li>';
+						
+					$numProdotti++;
+				}
+			}
+		}
+				
+		echo '</ul></div>';
 	}

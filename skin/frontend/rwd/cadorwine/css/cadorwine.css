@@ -248,6 +248,7 @@ span.disp {
 }
 
 @media only screen and (min-width: 771px){
+
 	.tab_product_home .product-collateral .toggle-tabs li{
 		float: none;
 		display: inline-block;
@@ -908,4 +909,71 @@ a.custom-icon-search {
     left: 80px;
     text-align: center;
     padding: 5px 10px;
+}
+.left.gusto strong {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+    display: inherit;
+}
+@media only screen and (min-width: 991px){
+    .firecheckout-set .form-list fieldset ul li.fields:nth-child(7) .field:first-child{
+        width: 30%;
+        float: left;
+    }
+    .firecheckout-set .form-list fieldset ul li.fields:nth-child(7) .field:last-child{
+        width: 68%;
+        float: right;
+    }
+    .firecheckout-set .form-list fieldset ul li.fields:nth-child(8) .field:first-child{
+        width: 68%;
+        float: left;
+    }
+    .firecheckout-set .form-list fieldset ul li.fields:nth-child(8) .field:last-child{
+        width: 30%;
+        float: right;
+    }
+}
+#firecheckout-login-window .form-list {
+    max-width: 100%; 
+    margin: 20px 0; 
+}
+.firecheckout-window button.button {
+    background-color: #f2c02f;
+    padding: 0 30px;
+    margin: 0 0 5px;
+    border-radius: 0;
+    color: #3b3937;
+    border: none;
+}
+.firecheckout-window button.button span span{
+	color: #3b3937;
+}
+.firecheckout-window button.button:hover{
+	background-color: #3b3937;
+	color: #f2c02f;
+	border: none;
+}
+.firecheckout-window button.button:hover span span{
+	color: #f2c02f;
+}
+.firecheckout-window .fc-window-title span{
+	color: #3b3937;
+}
+.firecheckout-set .form-list .wide{
+	padding: 5px 0;
+}
+.link-forgot-password, .firecheckout-window a.link-forgot-password{
+    margin-top: 9px;
+    font-size: 12px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    color: #3b3937;
+    text-decoration: none;
+}
+.firecheckout-set .form-list .field, .firecheckout-set .form-list .fields .field{
+	padding: 4px 0;
 }

@@ -1,0 +1,10 @@
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>tm/firecheckout/js/integration/webgriffe_tntpro.js</name>
+            </action>
+        </reference>
+    </firecheckout_index_index>
+</layout>

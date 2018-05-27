@@ -1,0 +1,26 @@
+<?php
+    $recurringProfileBlock = $this->getLayout()->getBlock('sales.recurring.profile.view');
+?>
+<!-- info blocks in 2 columns -->
+<?php $infoBlocks = $recurringProfileBlock->getChildGroup("info_blocks_row_{$this->getData('recurring_profile_parent_group')}"); ?>
+<?php if ($infoBlocks):?>
+<div class="col2-set order-info-box">
+    <?php for ($j = 1; $j <= 2; $j++):?>
+        <?php foreach ($infoBlocks as $alias => $block):?>
+<?php if ($j == $recurringProfileBlock->getObjectData($block, 'view_column')):?>
+    <div class="col-<?php echo $j?>">
+        <div class="info-box">
+            <div class="box-title">
+                <h2><?php echo $this->escapeHtml($recurringProfileBlock->getObjectData($block, 'view_label')) ?></h2>
+            </div>
+            <div class="box-content">
+                <?php $html = $recurringProfileBlock->getChildHtml($alias) ?>
+                <?php echo ($html ? $html : $recurringProfileBlock->__('No information available.')) ; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+        <?php endforeach;?>
+    <?php endfor;?>
+</div>
+<?php endif; ?>

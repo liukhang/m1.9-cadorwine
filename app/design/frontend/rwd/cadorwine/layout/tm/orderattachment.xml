@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem" ifconfig="orderattachment/general/checkout_upload"><type>skin_css</type><name>tm/orderattachment/css/orderattachment.css</name></action>
+            <action method="addJs" ifconfig="orderattachment/general/checkout_upload"><name>tm/orderattachment/SimpleAjaxUploader.min.js</name></action>
+            <action method="addJs" ifconfig="orderattachment/general/checkout_upload"><name>tm/orderattachment/orderattachment.js</name></action>
+        </reference>
+        <reference name="checkout.additional.information">
+            <block type="orderattachment/form" name="orderattachment">
+                <action method="setTemplate" ifconfig="orderattachment/general/checkout_upload"><template>tm/orderattachment/form.phtml</template></action>
+            </block>
+        </reference>
+    </firecheckout_index_index>
+
+    <sales_order_view>
+        <update handle="orderattachment_view_editable"/>
+    </sales_order_view>
+
+    <sales_guest_view>
+        <update handle="orderattachment_view_editable"/>
+    </sales_guest_view>
+
+    <orderattachment_view>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>tm/orderattachment/css/orderattachment.css</name></action>
+        </reference>
+
+        <reference name="content">
+            <block type="orderattachment/view" template="tm/orderattachment/view.phtml" name="orderattachment.view"/>
+            <block type="core/text" name="orderattachment.js">
+                <action method="setText">
+                    <text><![CDATA[
+<script>
+function moveAttachmentsTable() {
+    var itemsTable = $$('.order-items').first(),
+        attachmentsTable = $$('.order-attachments').first();
+
+    if (itemsTable && attachmentsTable) {
+        itemsTable.insert({before: attachmentsTable});
+    }
+}
+moveAttachmentsTable();
+</script>
+]]></text>
+                </action>
+            </block>
+        </reference>
+    </orderattachment_view>
+
+    <orderattachment_view_editable>
+        <update handle="orderattachment_view"/>
+        <reference name="head">
+            <action method="addJs" ifconfig="orderattachment/general/orderview_upload"><name>tm/orderattachment/SimpleAjaxUploader.min.js</name></action>
+            <action method="addJs" ifconfig="orderattachment/general/orderview_upload"><name>tm/orderattachment/orderattachment.js</name></action>
+        </reference>
+        <reference name="orderattachment.view">
+            <!-- May be overriden in TM_OrderAttachment_Block_View::getTemplate -->
+            <action method="setTemplate" ifconfig="orderattachment/general/orderview_upload">
+                <template>tm/orderattachment/view/form.phtml</template>
+            </action>
+        </reference>
+    </orderattachment_view_editable>
+</layout>

@@ -386,7 +386,7 @@ p.required, .validation-advice{
 }
 #contactForm .policy .validation-advice {
     width: auto;
-    
+    margin: 10px 0 0;
     color: #df280a;
     font-size: 9px;
     position: unset;

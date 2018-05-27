@@ -1,5 +1,8 @@
 <?php
     $order  = $this->getOrder();
+    if (!$order || !$order->getId()) {
+        return;
+    }
     $fields = Mage::helper('checkoutfields')->getFields();
 ?>
 <?php foreach ($fields as $field => $config) : ?>

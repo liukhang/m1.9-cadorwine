@@ -16,10 +16,12 @@
         ),
         'fax' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Fax'
         ),
         'telephone' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Telephone'
         ),
         'city' => array(
@@ -58,12 +60,16 @@
         );
     }
 
-    if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) {
-        $unset = array('city', 'postcode', 'steet1', 'country_id');
+    if ($this->getIsTigPostNLPostcodeCheckEnabled()) {
+        $unset = array('city', 'postcode', 'street1', 'country_id');
         foreach ($unset as $key) {
             unset($fields[$key]);
         }
     }
+
+    // ability to disable fields programmatically from layout xml update
+    $disabledFields = $this->getDisabledFields() ? $this->getDisabledFields() : array();
+    $fields = array_diff_key($fields, $this->getDisabledFields());
 ?>
 
 <?php
@@ -73,7 +79,7 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
 }
 ?>
 
-<div id="shipping-address" class="firecheckout-section"<?php if($this->getAddress()->getSameAsBilling()): ?> style="display: none;"<?php endif; ?>>
+<div id="shipping-address"<?php if($this->getAddress()->getSameAsBilling()): ?> style="display: none;"<?php endif; ?>>
     <div class="block-title"><span><?php echo $this->__('Shipping Address') ?></span></div>
     <div class="block-content">
         <ul class="form-list">
@@ -181,7 +187,7 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                                             </li>
                                             <li class="wide">
                                                 <div class="input-box">
-                                                    <input type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="<?php echo $_prefix ?>[street][]" id="<?php echo $_prefix ?>:street<?php echo $_i?>" value="<?php echo $this->escapeHtml($_address->getStreet($_i)) ?>" class="input-text" />
+                                                    <input type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="<?php echo $_prefix ?>[street][]" id="<?php echo $_prefix ?>:street<?php echo $_i?>" value="<?php echo $this->escapeHtml($_address->getStreet($_i)) ?>" class="input-text" autocomplete="off" />
                                                 </div>
                                         <?php endfor ?>
                                     <?php endif; ?>
@@ -192,7 +198,8 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                             <?php if (array_key_exists('street1', $row->getFields())
                                 && !$this->customerHasAddresses() && $fmeFieldsmanager): echo $fmeFieldsmanager->getfieldshtml(2); endif; ?>
 
-                            <?php if ($this->getChild('postnl_shipping_postcodecheck')
+                            <?php if ($this->getIsTigPostNLPostcodeCheckEnabled()
+                                    && $this->getChild('postnl_shipping_postcodecheck')
                                     && array_key_exists('name', $row->getFields())) : ?>
 
                                 <?php echo $this->getChild('postnl_shipping_postcodecheck')
@@ -200,6 +207,10 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                                     ->setAddress($this->getAddress())
                                     ->setCountryHtmlSelect($this->getCountryHtmlSelect('shipping'))
                                     ->toHtml(); ?>
+                            <?php endif ?>
+
+                            <?php if (array_key_exists('name', $row->getFields())) : ?>
+                                <?php echo $this->getChildHtml('firecheckout.shipping.name.after') ?>
                             <?php endif ?>
                         <?php endforeach; ?>
 

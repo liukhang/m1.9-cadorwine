@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addItem" ifconfig="magenio_fiscaldata/magenio_fiscaldata_configuration/active">
+                <type>skin_js</type><name>js/magenio_fiscaldata.js</name>
+            </action>
+            <action method="addItem" ifconfig="magenio_fiscaldata/magenio_fiscaldata_configuration/active">
+                <type>skin_css</type><name>css/magenio_fiscaldata.css</name>
+            </action>
+        </reference>
+        <reference name="firecheckout.billing.name.email.after">
+            <block type="firecheckout/checkout_billing" name="magenio.fiscaldata.billing" as="magenio.fiscaldata.billing">
+                <action method="setTemplate" ifconfig="magenio_fiscaldata/magenio_fiscaldata_configuration/active"><template>magenio/fiscaldata/form.phtml</template></action>
+                <action method="setPrefix"><prefix>billing</prefix></action>
+            </block>
+        </reference>
+        <reference name="checkout.onepage.billing">
+            <action method="disableField" ifconfig="magenio_fiscaldata/magenio_fiscaldata_configuration/active"><field>company</field></action>
+        </reference>
+        <!-- <reference name="firecheckout.shipping.name.after">
+            <block type="firecheckout/checkout_shipping" name="magenio.fiscaldata.shipping" as="magenio.fiscaldata.shipping">
+                <action method="setTemplate"><template>magenio/fiscaldata/form.phtml</template></action>
+                <action method="setPrefix"><prefix>shipping</prefix></action>
+            </block>
+        </reference> -->
+    </firecheckout_index_index>
+</layout>

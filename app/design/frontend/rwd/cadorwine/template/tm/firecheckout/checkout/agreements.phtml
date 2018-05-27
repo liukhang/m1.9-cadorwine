@@ -14,7 +14,7 @@ if (!count($_agreements)) {
             style="<?php echo 'minimal' === $outputType ? 'display: none;' : ($_a->getContentHeight() ? 'height:' . $_a->getContentHeight() : '') ?>"
         >
             <?php if ('minimal' === $outputType) : ?>
-                <div class="page-title">
+                <div class="fc-window-title">
                     <span><?php echo $this->htmlEscape($_a->getName()) ?></span>
                 </div>
             <?php endif; ?>

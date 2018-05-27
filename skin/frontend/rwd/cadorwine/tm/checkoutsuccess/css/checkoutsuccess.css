@@ -1,0 +1,187 @@
+/* GENERAL LAYOUT STYLES - START */
+.checkoutsuccess-block-wrapper {
+    margin-bottom: 40px;
+}
+.col1-layout .col-main {
+    padding-top: 40px;
+}
+.tm-checkoutsuccess-top,
+.tm-checkoutsuccess-middle,
+.tm-checkoutsuccess-bottom {
+    display: block;
+    clear: both;
+    width: 100%;
+    box-sizing: border-box;
+}
+.tm-checkoutsuccess-middleleft, .tm-checkoutsuccess-middleright {
+    width: 48%;
+}
+.tm-checkoutsuccess-middleleft {
+    float: left;
+}
+.tm-checkoutsuccess-middleright {
+    float: right;
+}
+@media (max-width: 767px) {
+    .tm-checkoutsuccess-middleleft, .tm-checkoutsuccess-middleright {
+        width: 100%;
+    }
+}
+/* GENERAL LAYOUT STYLES - END */
+/* BUTTON LOADER STYLES - START */
+.field-spinner-wrapper { position: absolute; top: 0; right: 0; z-index: 5; }
+.loader {
+    display: block;
+    font-size: 4px;
+    margin-top: -3.5em; /* element height plus half */
+    margin-left: -6em; /* element:before width plus element width plus margins */
+    position: relative;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after,
+.loader {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    animation-fill-mode: both;
+    animation: loader-white 1.0s infinite ease-in-out;
+}
+.loader:before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    left: 3.5em;
+    animation-delay: 0.32s;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.buttons-set {
+    border: none;
+}
+.buttons-set button.cs-button {
+    float: none;
+    height: auto;
+    background-image: none;
+    background-color: #40c781;
+    text-align: center;
+    font: bold 15px/34px Arial,Helvetica,sans-serif;
+    color: #fff;
+    border-radius: 3px;
+    text-decoration: none;
+    border: 0px solid rgba(0,0,0,0.15);
+    border-bottom-width: 2px;
+    padding: 0 15px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s;
+}
+.buttons-set button.cs-button:hover {
+    background-color:#34a46c;
+    cursor: pointer;
+}
+.buttons-set button.loading,
+.buttons-set button.loading:hover {
+    background-color: #40c781; opacity: 0.8; cursor: wait; animation: none;
+}
+.buttons-set button.disabled,
+.buttons-set button.disabled:hover {
+    background-color: #ccc;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+/* Buttons loading state */
+.buttons-set button .field-spinner-wrapper { top: 50%; right: 10px; }
+.buttons-set button.loading { padding-right: 55px; }
+@keyframes loader-white {
+    0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em #fff; }
+    40% { box-shadow: 0 2.5em 0 0 #fff; }
+}
+/* LOADER STYLES (requiers refactoring) - END */
+/* THANK YOU NOTE - START */
+.thank-you-note .check-mark {
+    width: 80px;
+    height: 80px;
+    margin: 20px auto 40px;
+    display: block;
+}
+.thank-you-note .check-mark .circle,
+.thank-you-note .check-mark .check {
+    stroke: #34a46c;
+    stroke-width: 4px;
+}
+.thank-you-note p,
+.thank-you-note a {
+    font-size: 14px;
+}
+.thank-you-note a {
+    color: #0198E1;
+    text-decoration: none;
+}
+.thank-you-note a:hover {
+    text-decoration: underline;
+}
+/* THANK YOU NOTE - END */
+/* QUICK REGISTRATION FORM - BEGIN */
+.quick-account-create {
+    font-size: 14px;
+}
+.quick-account-create .fieldset,
+.quick-account-create .buttons-set {
+    background: none;
+    border: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+.quick-account-create .form-list input.input-text {
+    width: 100%;
+}
+.quick-account-create .form-list .field {
+    width: 47%;
+    float: right;
+}
+.quick-account-create .form-list .field:first-child {
+    float: left;
+}
+.quick-account-create .form-list .field label {
+    margin-bottom: 10px;
+}
+.quick-account-create .form-list .field input {
+    padding: 7px;
+}
+.quick-account-create .buttons-set button.cs-button {
+    float: right;
+}
+/* QUICK REGISTRATION FORM - END */
+.order-date, .order-info {
+    display: none;
+}
+.order-details {
+    margin: 0 0 15px;
+}
+.thank-you-note .sub-title,
+.quick-account-create h2,
+.order-items h2,
+.order-info,
+.main-container .block-highlight .block-title,
+.main-container .block .block-title {
+    text-transform: uppercase;
+    font-size:  20px;
+    font-weight: normal;
+    border: none;
+    padding: 0;
+    line-height: 30px;
+    background: none;
+    margin-bottom: 20px;
+    color: #000;
+}
+.order-info dt {
+    font-weight: normal;
+}

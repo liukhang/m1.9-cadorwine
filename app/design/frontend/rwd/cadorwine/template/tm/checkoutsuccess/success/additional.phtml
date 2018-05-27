@@ -1,3 +1,9 @@
+<?php
+    $_order = Mage::registry('current_order');
+    if (!$_order) {
+        return;
+    }
+?>
 <div class="additional-checkout-fields" style="margin: 20px 0 10px;">
     <?php
     // checkoutfields
@@ -8,7 +14,6 @@
     endif;
 
     // firecheckout
-    $_order = Mage::registry('current_order');
     if ($firecheckoutComment = $_order->getFirecheckoutCustomerComment()) :
         echo '<strong>' . $this->__('Comment') . '</strong>: ' . $this->escapeHtml($firecheckoutComment) . '<br/>';
     elseif ($customerComment = $_order->getCustomerComment()) :

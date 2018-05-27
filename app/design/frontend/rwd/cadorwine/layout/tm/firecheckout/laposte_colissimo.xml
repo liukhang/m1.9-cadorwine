@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index_custom>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/laposte_colissimo.js</name></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="laposte_colissimo/frontend_colissimo" name="colissimo" template="colissimo/colissimo.phtml">
+                <block type="laposte_colissimo/frontend_colissimo_pickup" name="colissimo.pickup" template="colissimo/colissimo/pickup.phtml" />
+                <block type="laposte_colissimo/frontend_colissimo_method" name="colissimo.method" template="colissimo/colissimo/method.phtml" />
+            </block>
+        </reference>
+    </firecheckout_index_index_custom>
+</layout>

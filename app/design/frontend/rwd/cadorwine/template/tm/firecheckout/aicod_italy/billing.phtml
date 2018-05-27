@@ -25,13 +25,14 @@
  */
 /** @var Mage_Checkout_Block_Onepage_Billing $this */
 ?>
-<div id="billing-address" class="firecheckout-section">
+<div id="billing-address">
     <?php if (!$this->canShip() || !Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
         <div class="block-title"><span><?php echo $this->helper('checkout')->__('Address'); ?></span></div>
     <?php else: ?>
         <div class="block-title"><span><?php echo $this->helper('checkout')->__('Billing Address'); ?></span></div>
     <?php endif; ?>
     <div class="block-content">
+        <?php echo $this->getChildHtml('firecheckout.billing.before') ?>
         <ul class="form-list">
         <?php if ($this->customerHasAddresses()): ?>
             <li class="wide">
@@ -144,7 +145,7 @@
                             })}</script>
                         </div>
                     </li>
-                    <?}?>
+                    <?php } ?>
 
 
                     <?php
@@ -174,14 +175,14 @@
                                                 }]
                                     ]);
                                 </script>
-                            <?}?>
+                            <?php } ?>
                             <label for="billing:fiscal_id" class="<?php echo $_fiscalIdValidationClass?'required':'' ?>"><?php echo $_fiscalIdValidationClass?'<em>*</em>':'' ?><?php echo Mage::helper('aicod_italy')->__('SSN') ?></label>
                             <div class="input-box">
                                 <input type="text" id="billing:fiscal_id" name="billing[fiscal_id]" value="<?php echo $this->escapeHtml($this->getAddress()->getFiscalId()) ?>" title="<?php echo Mage::helper('aicod_italy')->__('SSN') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('fiscal_id') ?> <?php echo $_fiscalIdValidationClass ?>" />
                             </div>
                         </div>
                     </li>
-                    <? } ?>
+                    <?php } ?>
 
                     <li id="company_specific_fields">
                         <?php
@@ -196,7 +197,7 @@
                                 <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo Mage::helper('aicod_italy')->__('Company Name') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?> <?php echo $_companyValidationClass ?>" />
                             </div>
                         </div>
-                        <?}?>
+                        <?php } ?>
 
                         <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
 
@@ -229,7 +230,7 @@
                                                     }]
                                         ]);
                                     </script>
-                                <?}?>
+                                <?php } ?>
 
                                 <label for="billing:vat_id" class="<?php echo $_vatValidationClass?'required':'' ?>"><?php echo $_vatValidationClass?'<em>*</em>':'' ?><?php echo Mage::helper('aicod_italy')->__('VAT Number') ?></label>
                                 <div class="input-box">
@@ -237,7 +238,7 @@
                                 </div>
                             </div>
 
-                            <?}?>
+                            <?php } ?>
                         <?php endif; ?>
                     </li>
                     <!-- FINE CAMPI AICOD ITALY -->
@@ -306,7 +307,7 @@
                         $isAllowedGuest = Mage::helper('firecheckout')->isAllowedGuestCheckout();
                     if ($isAllowedGuest || $register) : ?>
                         <li class="control">
-                            <input type="checkbox" name="billing[register_account]" value="1" title="<?php echo $this->__('Creare un account per un uso futuro') ?>" id="billing:register_account" onclick="if(window.billing) billing.setCreateAccount(this.checked);"<?php if ($register || 'optional-checked' == $registrationMode) : ?> checked="checked"<?php endif;?> class="checkbox" /><label for="billing:register_account"><?php echo $this->__('Creare un account per un uso futuro') ?></label>
+                            <input type="checkbox" name="billing[register_account]" value="1" title="<?php echo $this->__('Create account for later use') ?>" id="billing:register_account" onclick="if(window.billing) billing.setCreateAccount(this.checked);"<?php if ($register || 'optional-checked' == $registrationMode) : ?> checked="checked"<?php endif;?> class="checkbox" /><label for="billing:register_account"><?php echo $this->__('Create account for later use') ?></label>
                         </li>
                     <?php else: ?>
                         <li class="no-display">
@@ -314,7 +315,16 @@
                         </li>
                     <?php endif ?>
                     <?php if ('hidden' !== $registrationMode || $register) : ?>
-                        <li class="fields" id="register-customer-password" <?php if ('optional' == $registrationMode && !$register) : ?>style="display: none;" <?php endif; ?>>
+                        <?php
+                            $cssClass = 'fields';
+                            if ('hidden' == $registrationMode) {
+                                $cssClass .= ' hidden-registration';
+                            }
+                            if (('optional' == $registrationMode && !$register) || 'hidden' == $registrationMode) {
+                                $cssClass .= ' fc-pw-hidden';
+                            }
+                        ?>
+                        <li class="<?php echo $cssClass ?>" id="register-customer-password">
                             <div class="field">
                                 <label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
                                 <div class="input-box">
@@ -332,7 +342,7 @@
                 <?php endif; ?>
                     <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                         <li class="control">
-                            <input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo $this->__('Save in address book') ?>" id="billing:save_in_address_book" <?php if ($_address->getSaveInAddressBook()):?> checked="checked"<?php endif;?> class="checkbox" /><label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label>
+                            <input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo $this->__('Save in address book') ?>" id="billing:save_in_address_book" <?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?> class="checkbox" /><label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label>
                         </li>
                     <?php else:?>
                         <li class="no-display"><input type="hidden" name="billing[save_in_address_book]" value="1" /></li>
@@ -354,12 +364,17 @@
                 <?php echo $additional; ?>
             </li>
         <?php endif; ?>
+        <?php if ($this->canShip() && Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
+            <li class="control radio-use-for-shipping">
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to this address')) ?>" onclick="shipping.setSameAsBilling(true)" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label></li>
+            <li class="control">
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to different address')) ?>" onclick="shipping.setSameAsBilling(false)" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            </li>
+        <?php endif; ?>
         </ul>
     <?php if (!$this->canShip() || !Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
         <input type="hidden" name="billing[use_for_shipping]" value="1" />
-    <?php else: ?>
-        <input type="hidden" name="billing[use_for_shipping]" id="billing:use_for_shipping" value="<?php if ($this->isUseBillingAddressForShipping()):?>1<?php else:?>0<?php endif; ?>" />
-    <?php endif; ?>
+    <?php endif ?>
     <script type="text/javascript">
     //<![CDATA[
         var billing = new Billing();

@@ -17,10 +17,12 @@
         ),
         'fax' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Fax'
         ),
         'telephone' => array(
             'class' => 'input-text',
+            'type'  => 'tel',
             'label' => 'Telephone'
         ),
         'city' => array(
@@ -77,12 +79,16 @@
         );
     }
 
-    if (Mage::helper('core')->isModuleOutputEnabled('TIG_PostNL')) {
-        $unset = array('city', 'postcode', 'steet1', 'country_id');
+    if ($this->getIsTigPostNLPostcodeCheckEnabled()) {
+        $unset = array('city', 'postcode', 'street1', 'country_id');
         foreach ($unset as $key) {
             unset($fields[$key]);
         }
     }
+
+    // ability to disable fields programmatically from layout xml update
+    $disabledFields = $this->getDisabledFields() ? $this->getDisabledFields() : array();
+    $fields = array_diff_key($fields, $this->getDisabledFields());
 ?>
 
 <?php
@@ -92,13 +98,14 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
 }
 ?>
 
-<div id="billing-address" class="firecheckout-section">
+<div id="billing-address">
     <?php if (!$this->canShip() || !Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
         <div class="block-title"><span><?php echo $this->helper('checkout')->__('Address'); ?></span></div>
     <?php else: ?>
         <div class="block-title"><span><?php echo $this->helper('checkout')->__('Billing Address'); ?></span></div>
     <?php endif; ?>
     <div class="block-content">
+        <?php echo $this->getChildHtml('firecheckout.billing.before') ?>
         <ul class="form-list">
         <?php if ($this->customerHasAddresses()): ?>
             <li class="wide address-select-item">
@@ -215,7 +222,8 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                         <?php if (array_key_exists('street1', $row->getFields())
                             && !$this->customerHasAddresses() && $fmeFieldsmanager): echo $fmeFieldsmanager->getfieldshtml(2); endif; ?>
 
-                        <?php if ($this->getChild('postnl_billing_postcodecheck')
+                        <?php if ($this->getIsTigPostNLPostcodeCheckEnabled()
+                                && $this->getChild('postnl_billing_postcodecheck')
                                 && (array_key_exists('company', $row->getFields()))) : ?>
 
                             <?php echo $this->getChild('postnl_billing_postcodecheck')
@@ -223,6 +231,10 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                                 ->setAddress($this->getAddress())
                                 ->setCountryHtmlSelect($this->getCountryHtmlSelect('billing'))
                                 ->toHtml(); ?>
+                        <?php endif ?>
+
+                        <?php if (array_key_exists('name', $row->getFields())) : ?>
+                            <?php echo $this->getChildHtml('firecheckout.billing.name.email.after') ?>
                         <?php endif ?>
                     <?php endforeach; ?>
 
@@ -267,12 +279,25 @@ if (Mage::helper('core')->isModuleOutputEnabled('FME_Fieldsmanager')) {
                 <?php echo $additional; ?>
             </li>
         <?php endif; ?>
+        <?php if ($this->canShip() && Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
+            <li class="control radio-use-for-shipping">
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping() && !Mage::getSingleton('core/session')->getPickupatstore()) {?> checked="checked"<?php }?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to this address')) ?>" onclick="shipping.setSameAsBilling(true)" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label></li>
+            <li class="control">
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to different address')) ?>" onclick="shipping.setSameAsBilling(false)" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            </li>
+            <?php if (Mage::helper('core')->isModuleOutputEnabled('Wyomind_Pickupatstore')) : ?>
+                <?php $pos = Mage::app()->getLayout()->createBlock('pointofsale/pointofsale'); ?>
+                <?php if (Mage::getStoreConfig('carriers/pickupatstore/active') && count($pos->getPointofsale())): ?>
+                    <li class="control">
+                        <input type="radio" name="billing[use_for_shipping]" id="billing:pickup_at_store" value="2"<?php if (Mage::getSingleton('core/session')->getPickupatstore()) { ?> checked="checked"<?php } ?> title="<?php echo (Mage::getStoreConfig('carriers/pickupatstore/title')); ?>" onclick="shipping.setSameAsBilling(true, true)" class="radio" /><label for="billing:pickup_at_store"><?php echo (Mage::getStoreConfig('carriers/pickupatstore/title')); ?></label>
+                    </li>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
         </ul>
     <?php if (!$this->canShip() || !Mage::getStoreConfig('firecheckout/general/shipping_address')): ?>
         <input type="hidden" name="billing[use_for_shipping]" value="1" />
-    <?php else: ?>
-        <input type="hidden" name="billing[use_for_shipping]" id="billing:use_for_shipping" value="<?php if ($this->isUseBillingAddressForShipping()):?>1<?php else:?>0<?php endif; ?>" />
-    <?php endif; ?>
+    <?php endif ?>
     <script type="text/javascript">
     //<![CDATA[
         var billing = new Billing();

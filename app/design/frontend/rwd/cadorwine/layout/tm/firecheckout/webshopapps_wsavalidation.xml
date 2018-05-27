@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs">
+                <name>webshopapps/jquery-loader.js</name>
+            </action>
+        </reference>
+        <reference name="billing.additional.container">
+            <block type="wsavalidation/checkout_onepage_billing" name="wsavalidation.billing" as="wsavalidation.billing" template="webshopapps/addressvalidation/checkout/onepage/choose_billing.phtml"/>
+        </reference>
+        <reference name="shipping.additional.container">
+            <block type="wsavalidation/checkout_onepage_shipping" name="wsavalidation.shipping" as="wsavalidation.shipping" template="webshopapps/addressvalidation/checkout/onepage/choose_shipping.phtml"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" template="webshopapps/js/bottom.phtml" name="webshopapps.jquery.bottom.end" />
+        </reference>
+    </firecheckout_index_index>
+</layout>

@@ -1,5 +1,5 @@
 <div id="emailexists-window" style="display: none;">
-    <div class="page-title">
+    <div class="fc-window-title">
         <span><?php echo Mage::helper('firecheckout')->__('This email is already in use') ?></span>
     </div>
     <div class="content">
@@ -32,9 +32,8 @@ emailexists.down('.firecheckout-different-email').observe('click', function(e) {
     emailExistsWindow.setModal(0).hide();
 
     var email = $('billing:email');
-    Effect.ScrollTo(email, {
-        duration: 0.5,
-        offset: -20,
+
+    FC.Utils.scrollTo(email, {
         afterFinish: function() {
             email.focus();
             email.select();

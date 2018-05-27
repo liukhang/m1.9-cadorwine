@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs"><script>prototype/tooltip.js</script></action>
+            <action method="addItem"><type>skin_js</type><name>mico/js/rushpackage.js</name></action>
+            <action method="addCss"><stylesheet>mico/css/rushpackage.css</stylesheet></action>
+
+            <action method="addItem"><type>skin_js</type><name>tm/firecheckout/js/integration/mico_rushpackage.js</name></action>
+        </reference>
+        <reference name="shipping.methods.after">
+            <block type="rushpackage/checkout_rushpackage" name="checkout_rushpackage" template="mico/rushpackage/checkout/onepage/rushpackage.phtml"/>
+        </reference>
+    </firecheckout_index_index>
+
+    <firecheckout_index_updatecheckout>
+        <reference name="shipping.methods.after">
+            <block type="rushpackage/checkout_rushpackage" name="checkout_rushpackage" template="mico/rushpackage/checkout/onepage/rushpackage.phtml"/>
+        </reference>
+    </firecheckout_index_updatecheckout>
+</layout>

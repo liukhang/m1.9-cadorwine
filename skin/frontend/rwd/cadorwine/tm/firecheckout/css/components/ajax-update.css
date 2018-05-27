@@ -1,0 +1,5 @@
+.fc-update-payment_method #payment-method,
+.fc-update-shipping_method #shipping-method{
+    pointer-events: none;
+    opacity: .7;
+}

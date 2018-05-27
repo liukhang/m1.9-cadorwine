@@ -7,6 +7,13 @@
         </a>
     </p>
     <?php endif; ?>
+
+    <?php $subtitle = trim(Mage::getStoreConfig('firecheckout/general/subtitle')); ?>
+    <?php if ($subtitle) : ?>
+        <div class="checkout-subtitle">
+            <?php echo $this->__($subtitle) ?>
+        </div>
+    <?php endif ?>
 </div>
 
 <?php
@@ -28,15 +35,19 @@
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('tm/firecheckout/js/firecheckout-compatibility.js') ?>"></script>
 <script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
 <script type="text/javascript">FC.Ajax.rules = <?php echo Mage::helper('core')->jsonEncode(Mage::helper('firecheckout/ajax')->getRules()) ?></script>
+
 <form action="" id="firecheckout-form" method="post">
+<?php echo $this->getBlockHtml('formkey') ?>
 <?php
 if ($blockId = Mage::getStoreConfig('firecheckout/additional_content/top')) :
     echo $this->getLayout()->createBlock('cms/block')->setBlockId($blockId)->toHtml();
 endif;
 ?>
 <div class="clearer"></div>
+
 <div class="col2-fire-set firecheckout-set">
     <div class="col-fire-1">
+        <div class="firecheckout-section address-section">
         <?php
         foreach (array('billing.address', 'shipping.address') as $block) {
             if (!$this->getChild($block) || !$this->getChild($block)->isShow()) {
@@ -45,12 +56,13 @@ endif;
             echo $this->getChildHtml($block);
         }
         ?>
+        </div>
     </div>
 
     <?php
         $shippingMethods = $this->getChildHtml('shipping.method');
         $columnClass = 'col2-set ';
-        if (!$shippingMethods) {
+        if (!$shippingMethods || 'col2-set-alt' === Mage::getStoreConfig('firecheckout/general/layout')) {
             $columnClass = '';
         }
     ?>
@@ -61,24 +73,9 @@ endif;
             </div>
             <div class="col-2">
                 <?php echo $this->getChildHtml('payment.method') ?>
-
-                <?php // rewardpoints extension override standard discount block too
-                if ($j2tRewardPoints = $this->getLayout()->getBlock('checkout_cart_coupon_normal')): ?>
-                    <div id="checkout-coupon-discount-load">
-                        <?php echo $j2tRewardPoints->toHtml(); ?>
-                    </div>
-                <?php else: ?>
-                    <div id="checkout-coupon-discount-load">
-                        <?php echo $this->getChildHtml('coupon') ?>
-                    </div>
-                <?php endif; ?>
-
-                <div id="checkout-giftcard-load">
-                    <?php echo $this->getChildHtml('giftcard') ?>
-                </div>
             </div>
         </div>
-        <?php echo $this->getChildHtml('checkout.additional.information') ?>
+        <?php echo $this->getChildHtml('checkout.additional.information'); // it's not used since 3.8 ?>
         <?php echo $this->getChildHtml('review') ?>
     </div>
 </div>
