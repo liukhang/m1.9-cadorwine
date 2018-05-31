@@ -1980,7 +1980,6 @@ a.firecheckout-login:hover{
     height: auto;
     letter-spacing: 2px;
     margin-bottom: 5px;
-    padding: 12px 0 10px;
     text-align: left;
     text-transform: none;
     text-transform: uppercase;
@@ -2010,9 +2009,7 @@ a.firecheckout-login:hover{
 #firecheckout-form .firecheckout-set #checkout-review .block-title {
     margin-bottom: 10px !important;
 }
-.firecheckout-set .firecheckout-section .block-content {
-    padding: 0;
-}
+
 .firecheckout-set .firecheckout-section .block-content .form-list ul li input {
     
     border-radius: 0;
@@ -2284,9 +2281,6 @@ a.firecheckout-login:hover{
 }
 #checkout-review #checkout-review-load #checkout-review-table tbody tr.last {
     border: none;
-}
-.firecheckout-set #checkout-review-table-wrapper{
-    padding: 0;
 }
 .firecheckout-index-index .checkout-title a{
     font-size: 18px;
@@ -3103,8 +3097,8 @@ input:focus{
 #billing-address > .block-title::after, #shipping-method > .block-title::after, #payment-method > .block-title::after, #checkout-review > .block-title::after{
     content: '.';
     position: absolute;
-    left: 18px;
-    bottom: 13px;
+    left: 32px;
+    bottom: 18px;
     font-size: 30px;
     font-weight: normal;
     text-align: left;
@@ -3127,6 +3121,7 @@ input:focus{
     display: inline-block;
     width: 100%;
     margin-top: 20px;
+    padding: 0 15px;
 }
 .skip-link:not(.skip-active):hover {
     opacity: 1;
@@ -3217,6 +3212,15 @@ a.skip-account:hover span.icon_account{
     color: #fff;
     font-size: 14px;
     font-weight: 900;
+}
+.sp-methods label a {
+    margin-top: 0;
+    float: right;
+    margin-left: 10px;
+}
+#payment-method #checkout-payment-method-load .sp-methods img.v-middle {
+    width: auto;
+    margin-top: -7px;
 }
 
 /*****/
